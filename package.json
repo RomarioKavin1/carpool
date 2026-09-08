@@ -1,0 +1,43 @@
+{
+  "name": "carpool",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "packageManager": "pnpm@10.12.4",
+  "engines": {
+    "node": ">=20.19.0 <23"
+  },
+  "scripts": {
+    "preinstall": "node scripts/check-node.mjs",
+    "check:node": "node scripts/check-node.mjs",
+    "build": "node scripts/check-node.mjs && turbo run build",
+    "test": "node scripts/check-node.mjs && node scripts/run-tests.mjs",
+    "test:force": "node scripts/check-node.mjs && node scripts/run-tests.mjs --force",
+    "typecheck": "node scripts/check-node.mjs && turbo run typecheck",
+    "dev:registry": "pnpm --filter @carpool/registry dev",
+    "dev:dashboard": "pnpm --filter @carpool/dashboard dev",
+    "bench": "pnpm --filter @carpool/bench start",
+    "ab:run": "pnpm --filter @carpool/bench ab:run",
+    "ab:verify": "node scripts/check-node.mjs && (CARPOOL_AB_STATUS=\"$PWD/.ab-status.json\" pnpm --filter @carpool/bench ab:run; ec=$?; node scripts/check-ab-status.mjs \"$PWD/.ab-status.json\" || ec=1; exit $ec)",
+    "measure:redo": "pnpm --filter @carpool/bench measure:redo",
+    "bootstrap:bench": "pnpm --filter @carpool/bench bootstrap",
+    "reset:ledger": "pnpm --filter @carpool/registry reset",
+    "preflight": "pnpm --filter @carpool/registry run preflight"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.5",
+    "typescript": "^5.7.3",
+    "tsx": "^4.19.2",
+    "vitest": "^3.0.5",
+    "@types/node": "^22.13.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3",
+      "esbuild",
+      "protobufjs",
+      "onnxruntime-node",
+      "sharp"
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+node_modules/
+dist/
+.next/
+.turbo/
+
+# Build artifacts — committing these makes `tsc` skip emit on a fresh clone.
+*.tsbuildinfo
+
+# Local databases (settlement ledger, smoke fixtures).
+data/*.sqlite
+data/*.sqlite-*
+**/data/*.sqlite
+**/data/*.sqlite-*
+
+# Bench run logs and any other newline-delimited JSON output.
+apps/bench/run-*.jsonl
+*.jsonl
+
+# Secrets and generated identity.
+.env
+.env.local
+bench/accounts.json
+apps/bench/accounts.json
+
+*.log
+.DS_Store
+
+# Provider body store (answers already paid for)
+**/data/bodies/
+**/data/outbox.jsonl
+
+# Registry content-addressed artifact bodies (apps/registry, ARTIFACT_STORE)
+**/data/artifacts/
+
+# A/B run status written by `pnpm ab:verify` / CI (scripts/check-ab-status.mjs reads it).
+.ab-status.json
+# Written by `vercel link` in carpool-deploy's flow: the project link and the
+# pulled OIDC token. Narrower than the `.env*` the CLI writes by default, which
+# would also have started hiding this repo's own untracked `.env`.
+.vercel
+.env.local
