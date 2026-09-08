@@ -1,0 +1,32 @@
+{
+  "name": "@carpool/core",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^3.24.1",
+    "@hiero-ledger/sdk": "^2.88.0",
+    "@carpool/hedera-x402": "workspace:*"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.5",
+    "typescript": "^5.7.3",
+    "@types/node": "^22.13.1"
+  }
+}
