@@ -1,0 +1,41 @@
+{
+  "name": "@carpool/registry",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "reset": "tsx src/scripts/reset.ts",
+    "create-topic": "tsx src/scripts/create-topic.ts",
+    "preflight": "tsx src/scripts/doctor.ts",
+    "warm-embedder": "tsx src/scripts/warm-embedder.ts",
+    "create-accounts": "tsx src/scripts/create-accounts.ts",
+    "associate": "tsx src/scripts/associate.ts",
+    "distribute": "tsx src/scripts/distribute.ts"
+  },
+  "dependencies": {
+    "@carpool/core": "workspace:*",
+    "@carpool/hedera-x402": "workspace:*",
+    "@carpool/tracker": "workspace:*",
+    "@hiero-ledger/sdk": "^2.88.0",
+    "better-sqlite3": "^11.8.1",
+    "drizzle-orm": "^0.38.4",
+    "express": "^4.21.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.13.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}
