@@ -1,0 +1,1 @@
+{"x402Version":2,"resource":{"url":"http://localhost:8403/artifact/swarm:e38566220be6a9ddcbd11300bf3d16da6d41340a3dd7a6f94f16be3010b2bdf0"},"accepts":[{"scheme":"exact","network":"hedera:testnet","amount":"110000","asset":"0.0.429274","payTo":"0.0.10475802","maxTimeoutSeconds":300,"extra":{"feePayer":"0.0.7162784"}}]}

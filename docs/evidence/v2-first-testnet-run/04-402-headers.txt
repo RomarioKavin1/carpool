@@ -1,0 +1,12 @@
+HTTP/1.1 402 Payment Required
+X-Powered-By: Express
+Vary: Origin
+Access-Control-Expose-Headers: x-carpool-body-hash,PAYMENT-RESPONSE
+PAYMENT-REQUIRED: eyJ4NDAyVmVyc2lvbiI6MiwicmVzb3VyY2UiOnsidXJsIjoiaHR0cDovL2xvY2FsaG9zdDo4NDAzL2FydGlmYWN0L3N3YXJtOmUzODU2NjIyMGJlNmE5ZGRjYmQxMTMwMGJmM2QxNmRhNmQ0MTM0MGEzZGQ3YTZmOTRmMTZiZTMwMTBiMmJkZjAifSwiYWNjZXB0cyI6W3sic2NoZW1lIjoiZXhhY3QiLCJuZXR3b3JrIjoiaGVkZXJhOnRlc3RuZXQiLCJhbW91bnQiOiIxMTAwMDAiLCJhc3NldCI6IjAuMC40MjkyNzQiLCJwYXlUbyI6IjAuMC4xMDQ3NTgwMiIsIm1heFRpbWVvdXRTZWNvbmRzIjozMDAsImV4dHJhIjp7ImZlZVBheWVyIjoiMC4wLjcxNjI3ODQifX1dfQ==
+Content-Type: application/json; charset=utf-8
+Content-Length: 319
+ETag: W/"13f-SybSIwD/VQj0YSt/kdEdaMZ6hMg"
+Date: Sat, 12 Sep 2026 08:39:00 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+

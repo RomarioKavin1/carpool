@@ -1,0 +1,36 @@
+-- purchase
+id  magnet                                                                  buyer         tx_id                             paid    ts          refund_state  refund_deadline  refunded_at  author_royalty_payout_id  tracker_fee_payout_id
+--  ----------------------------------------------------------------------  ------------  --------------------------------  ------  ----------  ------------  ---------------  -----------  ------------------------  ---------------------
+1   swarm:e38566220be6a9ddcbd11300bf3d16da6d41340a3dd7a6f94f16be3010b2bdf0  0.0.10477413  0.0.7162784@1789202339.427560739  110000  1789202355  window        1789202475                    1                         2                    
+
+-- payout
+id  payee         amount  reason          ref  available_at  voided_at  settled_batch_id  attempts  parked_at
+--  ------------  ------  --------------  ---  ------------  ---------  ----------------  --------  ---------
+1   0.0.10475801  109500  author_royalty  1    1789202475               1                 0                  
+2   0.0.10475802  500     tracker_fee     1    1789202355               1                 0                  
+
+-- batch
+id  tx_id                              status   ts          root                                                              memo                      reconcile_attempts
+--  ---------------------------------  -------  ----------  ----------------------------------------------------------------  ------------------------  ------------------
+1   0.0.10475802@1789202482.460233839  SUCCESS  1789202490  f25a8a34c9bc9ebc93ac7efa7b8f626231f838d5e0b233273f7d19e4a64eb0e5  carpool:batch:1:f25a8a34  0                 
+
+-- batch_conflict
+rows
+----
+0   
+
+-- owed_failure
+rows
+----
+0   
+
+-- artifact (money/anchor columns)
+magnet                                                                  manifest_hash                                                     price_base  price_floor  anchored_at  delisted_at
+----------------------------------------------------------------------  ----------------------------------------------------------------  ----------  -----------  -----------  -----------
+swarm:e38566220be6a9ddcbd11300bf3d16da6d41340a3dd7a6f94f16be3010b2bdf0  e38566220be6a9ddcbd11300bf3d16da6d41340a3dd7a6f94f16be3010b2bdf0  100000      10000        1789202496              
+
+-- peer
+account                                                                          published  purchased  refunds_received  refunds_issued
+-------------------------------------------------------------------------------  ---------  ---------  ----------------  --------------
+0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf  1          0          0                 0             
+0.0.10477413                                                                     0          1          0                 0             

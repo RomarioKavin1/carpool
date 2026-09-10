@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "body": "3362 bytes",
+  "paid": 110000,
+  "txId": "0.0.7162784@1789202339.427560739",
+  "verification": {
+    "state": "verified",
+    "source": "manifest",
+    "bodyHash": "3524de7041e566a58ab01f5eb2745f7507259b089327b193bdfb841e28221ee0"
+  },
+  "bodySha256": "3524de7041e566a58ab01f5eb2745f7507259b089327b193bdfb841e28221ee0"
+}
