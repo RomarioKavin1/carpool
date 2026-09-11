@@ -1,0 +1,511 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * The palette, in OKLCH. Surfaces carry hue 195, ink carries 210 — a hair cooler
+ * than the paper it sits on, which is what stops near-black text reading as a
+ * smudge on a tinted ground. No #000 and no #fff anywhere in this file.
+ *
+ * Lightness values are the MEASURED ones, not DESIGN.md's first-draft ones: see
+ * the long note in tailwind.config.ts. Five text tokens are darker than the
+ * table says because the table's own contrast targets required it.
+ *
+ * ## The two routes now share one ground
+ *
+ * `--field` was the explainer's ground and `--paper` was the app's. They are now
+ * one system: `field` is the GROUND of both routes, `paper` is the RAISED panel
+ * that sits on it, `plate` is the inset a panel can hold, and `ink` is the solid
+ * dark mass that punctuates both. That is the three-value relationship the
+ * reference site is built on (bone ground, white raised, near-black mass), mapped
+ * onto the hue this project already committed to instead of onto the reference's
+ * warm bone.
+ */
+:root {
+  color-scheme: light;
+
+  --paper: oklch(98.4% 0.006 195);
+  --panel: oklch(96.4% 0.008 195);
+  --well: oklch(93.2% 0.011 195);
+  --rule: oklch(88% 0.014 195);
+  --rule-firm: oklch(78% 0.02 195);
+
+  --ink: oklch(24% 0.022 210);
+  --ink-soft: oklch(43% 0.018 210);
+  --ink-faint: oklch(51% 0.015 210);
+  /*
+   * The one new text token. Secondary type on a solid `ink` mass: the dark panels
+   * are new in this build and `paper` alone cannot carry a label and its value on
+   * the same panel without the label shouting as loudly as the number.
+   *
+   * It is measured like everything else — 7.70:1 on `ink` — and it is measured on
+   * `ink` ONLY, because that is the only ground it may appear on. On `trace`, the
+   * other dark fill, it is 3.20:1 and `lib/tokens.test.ts` would catch it; only
+   * `paper` (6.49:1) is allowed there.
+   */
+  --ink-lift: oklch(76% 0.028 200);
+
+  --ember: oklch(52% 0.15 62);
+  /* Two lighter solid steps of the SAME hue, for the decay bar's fill only.
+     They carry stage (within the first half-life, past one, past two) without a
+     continuous gradient nobody can read, and no text ever sits on them. */
+  --ember-mid: oklch(63% 0.145 62);
+  --ember-soft: oklch(73% 0.13 62);
+  --credit: oklch(46% 0.105 165);
+  --debit: oklch(48% 0.15 15);
+  --wire: oklch(45% 0.12 250);
+
+  /*
+   * Solid tints for filled regions. The previous build used `bg-wire/10` and
+   * friends, which put every label on that fill outside the palette's contrast
+   * audit — that is exactly how a 4.29:1 failure shipped. A solid token can be
+   * enumerated.
+   */
+  --wire-wash: oklch(94.5% 0.022 250);
+  --ember-wash: oklch(95.5% 0.03 62);
+  --debit-wash: oklch(95.5% 0.026 15);
+  --credit-wash: oklch(95.5% 0.024 165);
+
+  /* The decay bar's dead-zone hatching. A tint of `debit`, light enough to sit
+     under the ember fill without competing with it. */
+  --hatch: oklch(72% 0.09 15);
+
+  /*
+   * ---- The shared ground --------------------------------------------------
+   *
+   * `field` and `plate` used to belong to the explainer alone. They are now the
+   * ground and the inset of BOTH routes, which is the single change that makes
+   * `/` and `/app` read as one product rather than two: one committed cyan
+   * field, hue 195, the same hue every neutral in this file is already tinted
+   * toward.
+   *
+   * The ceiling on how dark these grounds may go is not taste, it is
+   * `lib/tokens.test.ts`: both are in the SURFACES list there, so every text
+   * token has to clear 4.6:1 on them. At `plate`'s lightness the worst pair
+   * (ink-faint) measures 4.69:1, which is why the plate is a pale cyan and the
+   * saturation lives in the linework instead.
+   */
+  --field: oklch(94.6% 0.044 195);
+  --plate: oklch(92.6% 0.062 195);
+  /* Graph-paper grid on a plate. Decorative only: nothing meaningful is drawn
+     in it, because at this lightness it clears no contrast bar. */
+  --plate-line: oklch(85% 0.05 195);
+  /*
+   * An agent doing work, and the only new semantic colour on the explainer.
+   * Chroma 0.115 keeps it under `ember`'s 0.15 by the same rule `credit`,
+   * `debit` and `wire` follow: nothing may out-shout decay.
+   */
+  --trace: oklch(45% 0.115 215);
+}
+
+html {
+  background: var(--field);
+}
+
+body {
+  background: var(--field);
+  color: var(--ink);
+  /* Tabular figures and slashed zero everywhere: this is a numeric readout, and
+     a column of prices that jitters as digits change width is unreadable. */
+  font-feature-settings: "tnum" 1, "zero" 1, "cv01" 1;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Screen-reader-only text must not widen the document.
+ *
+ * Tailwind's `.sr-only` is `position:absolute` with no offsets, so its
+ * containing block is the nearest POSITIONED ancestor, and inside an ordinary
+ * table there is none: the ancestor chain resolves all the way to `body`. The
+ * element is then laid out at its static position, which for a cell in a
+ * 700px-wide table inside a 350px scroll container is around x=700, and because
+ * its containing block is outside that scroll container the container does not
+ * clip it.
+ *
+ * Measured at 390px with an artifact expanded: `documentElement.scrollWidth` was
+ * 708 against a 390px viewport and the page scrolled 598px sideways, while
+ * `body.scrollWidth` read 386 and every visible element was correctly clipped.
+ * Nothing on screen was wrong; three invisible accessibility labels were doing
+ * it. Pinning them to their containing block's origin costs nothing (they are
+ * 1px and clipped to nothing) and removes the whole failure mode, rather than
+ * requiring every ancestor that might ever contain one to be `position:relative`.
+ */
+.sr-only {
+  left: 0;
+  top: 0;
+}
+
+/*
+ * The measure rule. Prose is the only thing here that is read rather than
+ * scanned, so it gets a real line length. `max-width` is a CAP on how wide prose
+ * may get and never a demand for that much room — which is why every grid track
+ * around it is `minmax(0, …)`: a bare `1fr` floors the track at this 68ch and
+ * scrolls the whole document sideways on a phone.
+ */
+.measure {
+  max-width: 68ch;
+}
+.measure-wide {
+  max-width: 84ch;
+}
+
+/*
+ * The chrome label: short, uppercase, and tracked TIGHT rather than loose.
+ *
+ * Uppercase micro-labels are normally letter-spaced open, and this project's
+ * previous build did that (`tracking-[0.16em]`). The reference does the opposite
+ * — its 14px uppercase labels run at -0.98px, which is -0.07em — and the tight
+ * version is what stops a repeated eyebrow reading as generic AI scaffolding: it
+ * looks stamped rather than spaced out.
+ *
+ * -0.04em rather than the reference's -0.07em, because these run at 11–12.5px
+ * where Archivo's caps start colliding below that.
+ */
+.label {
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+
+/*
+ * Hairlines, drawn rather than bordered.
+ *
+ * The reference has ZERO borders: measured on the live page, not one element on
+ * it has a non-zero border width. Separation is fill, whitespace, and hairlines
+ * that exist as their own elements. This build follows that, and these two
+ * utilities are how a single separating line between two rows of a list survives
+ * the rule without adding a node per row: an inset box-shadow paints exactly the
+ * same 1px edge a border would and is not a border, so nothing on either route is
+ * outlined by a stroke around it.
+ */
+.hairline-b {
+  box-shadow: inset 0 -1px 0 var(--rule);
+}
+.hairline-t {
+  box-shadow: inset 0 1px 0 var(--rule);
+}
+.hairline-b-field {
+  box-shadow: inset 0 -1px 0 var(--plate-line);
+}
+
+/*
+ * The crosshair node. A 6px solid square sitting where a vertical hairline meets
+ * a horizontal one, with both rules running past the content they bound. It is
+ * the reference's most portable structural idea and it is the thing that marks a
+ * section boundary on both routes now, in place of the full-width border this
+ * build used to draw.
+ */
+.node {
+  width: 6px;
+  height: 6px;
+  background: var(--ink);
+  border-radius: 1px;
+}
+
+/*
+ * One visible focus treatment for every interactive element. 2px of `wire` with
+ * a 1px offset: a ring, not a hue-only change, so it survives a colour-blind
+ * reader and a projector.
+ */
+:focus-visible {
+  outline: 2px solid var(--wire);
+  outline-offset: 1px;
+}
+
+/*
+ * Two variants of that ring, and the rule that picks between them is geometric
+ * rather than decorative.
+ *
+ * A ring drawn at `outline-offset: 1px` lands on whatever is immediately OUTSIDE
+ * the control, and SC 1.4.11 asks for 3:1 against that. The dark panels this
+ * redesign introduced create two cases the single default cannot serve:
+ *
+ * - **A control sitting INSIDE an `ink` fill** (the navigation pill's items, the
+ *   receipt links on the dark panels). The ring lands on `ink`, where `wire`
+ *   measures 2.3:1 and fails. `.focus-light` reverses it to `paper`: 15.65:1.
+ * - **A light chip inside an `ink` fill** (the current navigation item, the call
+ *   to action on the closing panel). Neither colour works outside it: `wire` is
+ *   2.3:1 on the ink around it and `paper` would merge with the chip itself.
+ *   `.focus-inset` draws the ring INSIDE the chip instead, where its neighbour is
+ *   the chip's own `paper` and the default `wire` measures 6.1:1.
+ *
+ * A dark control on a LIGHT ground (the primary button, the hero links) needs
+ * neither: its ring lands on `field` or `paper`, where `wire` is 6.5:1 or better.
+ */
+.focus-light:focus-visible {
+  outline-color: var(--paper);
+}
+.focus-inset:focus-visible {
+  outline-offset: -3px;
+}
+
+/*
+ * State motion, and nothing else.
+ *
+ * `tick` is the one-shot flash on a value that moved since the last poll. There
+ * is no page-load sequence, nothing animates for decoration, and no CSS layout
+ * property is animated anywhere in this app.
+ */
+@keyframes tick {
+  from {
+    background-color: var(--wire-wash);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+.tick {
+  animation: tick 900ms cubic-bezier(0.16, 1, 0.3, 1) 1;
+}
+
+/* Hairline grid behind empty states — the 8px rhythm made visible, so an empty
+   region reads as a prepared canvas rather than a failure. */
+.graph-paper {
+  background-image:
+    linear-gradient(to right, var(--rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/*
+ * The decay bar's dead zone: everything below ⅛ freshness, hatched, so the end
+ * of an artifact's sellable life is visible from the day it is published.
+ */
+.dead-zone {
+  background-image: repeating-linear-gradient(
+    135deg,
+    var(--hatch) 0 2px,
+    transparent 2px 5px
+  );
+}
+
+/* ------------------------------------------------------------------ *
+ * The explainer route (`/`)
+ *
+ * Its motion obeys one rule, and the rule is what makes the reduced-motion
+ * version honest rather than degraded: **the resting state of every animated
+ * element is the FINISHED frame.** A beat with no JavaScript, a beat whose
+ * observer never fires, and a beat under `prefers-reduced-motion: reduce` all
+ * render the same complete drawing — six finished lanes, a stamped address,
+ * five converged paths, a bar drained into its hatched dead zone, a settled
+ * transfer. The animation exists only in the other direction: the client
+ * marks a beat `data-in="false"` (start frame) and flips it to `"true"`
+ * (finish frame) when it scrolls into view, and it only ever writes that
+ * attribute when the reduce query is false.
+ *
+ * Nothing here animates a layout property. The five properties below are
+ * opacity, transform, stroke-dashoffset and stroke-opacity, all of which the
+ * compositor or the paint step can take on their own.
+ * ------------------------------------------------------------------ */
+
+.beat-fx {
+  transition-property: opacity, transform, stroke-dashoffset, stroke-opacity;
+  transition-duration: var(--dur, 720ms);
+  /* ease-out, exponential. No bounce, no elastic — the same curve the app's
+     `ease-out` utility resolves to, written out because SVG children here are
+     not all reachable from a Tailwind class. */
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+/* SVG transforms need a box to resolve percentages and origins against; HTML
+   already has one, and setting fill-box on an HTML element changes its
+   transform-origin for no reason. */
+svg .beat-fx {
+  transform-box: fill-box;
+  transform-origin: var(--origin, left center);
+}
+
+.fx-draw {
+  /* Paired with `pathLength="100"` on the element, so one length works for
+     every path and nothing has to be measured in JavaScript. */
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+}
+
+.beat[data-in="false"] .fx-rise {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.beat[data-in="false"] .fx-fade {
+  opacity: 0;
+}
+.beat[data-in="false"] .fx-wipe {
+  transform: scaleX(0);
+}
+.beat[data-in="false"] .fx-pop {
+  opacity: 0;
+  transform: scale(0.6);
+}
+.beat[data-in="false"] .fx-draw {
+  stroke-dashoffset: 100;
+}
+/* A payment in flight. The element is authored at its destination, so the
+   finished frame is the resting frame; `--fx-x` is where it starts. */
+.beat[data-in="false"] .fx-ship {
+  transform: translate(var(--fx-x, 0), var(--fx-y, 0));
+}
+/*
+ * The two that run backwards. Beat 3 removes duplicated work, so the thing being
+ * animated is a disappearance: `fx-unwind` retracts a path and `fx-vanish` fades
+ * a duplicate result out. Their RESTING state is "gone", which keeps the rule
+ * intact — the finished frame is still what a reader with no motion sees.
+ */
+.fx-unwind {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+.beat[data-in="false"] .fx-unwind {
+  stroke-dashoffset: 0;
+}
+.fx-vanish {
+  opacity: 0;
+}
+.beat[data-in="false"] .fx-vanish {
+  opacity: 1;
+}
+
+/*
+ * The drain. Its keyframes are LINEAR in time and geometric in width, which is
+ * the one place in this file where an exponential ease is not applied on top:
+ * equal thirds of the animation are one halving each, and that equality is the
+ * thing beat 4 is trying to teach. An ease over the whole span would put the
+ * halvings at unequal intervals and say the opposite.
+ */
+@keyframes drain {
+  0% {
+    transform: scaleX(1);
+  }
+  33.3333% {
+    transform: scaleX(0.5);
+  }
+  66.6666% {
+    transform: scaleX(0.25);
+  }
+  100% {
+    transform: scaleX(0.125);
+  }
+}
+@keyframes drain-head {
+  0% {
+    transform: translateX(997px);
+  }
+  33.3333% {
+    transform: translateX(497px);
+  }
+  66.6666% {
+    transform: translateX(247px);
+  }
+  100% {
+    transform: translateX(122px);
+  }
+}
+.fx-drain {
+  transform: scaleX(0.125);
+}
+.fx-drain-head {
+  transform: translateX(122px);
+}
+.beat[data-in="true"] .fx-drain {
+  animation: drain 2600ms linear both;
+}
+.beat[data-in="true"] .fx-drain-head {
+  animation: drain-head 2600ms linear both;
+}
+
+/* Hairline graph paper on a plate. The 8px rhythm, made visible. */
+.blueprint {
+  background-image:
+    linear-gradient(to right, var(--plate-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--plate-line) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/*
+ * The narrative spine: the only genuinely scroll-POSITION-driven thing on the
+ * page, and it costs no JavaScript at all. A view timeline runs on the
+ * compositor, so there is no rAF loop, no scroll listener and no per-frame DOM
+ * write. Guarded twice: `@supports`, so a browser without scroll-driven
+ * animations gets the resting full rule, and `no-preference`, so the reduce
+ * query never has to fight an animation that ignores `animation-duration`.
+ */
+.spine-fill {
+  transform: scaleY(1);
+  transform-origin: top center;
+}
+@keyframes spine-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .narrative {
+      view-timeline-name: --narrative;
+      view-timeline-axis: block;
+    }
+    .spine-fill {
+      animation: spine-grow linear both;
+      animation-timeline: --narrative;
+      animation-range: entry 100% exit 0%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tick {
+    animation: none;
+  }
+  /*
+   * The explainer's finished frame, asserted rather than inherited. The client
+   * never writes `data-in` under this query, so these selectors should already
+   * be unreachable — they are here so that the guarantee is a rule a reader can
+   * find in the compiled stylesheet instead of a claim about a React effect.
+   */
+  .beat[data-in="false"] .fx-rise,
+  .beat[data-in="false"] .fx-fade,
+  .beat[data-in="false"] .fx-wipe,
+  .beat[data-in="false"] .fx-pop,
+  .beat[data-in="false"] .fx-draw,
+  .beat[data-in="false"] .fx-ship {
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+  /* The two that finish gone, so their finished frame is the opposite one. */
+  .beat[data-in="false"] .fx-unwind {
+    stroke-dashoffset: 100 !important;
+  }
+  .beat[data-in="false"] .fx-vanish {
+    opacity: 0 !important;
+  }
+  .fx-drain {
+    transform: scaleX(0.125) !important;
+  }
+  .fx-drain-head {
+    transform: translateX(122px) !important;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * The custom `::-webkit-scrollbar` rules the previous build shipped are GONE.
+ * Reinventing a standard affordance for flavour is a product-register ban, and
+ * they were doing no work: the platform scrollbar is the one every reader
+ * already knows.
+ */
