@@ -1,0 +1,12 @@
+{
+  "//": "Typechecks the test files, which the build config excludes. The build config cannot do it: these tests import apps/registry's harness and apps/mcp's client by relative path (the pattern apps/mcp/src/e2e.test.ts established for driving the real app in-process), and `rootDir: src` rejects any file outside this package. So this config drops rootDir/outDir and emits nothing. Without it the doc guards in this package — which are the repo's defence against a fabricated figure — were never typechecked at all.",
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": ["node"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules"]
+}
