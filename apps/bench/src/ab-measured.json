@@ -1,0 +1,40 @@
+{
+  "_what": "The measured buy side of docs/AB-MEASUREMENT.md, written by this run — not typed. Produced by `CARPOOL_AB_WRITE=1 pnpm ab:run` with the artifact present. ab-doc.test.ts checks the document and apps/dashboard against this file on every machine, including CI, where the artifact and transcript are absent.",
+  "_command": "CARPOOL_AB_ARTIFACT=<artifact> CARPOOL_AB_WRITE=1 CARPOOL_AB_STRICT=1 pnpm ab:run",
+  "_measuredAt": "2026-09-12T13:36:56.480Z",
+  "_artifactPath": "/Users/romariokavin/Documents/RandomClaudeSessions/ethonline2026/ETHOnline-2026-research.md",
+  "_magnet": "swarm:7fd4b778f4aa46e41ad521a55ed1d5e9d6107f92fe659b6a0477ef76275ec6f1",
+  "_runDependent": "buy.paidMicroUsdc/quotedMicroUsdc move by a µUSDC or two with the age at purchase; buy.tokensForSummary contains the output path, so it varies with os.tmpdir(); the magnet and the latencies differ on every run. Everything else is deterministic.",
+  "_floor": "WIRE: a registry on a real port, the real Blocky402 facilitator, real Hedera testnet, the registry's real ONNX embedder. The latency includes the 402, the signed transfer, the facilitator's verify and settle, and consensus. It EXCLUDES the settlement epoch that pays the author and the HBAR fees nobody here is charged. One sample on one network path.",
+  "artifact": {
+    "bytes": 45896,
+    "chars": 45417,
+    "sources": 28,
+    "sha256": "e6ba3e2d2e2e5405c6358416f838453651e67749c1fc04e4ce37557a1e1e3a65"
+  },
+  "buy": {
+    "quotedMicroUsdc": 436745,
+    "paidMicroUsdc": 436745,
+    "priceBaseMicroUsdc": 397041,
+    "priceFloorMicroUsdc": 39704,
+    "halfLifeDays": 1,
+    "ageMsAtPurchaseUpperBound": 7707,
+    "tokensIfFullyRead": 11355,
+    "tokensForSummary": 90,
+    "artifactDir": "/tmp/carpool-artifacts",
+    "verification": "verified"
+  },
+  "latency": {
+    "searchSeconds": 0.009,
+    "fetchSeconds": 7.687,
+    "isLocalFloor": false
+  },
+  "registry": {
+    "embedder": "Xenova/all-MiniLM-L6-v2",
+    "facilitator": "https://api.testnet.blocky402.com",
+    "base": "http://127.0.0.1:8403",
+    "network": "hedera:testnet",
+    "txId": "0.0.7162784@1789220203.068787609",
+    "wire": true
+  }
+}
