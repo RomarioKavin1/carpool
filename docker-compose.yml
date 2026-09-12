@@ -1,0 +1,41 @@
+# Carpool — registry + dashboard. Provider apps were removed in the v2
+# restructure; apps/settlement was replaced by apps/registry in Phase D, and
+# apps/fleet was replaced by apps/bench in Phase B1.
+#
+# Copy .env.example to .env and fill the Hedera credentials first; the file is
+# mounted at run time and never baked into the image. Bench is run
+# separately (`pnpm bench`) because it needs apps/bench/accounts.json.
+services:
+  registry:
+    build:
+      context: .
+      target: runtime
+    env_file: .env
+    environment:
+      REGISTRY_PORT: "8403"
+      LEDGER_DB: /data/ledger.sqlite
+      ARTIFACT_STORE: /data/artifacts
+    volumes: ["carpool-data:/data"]
+    ports: ["8403:8403"]
+    command: ["node", "apps/registry/dist/server.js"]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:8403/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+  dashboard:
+    build:
+      context: .
+      target: runtime
+    environment:
+      NEXT_PUBLIC_SETTLEMENT_URL: http://localhost:8403
+    depends_on:
+      registry:
+        condition: service_healthy
+    ports: ["3000:3000"]
+    command: ["pnpm", "--filter", "@carpool/dashboard", "start"]
+
+volumes:
+  carpool-data:
