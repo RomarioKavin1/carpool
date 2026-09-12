@@ -1,0 +1,9 @@
+synchronised start: 2026-09-12T13:29:57.899Z
+
+--- process A (pid 19118) ---
+[warn] settle: another process holds the settlement lease; skipping this epoch. Nothing is lost — the payouts stay owed and the next epoch picks them up.
+settle: another process holds the settlement lease; skipping this epoch. Nothing is lost — the payouts stay owed and the next epoch picks them up.
+
+
+--- process B (pid 19119) ---
+

@@ -1,0 +1,106 @@
+{
+  "magnet": "swarm:dfabbb917a3a39de472d46cd9bbca79cfa4dcc3a9e6371ba29c2ed09c2e3bc4e",
+  "intendedPayee": "0.0.10497453",
+  "authorColumnOverwrittenWith": "BROKEN-author-string-with-no-colon",
+  "buyResult": {
+    "ok": true,
+    "paid": 3000,
+    "txId": "0.0.7162784@1789219616.600692271",
+    "verification": {
+      "state": "verified",
+      "source": "manifest",
+      "bodyHash": "0c44945a71db35aa87f07e3fb3019e9887e11d81aa0469e6a06a2cefec9a3952"
+    },
+    "bodyBytes": 490
+  },
+  "purchaseMirror": {
+    "transactions": [
+      {
+        "batch_key": null,
+        "bytes": null,
+        "charged_tx_fee": 1471590,
+        "consensus_timestamp": "1789219625.499582104",
+        "entity_id": null,
+        "high_volume": false,
+        "high_volume_pricing_multiplier": 0,
+        "max_fee": "100000000",
+        "max_custom_fees": [],
+        "memo_base64": "",
+        "name": "CRYPTOTRANSFER",
+        "nft_transfers": [],
+        "node": "0.0.3",
+        "nonce": 0,
+        "parent_consensus_timestamp": null,
+        "result": "SUCCESS",
+        "scheduled": false,
+        "staking_reward_transfers": [],
+        "token_transfers": [
+          {
+            "token_id": "0.0.429274",
+            "account": "0.0.10475802",
+            "amount": 3000,
+            "is_approval": false
+          },
+          {
+            "token_id": "0.0.429274",
+            "account": "0.0.10497426",
+            "amount": -3000,
+            "is_approval": false
+          }
+        ],
+        "transaction_hash": "hBz6Iz7kx3oR/PfZuYzFYysKQ2/fmOEBE/zaxQEaBI1sup0EtJX8HPiCSQ1Q4lYh",
+        "transaction_id": "0.0.7162784-1789219616-600692271",
+        "transfers": [
+          {
+            "account": "0.0.802",
+            "amount": 1471590,
+            "is_approval": false
+          },
+          {
+            "account": "0.0.7162784",
+            "amount": -1471590,
+            "is_approval": false
+          }
+        ],
+        "valid_duration_seconds": "120",
+        "valid_start_timestamp": "1789219616.600692271"
+      }
+    ]
+  },
+  "owedWithoutOperatorSecret": {
+    "status": 401,
+    "body": {
+      "error": "unauthorised"
+    }
+  },
+  "owed": {
+    "owed": [
+      {
+        "id": 1,
+        "ts": 1789219626,
+        "op": "onPaid",
+        "txId": "0.0.7162784@1789219616.600692271",
+        "payer": "0.0.10497426",
+        "paid": 3000,
+        "resourceKey": "swarm:dfabbb917a3a39de472d46cd9bbca79cfa4dcc3a9e6371ba29c2ed09c2e3bc4e",
+        "reason": "author must be \"<accountId>:<publicKeyHex>\" (this registry's Hedera convention), got: BROKEN-author-string-with-no-colon",
+        "resolvedAt": null,
+        "purchaseId": null,
+        "replayAttempts": 0,
+        "lastError": null
+      }
+    ],
+    "conflicts": [],
+    "summary": {
+      "count": 1,
+      "microUsdc": 3000,
+      "needsOperator": 0,
+      "batchConflicts": 0
+    }
+  },
+  "statePurchaseForThisTx": null,
+  "payoutsForThisPayee": {
+    "payouts": [],
+    "parked": []
+  }
+}

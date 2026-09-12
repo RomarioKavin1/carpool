@@ -1,0 +1,41 @@
+{
+  "magnet": "swarm:b1984d1d2825ad609ac67a033e7fc95690faccb64a23b831b1ed5334274566cd",
+  "question": "Run fixture 13: how a scratch ledger keeps a live run out of production state?",
+  "questionNorm": "run fixture 13: how a scratch ledger keeps a live run out of production state",
+  "scope": "carpool-full-feature-run",
+  "abstract": "Synthetic fixture 13 for carpool's full-feature testnet run, on how a scratch ledger keeps a live run out of production state. Written to exercise publish, x402 purchase, refund and batched settlement against real Hedera testnet; not a research artifact.",
+  "sources": [
+    {
+      "url": "https://docs.hedera.com/hedera/sdks-and-apis/sdks/token-service/transfer-tokens",
+      "fetchedAt": "2026-09-12T00:00:00Z"
+    },
+    {
+      "url": "https://hips.hedera.com/hip/hip-904",
+      "fetchedAt": "2026-09-12T00:00:00Z"
+    },
+    {
+      "url": "https://docs.hedera.com/hedera/core-concepts/transactions-and-queries",
+      "fetchedAt": "2026-09-12T00:00:00Z"
+    }
+  ],
+  "provenance": {
+    "model": "claude-opus-5",
+    "durationSeconds": 60,
+    "inputTokens": 1000,
+    "outputTokens": 200,
+    "estimatedCostUsd": 0.02,
+    "toolCalls": 3
+  },
+  "decay": {
+    "halfLifeDays": 365,
+    "producedAt": "2026-09-12T09:18:21.917Z"
+  },
+  "author": "0.0.10497446:0214031bbd85fed287144f37d4905b0605182edb1e21f5799d949652195be299a7",
+  "bodyHash": "7e18945b547f0bd8c79d66d7d71766f98d15771babe42941172fbbfd240e4d66",
+  "bodyBytes": 522,
+  "redacted": false,
+  "priceNow": 3000,
+  "freshness": 0.9999999907026491,
+  "health": 0.39999999628105964,
+  "ageDays": 0.000004895833333333333
+}

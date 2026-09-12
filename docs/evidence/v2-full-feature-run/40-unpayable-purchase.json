@@ -1,0 +1,86 @@
+{
+  "magnet": "swarm:4c4175b393bf0076b8dfcb045d9757ae58c7eca9be3fb64c30a0929ff0adeda5",
+  "payee": "0.0.10497457",
+  "txId": "0.0.7162784@1789205402.855499559",
+  "paid": 3000,
+  "payeeUsdcRelationship": {
+    "tokens": [],
+    "links": {
+      "next": null
+    }
+  },
+  "payeeAccount": {
+    "account": "0.0.10497457",
+    "alias": null,
+    "auto_renew_period": 7776000,
+    "balance": {
+      "balance": 150000000,
+      "timestamp": "1789204448.501873104",
+      "tokens": []
+    },
+    "created_timestamp": "1789204448.501873104",
+    "decline_reward": false,
+    "deleted": false,
+    "ethereum_nonce": 0,
+    "evm_address": "0x0000000000000000000000000000000000a02db1",
+    "expiry_timestamp": "1796980448.501873104",
+    "key": {
+      "_type": "ECDSA_SECP256K1",
+      "key": "03f66225c3f82ffe4ef74f2bbfc9b3b650a10958c26788ecd2db6970e0fb5db9ba"
+    },
+    "max_automatic_token_associations": 0,
+    "memo": "carpool full-feature run unpayable",
+    "pending_reward": 0,
+    "receiver_sig_required": false,
+    "staked_account_id": null,
+    "staked_node_id": null,
+    "stake_period_start": null,
+    "transactions": [
+      {
+        "batch_key": null,
+        "bytes": null,
+        "charged_tx_fee": 67082577,
+        "consensus_timestamp": "1789204448.501873104",
+        "entity_id": "0.0.10497457",
+        "high_volume": false,
+        "high_volume_pricing_multiplier": 0,
+        "max_fee": "200000000",
+        "max_custom_fees": [],
+        "memo_base64": "",
+        "name": "CRYPTOCREATEACCOUNT",
+        "nft_transfers": [],
+        "node": "0.0.6",
+        "nonce": 0,
+        "parent_consensus_timestamp": null,
+        "result": "SUCCESS",
+        "scheduled": false,
+        "staking_reward_transfers": [],
+        "token_transfers": [],
+        "transaction_hash": "NTZtlGt+LlPAF+9HYggiyZ8v2NI4+h1SJT9V50NmToF0oamJ9fQFiDo7t2OcBUDL",
+        "transaction_id": "0.0.10474951-1789204443-755778942",
+        "transfers": [
+          {
+            "account": "0.0.802",
+            "amount": 67082577,
+            "is_approval": false
+          },
+          {
+            "account": "0.0.10474951",
+            "amount": -217082577,
+            "is_approval": false
+          },
+          {
+            "account": "0.0.10497457",
+            "amount": 150000000,
+            "is_approval": false
+          }
+        ],
+        "valid_duration_seconds": "120",
+        "valid_start_timestamp": "1789204443.755778942"
+      }
+    ],
+    "links": {
+      "next": "/api/v1/accounts/0.0.10497457?timestamp=lt:1784021417.103000001"
+    }
+  }
+}

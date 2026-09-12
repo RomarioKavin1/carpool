@@ -1,0 +1,17 @@
+{
+  "topic": "0.0.10497461",
+  "messagesBefore": 14,
+  "settleResponse": {
+    "batches": [],
+    "anchor": {
+      "anchored": false,
+      "skipped": "empty"
+    },
+    "replayed": {
+      "replayed": 0,
+      "failed": 0,
+      "unresolvable": 0
+    }
+  },
+  "messagesAfter": 14
+}

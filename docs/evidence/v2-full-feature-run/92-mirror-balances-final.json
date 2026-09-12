@@ -1,0 +1,173 @@
+{
+  "_what": "Every account this run touched, from the mirror node, after the last settlement. `autoAssociated: true` means the USDC relationship was created by the payout transfer itself \u2014 which is what the registry paid 0.674 hbar for, per payee.",
+  "balances": {
+    "registry": {
+      "account": "0.0.10475802",
+      "usdcMicro": 5018002,
+      "usdcRelationship": true,
+      "autoAssociated": false,
+      "hbarTinybar": 2623328984
+    },
+    "operator": {
+      "account": "0.0.10474951",
+      "usdcMicro": 3500000,
+      "usdcRelationship": true,
+      "autoAssociated": false,
+      "hbarTinybar": 86054904753
+    },
+    "buyer": {
+      "account": "0.0.10497426",
+      "usdcMicro": 625265,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 200000000
+    },
+    "author0": {
+      "account": "0.0.10497427",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author1": {
+      "account": "0.0.10497428",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author2": {
+      "account": "0.0.10497430",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author3": {
+      "account": "0.0.10497431",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author4": {
+      "account": "0.0.10497433",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author5": {
+      "account": "0.0.10497434",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author6": {
+      "account": "0.0.10497435",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author7": {
+      "account": "0.0.10497436",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author8": {
+      "account": "0.0.10497437",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author9": {
+      "account": "0.0.10497439",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author10": {
+      "account": "0.0.10497440",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author11": {
+      "account": "0.0.10497441",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author12": {
+      "account": "0.0.10497443",
+      "usdcMicro": 1311235,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author13": {
+      "account": "0.0.10497446",
+      "usdcMicro": 5000,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author14": {
+      "account": "0.0.10497448",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author15": {
+      "account": "0.0.10497449",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author16": {
+      "account": "0.0.10497451",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author17": {
+      "account": "0.0.10497453",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author18": {
+      "account": "0.0.10497454",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": true,
+      "hbarTinybar": 20000000
+    },
+    "author19": {
+      "account": "0.0.10497456",
+      "usdcMicro": 0,
+      "usdcRelationship": false,
+      "autoAssociated": null,
+      "hbarTinybar": 20000000
+    },
+    "unpayable": {
+      "account": "0.0.10497457",
+      "usdcMicro": 2500,
+      "usdcRelationship": true,
+      "autoAssociated": false,
+      "hbarTinybar": 83109475
+    }
+  }
+}

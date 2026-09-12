@@ -1,0 +1,86 @@
+{
+  "_what": "The carpool_* MCP tools driven over stdio by the official @modelcontextprotocol/sdk client, against the live registry on :8403, the real Blocky402 facilitator and real Hedera testnet. apps/mcp/src/server.ts was spawned as a child process; nothing was called in-process.",
+  "serverVersion": {
+    "name": "carpool",
+    "version": "0.1.0"
+  },
+  "capabilities": {
+    "tools": {
+      "listChanged": true
+    }
+  },
+  "tools": [
+    {
+      "name": "carpool_search",
+      "title": "Search prior research before doing your own",
+      "description": "Call this BEFORE starting deep research. Returns prior research artifacts whose question matches yours, with what each cost to produce, how stale it is, and wha",
+      "inputSchemaKeys": [
+        "question",
+        "limit"
+      ]
+    },
+    {
+      "name": "carpool_fetch",
+      "title": "Buy an artifact and write it to a file",
+      "description": "Pays for an artifact over x402 and writes it to a file, returning the path and a summary. It does NOT return the body inline: an MCP tool result is capped at ~2",
+      "inputSchemaKeys": [
+        "magnet"
+      ]
+    },
+    {
+      "name": "carpool_publish",
+      "title": "List research you already did, for sale",
+      "description": "Publishes a completed research artifact so the next person with the same question can buy it instead of redoing the work. IRREVERSIBLE: carpool_delist stops new",
+      "inputSchemaKeys": [
+        "question",
+        "abstract",
+        "body",
+        "sources",
+        "provenance",
+        "scope",
+        "halfLifeDays",
+        "neverPublish",
+        "confirm"
+      ]
+    },
+    {
+      "name": "carpool_delist",
+      "title": "Withdraw research you published, from sale",
+      "description": "Stops new sales of an artifact you published. What it CANNOT do: recall a copy someone has already paid for, cancel a buyer's refund window, or cancel a royalty",
+      "inputSchemaKeys": [
+        "magnet"
+      ]
+    }
+  ],
+  "publishUnconfirmed": {
+    "text": "PUBLISHING THIS RESEARCH — review before approving\n\nQUESTION (published verbatim, and usually the leakiest line):\n  How does an MCP client drive carpool's publish and fetch tools against a real x402 registry?\n\nABSTRACT:\n  MCP-driven publish fixture. How does an MCP client drive carpool's publish\n  and fetch tools against a real x402 registry?\n\nSOURCES (1, published in full):\n  https://modelcontextprotocol.io/specification\n\nPRE-PUBLISH SCAN: nothing removed.\n\nBODY: 486 B — not shown here. Ask to see it before approving if you want to read it.\n\nTERMS: listed at 0.0020 USDC, halving every 365 day(s).\nIRREVERSIBLE: delisting stops new sales. It cannot recall a copy someone has already paid for.\n\nNothing has been published. Show this to the user and call again with confirm: true only if they approve.",
+    "isError": false
+  },
+  "searchBeforePublish": {
+    "text": "No prior research found for: How does an MCP client drive carpool's publish and fetch tools against a real x402 registry?\n\nDo the research yourself."
+  },
+  "publishConfirmed": {
+    "text": "Published swarm:6c119536d8e91c040e2cf1890e23d4a20e090dcbd5b0769b0a250229451a7d97 at $0.0020, halving every 365 day(s).",
+    "isError": false
+  },
+  "magnet": "swarm:6c119536d8e91c040e2cf1890e23d4a20e090dcbd5b0769b0a250229451a7d97",
+  "searchAfterPublish": {
+    "text": "1 candidate(s) for: How does an MCP client drive carpool's publish and fetch tools against a real x402 registry?\n\n1. How does an MCP client drive carpool's publish and fetch tools against a real x402 registry?\n   swarm:6c119536d8e91c040e2cf1890e23d4a20e090dcbd5b0769b0a250229451a7d97\n   price $0.0030 · 0.0d old · freshness 1.00 · health 0.40\n   match: similarity 1.00 · depth 0.06 · score 0.532\n   cost to produce: claude-opus-5, 60s, 1200 tokens, 3 tool calls, $0.02\n   1 sources: https://modelcontextprotocol.io/specification\n   MCP-driven publish fixture. How does an MCP client drive carpool's publish and fetch tools against a real x402 registry?\n\nBuying the cheapest costs $0.0030; the most expensive of these cost $0.02 to produce. Use carpool_fetch <magnet> to buy one."
+  },
+  "fetch": {
+    "text": "Bought swarm:6c119536d8e91c040e2cf1890e23d4a20e090dcbd5b0769b0a250229451a7d97 for $0.0030.\nWritten to: /private/tmp/claude-501/-Users-romariokavin-Documents-RandomClaudeSessions/3879b43d-19bd-4723-9f56-56f7cf086888/scratchpad/run/mcp-artifacts/6c119536d8e91c04.md\n486 bytes · sha256 07c92e6fc85b56a4… — verified: matches the bodyHash in the manifest read before paying\nTransaction: 0.0.7162784@1789219831.957808823\n\nRead the file for the research. You did not have to run it.",
+    "isError": false,
+    "wallClockMs": 6590
+  },
+  "delist": {
+    "text": "Withdrawn swarm:6c119536d8e91c040e2cf1890e23d4a20e090dcbd5b0769b0a250229451a7d97 from sale.\n\nNew sales are stopped. Purchases still inside their refund window remain refundable, royalties already accrued will still be paid, and a buyer who already paid keeps their copy — that cannot be recalled. This is final for this magnet: republishing the same manifest does not relist it.",
+    "isError": false
+  },
+  "delistAgain": {
+    "text": "swarm:6c119536d8e91c040e2cf1890e23d4a20e090dcbd5b0769b0a250229451a7d97 was already withdrawn (at 2026-09-12T13:30:44.000Z).\n\nNew sales are stopped. Purchases still inside their refund window remain refundable, royalties already accrued will still be paid, and a buyer who already paid keeps their copy — that cannot be recalled. This is final for this magnet: republishing the same manifest does not relist it."
+  },
+  "fetchAfterDelist": {
+    "text": "Could not buy swarm:6c119536d8e91c040e2cf1890e23d4a20e090dcbd5b0769b0a250229451a7d97: no such artifact (or it is delisted or expired)",
+    "isError": true
+  }
+}

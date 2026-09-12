@@ -1,0 +1,54 @@
+settle: batch for payees 0.0.10497448 failed with an ambiguous error (injected: the process lost the response before the receipt was read (submitted 0.0.10475802@1789218820.213817468)); left pending for reconcile. Continuing with the rest of the epoch.
+{
+  "mode": "drop",
+  "settleReturned": [],
+  "submittedTxIdTheDriverSaw": "0.0.10475802@1789218820.213817468",
+  "batchesCreated": [
+    {
+      "id": 14,
+      "txId": null,
+      "status": "pending",
+      "ts": 1789218824,
+      "root": "9fadc6ef9e5e1334ee9b6b06f144384c0bbe6d5a6b59c69e04e06c3cc974d60f",
+      "memo": "carpool:batch:14:9fadc6ef",
+      "reconcileAttempts": 0
+    }
+  ],
+  "pendingAfter": [
+    {
+      "id": 14,
+      "memo": "carpool:batch:14:9fadc6ef"
+    }
+  ],
+  "lease": null,
+  "reconcilePasses": [],
+  "batchesFinal": [
+    {
+      "id": 14,
+      "txId": null,
+      "status": "pending",
+      "ts": 1789218824,
+      "root": "9fadc6ef9e5e1334ee9b6b06f144384c0bbe6d5a6b59c69e04e06c3cc974d60f",
+      "memo": "carpool:batch:14:9fadc6ef",
+      "reconcileAttempts": 0
+    },
+    {
+      "id": 13,
+      "txId": null,
+      "status": "SETTLED_NO_TRANSFER",
+      "ts": 1789218692,
+      "root": "3be6b417576051ae38b665799352377f90d4e26e6a54150adf748268d19c0574",
+      "memo": "carpool:batch:13:3be6b417",
+      "reconcileAttempts": 0
+    },
+    {
+      "id": 12,
+      "txId": "0.0.10475802@1789218547.837417951",
+      "status": "SUCCESS",
+      "ts": 1789218555,
+      "root": "419289cb1888104ff6988217faeb7354e33482363cadc4ba572f41af377c7bb5",
+      "memo": "carpool:batch:12:419289cb",
+      "reconcileAttempts": 0
+    }
+  ]
+}

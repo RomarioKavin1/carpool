@@ -1,0 +1,101 @@
+{
+  "magnet": "swarm:e0ba3de4890af0359beda3609c72a272456c56349ad35823e71fcae9dc4ca1b4",
+  "payee": "0.0.10497448",
+  "purchase": {
+    "txId": "0.0.7162784@1789218681.403613804",
+    "paid": 3000,
+    "verification": {
+      "state": "verified",
+      "source": "manifest",
+      "bodyHash": "b7627ce92cfe0b97a805282bff5ceb31f2f9bfaaca9c6bbb6f6e2e7183ba7106"
+    }
+  },
+  "purchaseMirror": {
+    "transactions": [
+      {
+        "batch_key": null,
+        "bytes": null,
+        "charged_tx_fee": 1471590,
+        "consensus_timestamp": "1789218691.573630302",
+        "entity_id": null,
+        "high_volume": false,
+        "high_volume_pricing_multiplier": 0,
+        "max_fee": "100000000",
+        "max_custom_fees": [],
+        "memo_base64": "",
+        "name": "CRYPTOTRANSFER",
+        "nft_transfers": [],
+        "node": "0.0.7",
+        "nonce": 0,
+        "parent_consensus_timestamp": null,
+        "result": "SUCCESS",
+        "scheduled": false,
+        "staking_reward_transfers": [],
+        "token_transfers": [
+          {
+            "token_id": "0.0.429274",
+            "account": "0.0.10475802",
+            "amount": 3000,
+            "is_approval": false
+          },
+          {
+            "token_id": "0.0.429274",
+            "account": "0.0.10497426",
+            "amount": -3000,
+            "is_approval": false
+          }
+        ],
+        "transaction_hash": "qIl/wj1WqI0GjDlULPYG+llRly97kgJEc6Y6cOV46dZjLyIhb/Kf3g4KQcX81I1G",
+        "transaction_id": "0.0.7162784-1789218681-403613804",
+        "transfers": [
+          {
+            "account": "0.0.802",
+            "amount": 1471590,
+            "is_approval": false
+          },
+          {
+            "account": "0.0.7162784",
+            "amount": -1471590,
+            "is_approval": false
+          }
+        ],
+        "valid_duration_seconds": "120",
+        "valid_start_timestamp": "1789218681.403613804"
+      }
+    ]
+  },
+  "feeOnlySettle": {
+    "batches": [
+      {
+        "id": 13,
+        "txId": "",
+        "payees": 1,
+        "total": 500,
+        "moved": 0,
+        "leaves": [
+          [
+            "0.0.10475802",
+            500
+          ]
+        ]
+      }
+    ],
+    "anchor": {
+      "anchored": true,
+      "root": "a774b0fba7fea13dda43e5ff442ce9e9dc8f7f5d097c0a7636118cab9ac8dc96",
+      "message": {
+        "epoch": 1789218692660,
+        "batchTxIds": [],
+        "merkleRoot": "a774b0fba7fea13dda43e5ff442ce9e9dc8f7f5d097c0a7636118cab9ac8dc96",
+        "leafCount": 2,
+        "artifactCount": 1,
+        "payeeCount": 1
+      }
+    },
+    "replayed": {
+      "replayed": 0,
+      "failed": 0,
+      "unresolvable": 0
+    }
+  }
+}

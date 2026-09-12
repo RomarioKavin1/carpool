@@ -1,0 +1,230 @@
+{
+  "payee": "0.0.10497457",
+  "balanceBefore": 0,
+  "settle": {
+    "batches": [
+      {
+        "id": 12,
+        "txId": "0.0.10475802@1789218547.837417951",
+        "payees": 1,
+        "total": 2500,
+        "moved": 2500,
+        "leaves": [
+          [
+            "0.0.10497457",
+            2500
+          ]
+        ]
+      }
+    ],
+    "anchor": {
+      "anchored": true,
+      "root": "419289cb1888104ff6988217faeb7354e33482363cadc4ba572f41af377c7bb5",
+      "message": {
+        "epoch": 1789218556662,
+        "batchTxIds": [
+          "0.0.10475802@1789218547.837417951"
+        ],
+        "merkleRoot": "419289cb1888104ff6988217faeb7354e33482363cadc4ba572f41af377c7bb5",
+        "leafCount": 1,
+        "artifactCount": 0,
+        "payeeCount": 1
+      }
+    },
+    "replayed": {
+      "replayed": 0,
+      "failed": 0,
+      "unresolvable": 0
+    }
+  },
+  "balanceAfter": 2500,
+  "batches": [
+    {
+      "id": 12,
+      "txId": "0.0.10475802@1789218547.837417951",
+      "status": "SUCCESS",
+      "ts": 1789218555,
+      "root": "419289cb1888104ff6988217faeb7354e33482363cadc4ba572f41af377c7bb5",
+      "memo": "carpool:batch:12:419289cb",
+      "reconcileAttempts": 0
+    },
+    {
+      "id": 11,
+      "txId": "0.0.10475802@1789218509.187652493",
+      "status": "FAILED:TOKEN_NOT_ASSOCIATED_TO_ACCOUNT",
+      "ts": 1789218517,
+      "root": "419289cb1888104ff6988217faeb7354e33482363cadc4ba572f41af377c7bb5",
+      "memo": "carpool:batch:11:419289cb",
+      "reconcileAttempts": 0
+    },
+    {
+      "id": 10,
+      "txId": "0.0.10475802@1789218507.690291326",
+      "status": "FAILED:TOKEN_NOT_ASSOCIATED_TO_ACCOUNT",
+      "ts": 1789218511,
+      "root": "419289cb1888104ff6988217faeb7354e33482363cadc4ba572f41af377c7bb5",
+      "memo": "carpool:batch:10:419289cb",
+      "reconcileAttempts": 0
+    },
+    {
+      "id": 9,
+      "txId": "0.0.10475802@1789218501.319991321",
+      "status": "FAILED:TOKEN_NOT_ASSOCIATED_TO_ACCOUNT",
+      "ts": 1789218505,
+      "root": "419289cb1888104ff6988217faeb7354e33482363cadc4ba572f41af377c7bb5",
+      "memo": "carpool:batch:9:419289cb",
+      "reconcileAttempts": 0
+    }
+  ],
+  "txs": {
+    "0.0.10475802@1789218547.837417951": {
+      "transactions": [
+        {
+          "batch_key": null,
+          "bytes": null,
+          "charged_tx_fee": 1337809,
+          "consensus_timestamp": "1789218555.789455025",
+          "entity_id": null,
+          "high_volume": false,
+          "high_volume_pricing_multiplier": 0,
+          "max_fee": "100000000",
+          "max_custom_fees": [],
+          "memo_base64": "Y2FycG9vbDpiYXRjaDoxMjo0MTkyODljYg==",
+          "name": "CRYPTOTRANSFER",
+          "nft_transfers": [],
+          "node": "0.0.3",
+          "nonce": 0,
+          "parent_consensus_timestamp": null,
+          "result": "SUCCESS",
+          "scheduled": false,
+          "staking_reward_transfers": [],
+          "token_transfers": [
+            {
+              "token_id": "0.0.429274",
+              "account": "0.0.10475802",
+              "amount": -2500,
+              "is_approval": false
+            },
+            {
+              "token_id": "0.0.429274",
+              "account": "0.0.10497457",
+              "amount": 2500,
+              "is_approval": false
+            }
+          ],
+          "transaction_hash": "gEXF3DejU3GmcPDnokEAm38k8YKolZgWiLyVdHB2O9dNeQDSOhpaAQZJj8Lzxxul",
+          "transaction_id": "0.0.10475802-1789218547-837417951",
+          "transfers": [
+            {
+              "account": "0.0.802",
+              "amount": 1337809,
+              "is_approval": false
+            },
+            {
+              "account": "0.0.10475802",
+              "amount": -1337809,
+              "is_approval": false
+            }
+          ],
+          "valid_duration_seconds": "120",
+          "valid_start_timestamp": "1789218547.837417951"
+        }
+      ]
+    },
+    "0.0.10475802@1789218509.187652493": {
+      "transactions": [
+        {
+          "batch_key": null,
+          "bytes": null,
+          "charged_tx_fee": 1337809,
+          "consensus_timestamp": "1789218517.528115499",
+          "entity_id": null,
+          "high_volume": false,
+          "high_volume_pricing_multiplier": 0,
+          "max_fee": "100000000",
+          "max_custom_fees": [],
+          "memo_base64": "Y2FycG9vbDpiYXRjaDoxMTo0MTkyODljYg==",
+          "name": "CRYPTOTRANSFER",
+          "nft_transfers": [],
+          "node": "0.0.7",
+          "nonce": 0,
+          "parent_consensus_timestamp": null,
+          "result": "TOKEN_NOT_ASSOCIATED_TO_ACCOUNT",
+          "scheduled": false,
+          "staking_reward_transfers": [],
+          "token_transfers": [],
+          "transaction_hash": "Ncl0HvUMRxgiQHTxbH74n1VWQEq3bc/1FqYAPZjkkGv2wvC0dgqYVKyy5capkW9C",
+          "transaction_id": "0.0.10475802-1789218509-187652493",
+          "transfers": [
+            {
+              "account": "0.0.802",
+              "amount": 1337809,
+              "is_approval": false
+            },
+            {
+              "account": "0.0.10475802",
+              "amount": -1337809,
+              "is_approval": false
+            }
+          ],
+          "valid_duration_seconds": "120",
+          "valid_start_timestamp": "1789218509.187652493"
+        }
+      ]
+    },
+    "0.0.10475802@1789218507.690291326": {
+      "transactions": [
+        {
+          "batch_key": null,
+          "bytes": null,
+          "charged_tx_fee": 1337809,
+          "consensus_timestamp": "1789218511.704829985",
+          "entity_id": null,
+          "high_volume": false,
+          "high_volume_pricing_multiplier": 0,
+          "max_fee": "100000000",
+          "max_custom_fees": [],
+          "memo_base64": "Y2FycG9vbDpiYXRjaDoxMDo0MTkyODljYg==",
+          "name": "CRYPTOTRANSFER",
+          "nft_transfers": [],
+          "node": "0.0.8",
+          "nonce": 0,
+          "parent_consensus_timestamp": null,
+          "result": "TOKEN_NOT_ASSOCIATED_TO_ACCOUNT",
+          "scheduled": false,
+          "staking_reward_transfers": [],
+          "token_transfers": [],
+          "transaction_hash": "1n/qXEWuAPlXi0Wwc+t1INdj2D9eiSIQKZuawiluYBMWf3N1LOuBpsKdKvyjX12j",
+          "transaction_id": "0.0.10475802-1789218507-690291326",
+          "transfers": [
+            {
+              "account": "0.0.802",
+              "amount": 1337809,
+              "is_approval": false
+            },
+            {
+              "account": "0.0.10475802",
+              "amount": -1337809,
+              "is_approval": false
+            }
+          ],
+          "valid_duration_seconds": "120",
+          "valid_start_timestamp": "1789218507.690291326"
+        }
+      ]
+    }
+  },
+  "payout": {
+    "id": 38,
+    "payee": "0.0.10497457",
+    "amount": 2500,
+    "reason": "author_royalty",
+    "ref": "18",
+    "availableAt": 1789205534,
+    "voidedAt": null,
+    "settledBatchId": 12,
+    "attempts": 0,
+    "parkedAt": null,
+    "state": "settled"
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "mode": "nosubmit",
+  "settleReturned": [],
+  "submittedTxIdTheDriverSaw": null,
+  "batchesCreated": [
+    {
+      "id": 18,
+      "txId": null,
+      "status": "pending",
+      "ts": 1789219561,
+      "root": "8bb0024ac34b69abb784059de792ec67bbe18f625dc2e2e547d13c9f8b851517",
+      "memo": "carpool:batch:18:8bb0024a",
+      "reconcileAttempts": 0
+    }
+  ],
+  "pendingAfter": [],
+  "lease": null,
+  "reconcilePasses": [
+    {
+      "pass": 1,
+      "at": "2026-09-12T13:26:02.339Z",
+      "ms": 532,
+      "batches": [
+        {
+          "id": 18,
+          "txId": null,
+          "status": "pending",
+          "ts": 1789219561,
+          "root": "8bb0024ac34b69abb784059de792ec67bbe18f625dc2e2e547d13c9f8b851517",
+          "memo": "carpool:batch:18:8bb0024a",
+          "reconcileAttempts": 1
+        },
+        {
+          "id": 17,
+          "txId": null,
+          "status": "SETTLED_NO_TRANSFER",
+          "ts": 1789219430,
+          "root": "3be6b417576051ae38b665799352377f90d4e26e6a54150adf748268d19c0574",
+          "memo": "carpool:batch:17:3be6b417",
+          "reconcileAttempts": 0
+        }
+      ],
+      "pending": [
+        {
+          "id": 18,
+          "memo": "carpool:batch:18:8bb0024a"
+        }
+      ]
+    },
+    {
+      "pass": 2,
+      "at": "2026-09-12T13:26:02.457Z",
+      "ms": 117,
+      "batches": [
+        {
+          "id": 18,
+          "txId": null,
+          "status": "pending",
+          "ts": 1789219561,
+          "root": "8bb0024ac34b69abb784059de792ec67bbe18f625dc2e2e547d13c9f8b851517",
+          "memo": "carpool:batch:18:8bb0024a",
+          "reconcileAttempts": 2
+        },
+        {
+          "id": 17,
+          "txId": null,
+          "status": "SETTLED_NO_TRANSFER",
+          "ts": 1789219430,
+          "root": "3be6b417576051ae38b665799352377f90d4e26e6a54150adf748268d19c0574",
+          "memo": "carpool:batch:17:3be6b417",
+          "reconcileAttempts": 0
+        }
+      ],
+      "pending": [
+        {
+          "id": 18,
+          "memo": "carpool:batch:18:8bb0024a"
+        }
+      ]
+    },
+    {
+      "pass": 3,
+      "at": "2026-09-12T13:26:02.495Z",
+      "ms": 38,
+      "batches": [
+        {
+          "id": 18,
+          "txId": null,
+          "status": "NEEDS_OPERATOR:UNCONFIRMED",
+          "ts": 1789219561,
+          "root": "8bb0024ac34b69abb784059de792ec67bbe18f625dc2e2e547d13c9f8b851517",
+          "memo": "carpool:batch:18:8bb0024a",
+          "reconcileAttempts": 3
+        },
+        {
+          "id": 17,
+          "txId": null,
+          "status": "SETTLED_NO_TRANSFER",
+          "ts": 1789219430,
+          "root": "3be6b417576051ae38b665799352377f90d4e26e6a54150adf748268d19c0574",
+          "memo": "carpool:batch:17:3be6b417",
+          "reconcileAttempts": 0
+        }
+      ],
+      "pending": []
+    }
+  ],
+  "batchesFinal": [
+    {
+      "id": 18,
+      "txId": null,
+      "status": "NEEDS_OPERATOR:UNCONFIRMED",
+      "ts": 1789219561,
+      "root": "8bb0024ac34b69abb784059de792ec67bbe18f625dc2e2e547d13c9f8b851517",
+      "memo": "carpool:batch:18:8bb0024a",
+      "reconcileAttempts": 3
+    },
+    {
+      "id": 17,
+      "txId": null,
+      "status": "SETTLED_NO_TRANSFER",
+      "ts": 1789219430,
+      "root": "3be6b417576051ae38b665799352377f90d4e26e6a54150adf748268d19c0574",
+      "memo": "carpool:batch:17:3be6b417",
+      "reconcileAttempts": 0
+    },
+    {
+      "id": 16,
+      "txId": "0.0.10475802@1789219371.117722461",
+      "status": "SETTLED_BY_OPERATOR",
+      "ts": 1789219374,
+      "root": "ee4fa3fb916d5d5a9f5d3ccab03cb55b3b00c99c5cd25425cf9a4ab7e6ccd063",
+      "memo": "carpool:batch:16:ee4fa3fb",
+      "reconcileAttempts": 3
+    }
+  ]
+}

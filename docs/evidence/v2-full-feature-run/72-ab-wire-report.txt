@@ -1,0 +1,37 @@
+A/B — What are all the ETHOnline 2026 prize tracks, how do they compose, and what should we build?
+      swarm:7fd4b778f4aa46e41ad521a55ed1d5e9d6107f92fe659b6a0477ef76275ec6f1
+
+                        REDO (measured, a floor)        BUY (measured, on the wire)
+  wall clock                630.9s active                   7.70s
+                             6059s elapsed                  0.01s search + 7.69s fetch
+  tokens                 2,357,943                             90 (summary)
+                                                           11,355 (if fully read)
+  cost                     $3.9704                        $0.4367
+
+  saved: $3.5337 (9.1x cheaper), 623s (82x faster)
+
+  redo breakdown:
+    claude-opus-5 · 48 in · 83,177 out · 131,024 cache write · 2,143,694 cache read
+    22 tool calls · 28 sources · transcript rows 8..222
+    priced at $/MTok: in 5 · out 25 · cache write 6.25 · cache read 0.5
+  buy breakdown:
+    quoted $0.4367 · paid $0.4367 · priceBase 397,041 µUSDC · floor 39,704 µUSDC
+    45,896 bytes written · integrity verified
+
+  REDO IS A FLOOR: 4 subagent dispatches spent tokens in transcripts that were not
+  retained. The real production cost is strictly higher than the figure above.
+  SEGMENT BOUNDARY: the same span also produced prize-map.html, four candidate project ideas. Someone
+  redoing only this document would spend less. This is not a single-artifact cost.
+  WIRE MEASUREMENT: real network, real facilitator, real Hedera settlement — the 402,
+  the signed transfer, the facilitator's verify and settle, and consensus. It still
+  EXCLUDES the settlement epoch that pays the author (a separate transfer, minutes to
+  a day later) and the HBAR transaction fees nobody here is charged. One sample, one
+  network path — not a percentile.
+  The dollar figures are measured tokens at the rates printed above — a price list, not a fact.
+  One artifact, one question, one model — a worked example, not a population estimate.
+
+  registry: LIVE (http://127.0.0.1:8403), real Blocky402 facilitator, real Hedera testnet, embedder Xenova/all-MiniLM-L6-v2
+  transaction: 0.0.7162784@1789220203.068787609 (real, on a mirror node)
+  priceBase policy: 10% of the measured redo floor
+  artifact: /Users/romariokavin/Documents/RandomClaudeSessions/ethonline2026/ETHOnline-2026-research.md
+  generated: 2026-09-12T13:36:56.479Z

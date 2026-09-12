@@ -1,0 +1,780 @@
+{
+  "batch": {
+    "id": 16,
+    "txId": null,
+    "status": "NEEDS_OPERATOR:UNCONFIRMED",
+    "ts": 1789219374,
+    "root": "ee4fa3fb916d5d5a9f5d3ccab03cb55b3b00c99c5cd25425cf9a4ab7e6ccd063",
+    "memo": "carpool:batch:16:ee4fa3fb",
+    "reconcileAttempts": 3
+  },
+  "operatorsMirrorLookup": {
+    "memo": "carpool:batch:16:ee4fa3fb",
+    "url": "/api/v1/transactions?account.id=0.0.10475802&limit=100&order=desc",
+    "matchesForThisMemo": [
+      {
+        "transaction_id": "0.0.10475802-1789219371-117722461",
+        "result": "SUCCESS",
+        "consensus_timestamp": "1789219375.408285112",
+        "token_transfers": [
+          {
+            "token_id": "0.0.429274",
+            "account": "0.0.10475802",
+            "amount": -2500,
+            "is_approval": false
+          },
+          {
+            "token_id": "0.0.429274",
+            "account": "0.0.10497449",
+            "amount": 2500,
+            "is_approval": false
+          }
+        ]
+      }
+    ]
+  },
+  "request": {
+    "action": "paid",
+    "txId": "0.0.10475802@1789219371.117722461"
+  },
+  "paidWithoutTxId": {
+    "status": 400,
+    "body": {
+      "error": "action 'paid' requires the txId that paid it"
+    }
+  },
+  "withoutOperatorSecret": {
+    "status": 401,
+    "body": {
+      "error": "unauthorised"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "action": "paid",
+      "txId": "0.0.10475802@1789219371.117722461",
+      "note": "The batch's payouts stay claimed and will not be retried."
+    }
+  },
+  "repeatedAfterResolve": {
+    "status": 409,
+    "body": {
+      "error": "batch 16 is SETTLED_BY_OPERATOR, not NEEDS_OPERATOR:*"
+    }
+  },
+  "batchesAfter": {
+    "batches": [
+      {
+        "id": 16,
+        "txId": "0.0.10475802@1789219371.117722461",
+        "status": "SETTLED_BY_OPERATOR",
+        "ts": 1789219374,
+        "root": "ee4fa3fb916d5d5a9f5d3ccab03cb55b3b00c99c5cd25425cf9a4ab7e6ccd063",
+        "memo": "carpool:batch:16:ee4fa3fb",
+        "reconcileAttempts": 3
+      },
+      {
+        "id": 15,
+        "txId": null,
+        "status": "SETTLED_NO_TRANSFER",
+        "ts": 1789219237,
+        "root": "3be6b417576051ae38b665799352377f90d4e26e6a54150adf748268d19c0574",
+        "memo": "carpool:batch:15:3be6b417",
+        "reconcileAttempts": 0
+      },
+      {
+        "id": 14,
+        "txId": "0.0.10475802-1789218820-213817468",
+        "status": "SUCCESS",
+        "ts": 1789218824,
+        "root": "9fadc6ef9e5e1334ee9b6b06f144384c0bbe6d5a6b59c69e04e06c3cc974d60f",
+        "memo": "carpool:batch:14:9fadc6ef",
+        "reconcileAttempts": 0
+      },
+      {
+        "id": 13,
+        "txId": null,
+        "status": "SETTLED_NO_TRANSFER",
+        "ts": 1789218692,
+        "root": "3be6b417576051ae38b665799352377f90d4e26e6a54150adf748268d19c0574",
+        "memo": "carpool:batch:13:3be6b417",
+        "reconcileAttempts": 0
+      },
+      {
+        "id": 12,
+        "txId": "0.0.10475802@1789218547.837417951",
+        "status": "SUCCESS",
+        "ts": 1789218555,
+        "root": "419289cb1888104ff6988217faeb7354e33482363cadc4ba572f41af377c7bb5",
+        "memo": "carpool:batch:12:419289cb",
+        "reconcileAttempts": 0
+      },
+      {
+        "id": 11,
+        "txId": "0.0.10475802@1789218509.187652493",
+        "status": "FAILED:TOKEN_NOT_ASSOCIATED_TO_ACCOUNT",
+        "ts": 1789218517,
+        "root": "419289cb1888104ff6988217faeb7354e33482363cadc4ba572f41af377c7bb5",
+        "memo": "carpool:batch:11:419289cb",
+        "reconcileAttempts": 0
+      },
+      {
+        "id": 10,
+        "txId": "0.0.10475802@1789218507.690291326",
+        "status": "FAILED:TOKEN_NOT_ASSOCIATED_TO_ACCOUNT",
+        "ts": 1789218511,
+        "root": "419289cb1888104ff6988217faeb7354e33482363cadc4ba572f41af377c7bb5",
+        "memo": "carpool:batch:10:419289cb",
+        "reconcileAttempts": 0
+      },
+      {
+        "id": 9,
+        "txId": "0.0.10475802@1789218501.319991321",
+        "status": "FAILED:TOKEN_NOT_ASSOCIATED_TO_ACCOUNT",
+        "ts": 1789218505,
+        "root": "419289cb1888104ff6988217faeb7354e33482363cadc4ba572f41af377c7bb5",
+        "memo": "carpool:batch:9:419289cb",
+        "reconcileAttempts": 0
+      },
+      {
+        "id": 8,
+        "txId": "0.0.10475802@1789218494.329890864",
+        "status": "FAILED:TOKEN_NOT_ASSOCIATED_TO_ACCOUNT",
+        "ts": 1789218500,
+        "root": "419289cb1888104ff6988217faeb7354e33482363cadc4ba572f41af377c7bb5",
+        "memo": "carpool:batch:8:419289cb",
+        "reconcileAttempts": 0
+      },
+      {
+        "id": 7,
+        "txId": "0.0.10475802@1789218489.857726003",
+        "status": "FAILED:TOKEN_NOT_ASSOCIATED_TO_ACCOUNT",
+        "ts": 1789218495,
+        "root": "419289cb1888104ff6988217faeb7354e33482363cadc4ba572f41af377c7bb5",
+        "memo": "carpool:batch:7:419289cb",
+        "reconcileAttempts": 0
+      },
+      {
+        "id": 6,
+        "txId": null,
+        "status": "SETTLED_NO_TRANSFER",
+        "ts": 1789205414,
+        "root": "3be6b417576051ae38b665799352377f90d4e26e6a54150adf748268d19c0574",
+        "memo": "carpool:batch:6:3be6b417",
+        "reconcileAttempts": 0
+      },
+      {
+        "id": 5,
+        "txId": "0.0.10475802@1789205389.908342330",
+        "status": "SUCCESS",
+        "ts": 1789205395,
+        "root": "83d46559467b08e03383a8705abe28d598519730801bd3d7935e6a7d7f9054fc",
+        "memo": "carpool:batch:5:83d46559",
+        "reconcileAttempts": 0
+      },
+      {
+        "id": 4,
+        "txId": "0.0.10475802@1789205157.179586999",
+        "status": "SUCCESS",
+        "ts": 1789205162,
+        "root": "53fc91d7dca57c2d41a8ffbdc46c2e9bd3670de01a52ddab897cd3424b67ba8c",
+        "memo": "carpool:batch:4:53fc91d7",
+        "reconcileAttempts": 0
+      },
+      {
+        "id": 3,
+        "txId": "0.0.10475802@1789204990.217343218",
+        "status": "SUCCESS",
+        "ts": 1789204994,
+        "root": "59ca87282486b3f48b88dd73fcae7f4ee050e0cdeff35f61decbbb0762e93994",
+        "memo": "carpool:batch:3:59ca8728",
+        "reconcileAttempts": 0
+      },
+      {
+        "id": 2,
+        "txId": "0.0.10475802@1789204986.055709931",
+        "status": "SUCCESS",
+        "ts": 1789204993,
+        "root": "61f63c8638e04cfb6a3b47ad18fa4c4a43c7240a624d82800eff47ebd6c40a21",
+        "memo": "carpool:batch:2:61f63c86",
+        "reconcileAttempts": 0
+      },
+      {
+        "id": 1,
+        "txId": null,
+        "status": "SETTLED_NO_TRANSFER",
+        "ts": 1789204740,
+        "root": "3be6b417576051ae38b665799352377f90d4e26e6a54150adf748268d19c0574",
+        "memo": "carpool:batch:1:3be6b417",
+        "reconcileAttempts": 0
+      }
+    ],
+    "needsOperator": []
+  },
+  "payoutsAfter": {
+    "payouts": [
+      {
+        "id": 43,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "20",
+        "availableAt": 1789219237,
+        "voidedAt": null,
+        "settledBatchId": 15,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 42,
+        "payee": "0.0.10497449",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "20",
+        "availableAt": 1789219357,
+        "voidedAt": null,
+        "settledBatchId": 16,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 41,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "19",
+        "availableAt": 1789218692,
+        "voidedAt": null,
+        "settledBatchId": 13,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 40,
+        "payee": "0.0.10497448",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "19",
+        "availableAt": 1789218812,
+        "voidedAt": null,
+        "settledBatchId": 14,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 39,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "18",
+        "availableAt": 1789205414,
+        "voidedAt": null,
+        "settledBatchId": 6,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 38,
+        "payee": "0.0.10497457",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "18",
+        "availableAt": 1789205534,
+        "voidedAt": null,
+        "settledBatchId": 12,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 37,
+        "payee": "0.0.10497426",
+        "amount": 2500,
+        "reason": "refund",
+        "ref": "17",
+        "availableAt": 1789205362,
+        "voidedAt": null,
+        "settledBatchId": 5,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 36,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "17",
+        "availableAt": 1789205360,
+        "voidedAt": null,
+        "settledBatchId": 5,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 35,
+        "payee": "0.0.10497456",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "17",
+        "availableAt": 1789205480,
+        "voidedAt": 1789205362,
+        "settledBatchId": null,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "voided"
+      },
+      {
+        "id": 34,
+        "payee": "0.0.10497426",
+        "amount": 2500,
+        "reason": "refund",
+        "ref": "16",
+        "availableAt": 1789205148,
+        "voidedAt": null,
+        "settledBatchId": 4,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 33,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "16",
+        "availableAt": 1789205148,
+        "voidedAt": null,
+        "settledBatchId": 4,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 32,
+        "payee": "0.0.10497443",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "16",
+        "availableAt": 1789205268,
+        "voidedAt": 1789205148,
+        "settledBatchId": null,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "voided"
+      },
+      {
+        "id": 31,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "15",
+        "availableAt": 1789205136,
+        "voidedAt": null,
+        "settledBatchId": 4,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 30,
+        "payee": "0.0.10497443",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "15",
+        "availableAt": 1789205256,
+        "voidedAt": null,
+        "settledBatchId": 5,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 29,
+        "payee": "0.0.10497426",
+        "amount": 2500,
+        "reason": "refund",
+        "ref": "14",
+        "availableAt": 1789205038,
+        "voidedAt": null,
+        "settledBatchId": 4,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 28,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "14",
+        "availableAt": 1789205037,
+        "voidedAt": null,
+        "settledBatchId": 4,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 27,
+        "payee": "0.0.10497443",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "14",
+        "availableAt": 1789205157,
+        "voidedAt": 1789205038,
+        "settledBatchId": null,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "voided"
+      },
+      {
+        "id": 26,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "13",
+        "availableAt": 1789204852,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 25,
+        "payee": "0.0.10497441",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "13",
+        "availableAt": 1789204972,
+        "voidedAt": null,
+        "settledBatchId": 3,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 24,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "12",
+        "availableAt": 1789204847,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 23,
+        "payee": "0.0.10497440",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "12",
+        "availableAt": 1789204967,
+        "voidedAt": null,
+        "settledBatchId": 3,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 22,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "11",
+        "availableAt": 1789204843,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 21,
+        "payee": "0.0.10497439",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "11",
+        "availableAt": 1789204963,
+        "voidedAt": null,
+        "settledBatchId": 3,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 20,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "10",
+        "availableAt": 1789204837,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 19,
+        "payee": "0.0.10497437",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "10",
+        "availableAt": 1789204957,
+        "voidedAt": null,
+        "settledBatchId": 3,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 18,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "9",
+        "availableAt": 1789204831,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 17,
+        "payee": "0.0.10497436",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "9",
+        "availableAt": 1789204951,
+        "voidedAt": null,
+        "settledBatchId": 3,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 16,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "8",
+        "availableAt": 1789204826,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 15,
+        "payee": "0.0.10497435",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "8",
+        "availableAt": 1789204946,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 14,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "7",
+        "availableAt": 1789204823,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 13,
+        "payee": "0.0.10497434",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "7",
+        "availableAt": 1789204943,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 12,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "6",
+        "availableAt": 1789204819,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 11,
+        "payee": "0.0.10497433",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "6",
+        "availableAt": 1789204939,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 10,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "5",
+        "availableAt": 1789204814,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 9,
+        "payee": "0.0.10497431",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "5",
+        "availableAt": 1789204934,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 8,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "4",
+        "availableAt": 1789204810,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 7,
+        "payee": "0.0.10497430",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "4",
+        "availableAt": 1789204930,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 6,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "3",
+        "availableAt": 1789204801,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 5,
+        "payee": "0.0.10497428",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "3",
+        "availableAt": 1789204921,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 4,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "2",
+        "availableAt": 1789204796,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 3,
+        "payee": "0.0.10497427",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "2",
+        "availableAt": 1789204916,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 2,
+        "payee": "0.0.10475802",
+        "amount": 500,
+        "reason": "tracker_fee",
+        "ref": "1",
+        "availableAt": 1789204714,
+        "voidedAt": null,
+        "settledBatchId": 1,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      },
+      {
+        "id": 1,
+        "payee": "0.0.10497446",
+        "amount": 2500,
+        "reason": "author_royalty",
+        "ref": "1",
+        "availableAt": 1789204834,
+        "voidedAt": null,
+        "settledBatchId": 2,
+        "attempts": 0,
+        "parkedAt": null,
+        "state": "settled"
+      }
+    ],
+    "parked": []
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "_what": "apps/mcp/hooks/pre-publish.mjs executed as Claude Code executes it: the JSON hook payload on stdin, the decision envelope on stdout. This is the real hook, loading the real dist/consent.js \u2014 not decideConsent() called in a test. There is no `allow` outcome in the vocabulary, so nothing here can publish without a human answering a prompt.",
+  "hook": "apps/mcp/hooks/pre-publish.mjs",
+  "cases": [
+    {
+      "case": "subagent",
+      "env": {},
+      "stdin": "{\"tool_name\": \"mcp__carpool__carpool_publish\", \"agent_id\": \"agent_017x\", \"permission_mode\": \"default\"}",
+      "exitCode": 0,
+      "stdout": {
+        "hookSpecificOutput": {
+          "hookEventName": "PreToolUse",
+          "permissionDecision": "deny",
+          "permissionDecisionReason": "carpool_publish is not available to subagents. Publishing is irreversible and needs a human in an interactive session; a subagent cannot be one."
+        }
+      },
+      "stderr": ""
+    },
+    {
+      "case": "bypassPermissions",
+      "env": {},
+      "stdin": "{\"tool_name\": \"mcp__carpool__carpool_publish\", \"permission_mode\": \"bypassPermissions\"}",
+      "exitCode": 0,
+      "stdout": {
+        "hookSpecificOutput": {
+          "hookEventName": "PreToolUse",
+          "permissionDecision": "deny",
+          "permissionDecisionReason": "carpool_publish is not available in permission mode \"bypassPermissions\", which does not prompt. Publishing cannot be auto-approved."
+        }
+      },
+      "stderr": ""
+    },
+    {
+      "case": "acceptEdits",
+      "env": {},
+      "stdin": "{\"tool_name\": \"mcp__carpool__carpool_publish\", \"permission_mode\": \"acceptEdits\"}",
+      "exitCode": 0,
+      "stdout": {
+        "hookSpecificOutput": {
+          "hookEventName": "PreToolUse",
+          "permissionDecision": "deny",
+          "permissionDecisionReason": "carpool_publish is not available in permission mode \"acceptEdits\", which does not prompt. Publishing cannot be auto-approved."
+        }
+      },
+      "stderr": ""
+    },
+    {
+      "case": "mode=off",
+      "env": {
+        "CARPOOL_PUBLISH_MODE": "off"
+      },
+      "stdin": "{\"tool_name\": \"mcp__carpool__carpool_publish\", \"permission_mode\": \"default\"}",
+      "exitCode": 0,
+      "stdout": {
+        "hookSpecificOutput": {
+          "hookEventName": "PreToolUse",
+          "permissionDecision": "deny",
+          "permissionDecisionReason": "Publishing is turned off here (CARPOOL_PUBLISH_MODE=off)."
+        }
+      },
+      "stderr": ""
+    },
+    {
+      "case": "mode=typo",
+      "env": {
+        "CARPOOL_PUBLISH_MODE": "asks"
+      },
+      "stdin": "{\"tool_name\": \"mcp__carpool__carpool_publish\", \"permission_mode\": \"default\"}",
+      "exitCode": 0,
+      "stdout": {
+        "hookSpecificOutput": {
+          "hookEventName": "PreToolUse",
+          "permissionDecision": "deny",
+          "permissionDecisionReason": "CARPOOL_PUBLISH_MODE is set to \"asks\", which is not one of ask | off. Refusing rather than guessing at an irreversible action."
+        }
+      },
+      "stderr": ""
+    },
+    {
+      "case": "interactive default",
+      "env": {},
+      "stdin": "{\"tool_name\": \"mcp__carpool__carpool_publish\", \"permission_mode\": \"default\"}",
+      "exitCode": 0,
+      "stdout": {
+        "hookSpecificOutput": {
+          "hookEventName": "PreToolUse",
+          "permissionDecision": "ask",
+          "permissionDecisionReason": "Publishing puts this research on sale. It cannot be recalled once bought \u2014 delisting stops new sales but copies already paid for stay with their buyers. Review the question, sources and stripped items before approving."
+        }
+      },
+      "stderr": ""
+    },
+    {
+      "case": "unparseable input",
+      "env": {},
+      "stdin": "not json at all",
+      "exitCode": 0,
+      "stdout": {
+        "hookSpecificOutput": {
+          "hookEventName": "PreToolUse",
+          "permissionDecision": "deny",
+          "permissionDecisionReason": "carpool publish hook could not read its input; refusing rather than guessing."
+        }
+      },
+      "stderr": ""
+    }
+  ]
+}

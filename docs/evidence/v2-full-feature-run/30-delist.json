@@ -1,0 +1,56 @@
+{
+  "magnet": "swarm:43554714cad9463da1d9053958bb6584ab2aeb35c536e3a2f0941bd2016eb341",
+  "purchase": {
+    "txId": "0.0.7162784@1789205351.254711442",
+    "paid": 3000
+  },
+  "searchHitBefore": 1,
+  "delistResponse": {
+    "ok": true,
+    "magnet": "swarm:43554714cad9463da1d9053958bb6584ab2aeb35c536e3a2f0941bd2016eb341",
+    "delistedAt": 1789205360,
+    "alreadyDelisted": false,
+    "note": "New sales are stopped. Purchases still inside their refund window remain refundable, royalties already accrued will still be paid, and a buyer who already paid keeps their copy — that cannot be recalled. This is final for this magnet: republishing the same manifest does not relist it."
+  },
+  "idempotentRetry": {
+    "ok": true,
+    "magnet": "swarm:43554714cad9463da1d9053958bb6584ab2aeb35c536e3a2f0941bd2016eb341",
+    "delistedAt": 1789205360,
+    "alreadyDelisted": true,
+    "note": "New sales are stopped. Purchases still inside their refund window remain refundable, royalties already accrued will still be paid, and a buyer who already paid keeps their copy — that cannot be recalled. This is final for this magnet: republishing the same manifest does not relist it."
+  },
+  "manifestAfter": {
+    "status": 410,
+    "body": {
+      "error": "artifact swarm:43554714cad9463da1d9053958bb6584ab2aeb35c536e3a2f0941bd2016eb341 is delisted or expired"
+    }
+  },
+  "artifactAfter": {
+    "status": 410,
+    "body": {
+      "error": "no longer available"
+    }
+  },
+  "searchHitAfter": 0,
+  "browseIncludes": false,
+  "refundAfterDelist": {
+    "status": 200,
+    "body": {
+      "ok": true
+    }
+  },
+  "statePurchase": {
+    "id": 17,
+    "magnet": "swarm:43554714cad9463da1d9053958bb6584ab2aeb35c536e3a2f0941bd2016eb341",
+    "buyer": "0.0.10497426",
+    "txId": "0.0.7162784@1789205351.254711442",
+    "paid": 3000,
+    "ts": 1789205360,
+    "refundState": "refunded",
+    "refundDeadline": 1789205480,
+    "refundedAt": 1789205362,
+    "authorRoyaltyPayoutId": 35,
+    "trackerFeePayoutId": 36
+  },
+  "stateArtifact": null
+}

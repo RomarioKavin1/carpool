@@ -1,0 +1,23 @@
+{
+  "_what": "POST /settle issued while the only claimable payout was the registry's own tracker_fee row (payee == batch payer) and the smoke purchase's royalty was still inside its 120 s refund window. This is the SETTLED_NO_TRANSFER path: settleChunk nets a self-transfer out of the transfer list, submits nothing, spends no fee, and discharges the payout — batch.txId stays NULL because there is no transaction to look up.",
+  "payoutsBeforeSettle": {
+    "payouts": [
+      { "id": 2, "payee": "0.0.10475802", "amount": 500, "reason": "tracker_fee", "ref": "1", "availableAt": 1789204714, "voidedAt": null, "settledBatchId": null, "attempts": 0, "parkedAt": null, "state": "claimable" },
+      { "id": 1, "payee": "0.0.10497446", "amount": 2500, "reason": "author_royalty", "ref": "1", "availableAt": 1789204834, "voidedAt": null, "settledBatchId": null, "attempts": 0, "parkedAt": null, "state": "held" }
+    ],
+    "parked": []
+  },
+  "settleResponse": {
+    "batches": [ { "id": 1, "txId": "", "payees": 1, "total": 500, "moved": 0, "leaves": [ [ "0.0.10475802", 500 ] ] } ],
+    "anchor": {
+      "anchored": true,
+      "root": "316db9eeab19a7b60ddf7ff5fdf7bd9be264c01a01e80296a012ae465305d517",
+      "message": { "epoch": 1789204740196, "batchTxIds": [], "merkleRoot": "316db9eeab19a7b60ddf7ff5fdf7bd9be264c01a01e80296a012ae465305d517", "leafCount": 2, "artifactCount": 1, "payeeCount": 1 }
+    },
+    "replayed": { "replayed": 0, "failed": 0, "unresolvable": 0 }
+  },
+  "batchesAfterSettle": {
+    "batches": [ { "id": 1, "txId": null, "status": "SETTLED_NO_TRANSFER", "ts": 1789204740, "root": "3be6b417576051ae38b665799352377f90d4e26e6a54150adf748268d19c0574", "memo": "carpool:batch:1:3be6b417", "reconcileAttempts": 0 } ],
+    "needsOperator": []
+  }
+}

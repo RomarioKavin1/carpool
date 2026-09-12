@@ -1,0 +1,116 @@
+{
+  "balancesBefore": {
+    "0.0.10497426": 1997000,
+    "0.0.10475802": 5007502,
+    "0.0.10497427": 0,
+    "0.0.10497428": 0,
+    "0.0.10497430": 0,
+    "0.0.10497431": 0,
+    "0.0.10497433": 0,
+    "0.0.10497434": 0,
+    "0.0.10497435": 0,
+    "0.0.10497436": 0,
+    "0.0.10497437": 0,
+    "0.0.10497439": 0,
+    "0.0.10497440": 0,
+    "0.0.10497441": 0
+  },
+  "buys": [
+    {
+      "i": 0,
+      "magnet": "swarm:06bc2496bc80e7ed0ca5d0b71eafc4b4d028af7d3f3f9dc1a1c99a23812c9cf4",
+      "author": "0.0.10497427",
+      "paid": 3000,
+      "txId": "0.0.7162784@1789204777.486995813",
+      "verification": "verified"
+    },
+    {
+      "i": 1,
+      "magnet": "swarm:8e812ee3ea4d871c675821288a5204d74e0ce620e2d1b940ad211d0dae8a5b03",
+      "author": "0.0.10497428",
+      "paid": 3000,
+      "txId": "0.0.7162784@1789204791.416976482",
+      "verification": "verified"
+    },
+    {
+      "i": 2,
+      "magnet": "swarm:7203bb4aefa6048c73820b334e1b68f05e24a3a1afdd198dd4369794d308f450",
+      "author": "0.0.10497430",
+      "paid": 3000,
+      "txId": "0.0.7162784@1789204794.215683212",
+      "verification": "verified"
+    },
+    {
+      "i": 3,
+      "magnet": "swarm:3bdbdfc979f9de3f097931f0891ad78351d4b269b3018c4047d06b80ad277328",
+      "author": "0.0.10497431",
+      "paid": 3000,
+      "txId": "0.0.7162784@1789204806.978262450",
+      "verification": "verified"
+    },
+    {
+      "i": 4,
+      "magnet": "swarm:57419f6e681d8cc23657a87ee45ce73e9db87981c09037341cf50994c8027c28",
+      "author": "0.0.10497433",
+      "paid": 3000,
+      "txId": "0.0.7162784@1789204810.113638978",
+      "verification": "verified"
+    },
+    {
+      "i": 5,
+      "magnet": "swarm:e8bcc15a293991538696f9dea7c48e79574d6e0d9acb69be42bcbcf88ac7f25b",
+      "author": "0.0.10497434",
+      "paid": 3000,
+      "txId": "0.0.7162784@1789204812.033160579",
+      "verification": "verified"
+    },
+    {
+      "i": 6,
+      "magnet": "swarm:8ecf127f99444213a8a77406f2911d517d783fce9178d69303b1ad7a8db5ef1b",
+      "author": "0.0.10497435",
+      "paid": 3000,
+      "txId": "0.0.7162784@1789204817.165226142",
+      "verification": "verified"
+    },
+    {
+      "i": 7,
+      "magnet": "swarm:c588d2f2ed242fa5ebcb8ec76c9cf71e4fbab4dad2638d88d53f3c2630fef394",
+      "author": "0.0.10497436",
+      "paid": 3000,
+      "txId": "0.0.7162784@1789204821.544971257",
+      "verification": "verified"
+    },
+    {
+      "i": 8,
+      "magnet": "swarm:7d65552f97c68d1d56a16886d4469e1dcfe75447524654f03938b83043843e35",
+      "author": "0.0.10497437",
+      "paid": 3000,
+      "txId": "0.0.7162784@1789204825.137319604",
+      "verification": "verified"
+    },
+    {
+      "i": 9,
+      "magnet": "swarm:650edf909e80477825b372e30fd72a8f54838f4444b5d416daf3bbb9f2710f82",
+      "author": "0.0.10497439",
+      "paid": 3000,
+      "txId": "0.0.7162784@1789204833.069027434",
+      "verification": "verified"
+    },
+    {
+      "i": 10,
+      "magnet": "swarm:7386fa94f9572c1d4eb2d0035ba2b6efd97f1f0e042bfaf85a3e9e7d475cc897",
+      "author": "0.0.10497440",
+      "paid": 3000,
+      "txId": "0.0.7162784@1789204837.431567187",
+      "verification": "verified"
+    },
+    {
+      "i": 11,
+      "magnet": "swarm:64cfb527b4ea99260c9ad6dbc93d80b855b0b87dda6743a8727ed72cdd79ee45",
+      "author": "0.0.10497441",
+      "paid": 3000,
+      "txId": "0.0.7162784@1789204840.798944242",
+      "verification": "verified"
+    }
+  ]
+}

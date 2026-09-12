@@ -1,0 +1,228 @@
+{
+  "_what": "Two OS processes, one ledger.sqlite, one epoch, both entering Settler.settle() at the same millisecond. Only the settle_lease row is cross-process, so this is the only thing that stops the same royalty being paid twice.",
+  "payee": "0.0.10497454",
+  "synchronisedStartAt": "2026-09-12T13:29:57.899Z",
+  "processA": {
+    "tag": "A",
+    "exitCode": 0,
+    "result": {
+      "tag": "A",
+      "pid": 19118,
+      "enteredAt": 1789219797899,
+      "leftAt": 1789219797901,
+      "unsettledSeenAtEntry": [
+        {
+          "id": 48,
+          "payee": "0.0.10497454",
+          "amount": 2500,
+          "attempts": 0
+        }
+      ],
+      "settleReturned": [],
+      "consoleLines": [
+        "[warn] settle: another process holds the settlement lease; skipping this epoch. Nothing is lost — the payouts stay owed and the next epoch picks them up."
+      ],
+      "leaseAfter": {
+        "token": "settle:19119:083a5989-399a-4548-b4f1-81aeae600337",
+        "acquiredAt": 1789219797,
+        "expiresAt": 1789220097
+      }
+    },
+    "stderrTail": "settle: another process holds the settlement lease; skipping this epoch. Nothing is lost — the payouts stay owed and the next epoch picks them up.\n"
+  },
+  "processB": {
+    "tag": "B",
+    "exitCode": 0,
+    "result": {
+      "tag": "B",
+      "pid": 19119,
+      "enteredAt": 1789219797899,
+      "leftAt": 1789219799180,
+      "unsettledSeenAtEntry": [
+        {
+          "id": 48,
+          "payee": "0.0.10497454",
+          "amount": 2500,
+          "attempts": 0
+        }
+      ],
+      "settleReturned": [
+        {
+          "id": 22,
+          "txId": "0.0.10475802@1789219790.496048550",
+          "payees": 1,
+          "total": 2500,
+          "moved": 2500,
+          "leaves": [
+            [
+              "0.0.10497454",
+              2500
+            ]
+          ]
+        }
+      ],
+      "consoleLines": [],
+      "leaseAfter": null
+    },
+    "stderrTail": ""
+  },
+  "batchesBefore": [
+    {
+      "id": 21,
+      "txId": "0.0.10475802@1789219764.970551468",
+      "status": "SUCCESS",
+      "ts": 1789219768,
+      "root": "bbce3ce4beeeba3321b9591b4064345f21180d9e09f17cf6d93a21a625451d2f",
+      "memo": "carpool:batch:21:bbce3ce4",
+      "reconcileAttempts": 0
+    },
+    {
+      "id": 20,
+      "txId": null,
+      "status": "SETTLED_NO_TRANSFER",
+      "ts": 1789219670,
+      "root": "f922b0fee8c5c469f4748b1409cb98007de58921fc93463a703adf9e9780b321",
+      "memo": "carpool:batch:20:f922b0fe",
+      "reconcileAttempts": 0
+    },
+    {
+      "id": 19,
+      "txId": "0.0.10475802@1789219592.445683655",
+      "status": "SUCCESS",
+      "ts": 1789219599,
+      "root": "8bb0024ac34b69abb784059de792ec67bbe18f625dc2e2e547d13c9f8b851517",
+      "memo": "carpool:batch:19:8bb0024a",
+      "reconcileAttempts": 0
+    }
+  ],
+  "newBatches": [
+    {
+      "id": 22,
+      "txId": "0.0.10475802@1789219790.496048550",
+      "status": "SUCCESS",
+      "ts": 1789219797,
+      "root": "b70cbe6332a3e9565f0b820ba97c6312f8007a62986370a414a97fb6bdb21dd5",
+      "memo": "carpool:batch:22:b70cbe63",
+      "reconcileAttempts": 0
+    }
+  ],
+  "transfersPerNewBatchMemoOnTheMirrorNode": {
+    "carpool:batch:22:b70cbe63": [
+      {
+        "transaction_id": "0.0.10475802-1789219790-496048550",
+        "result": "SUCCESS",
+        "consensus_timestamp": "1789219798.320236104",
+        "token_transfers": [
+          {
+            "token_id": "0.0.429274",
+            "account": "0.0.10475802",
+            "amount": -2500,
+            "is_approval": false
+          },
+          {
+            "token_id": "0.0.429274",
+            "account": "0.0.10497454",
+            "amount": 2500,
+            "is_approval": false
+          }
+        ]
+      }
+    ]
+  },
+  "everyCreditToThisPayeeOnTheMirrorNode": [
+    {
+      "transaction_id": "0.0.10475802-1789219790-496048550",
+      "result": "SUCCESS",
+      "memo": "carpool:batch:22:b70cbe63",
+      "amount": 2500
+    }
+  ],
+  "payeeUsdcBalanceBefore": 0,
+  "payeeUsdcBalanceAfter": 2500,
+  "payoutsBefore": [
+    {
+      "id": 48,
+      "payee": "0.0.10497454",
+      "amount": 2500,
+      "reason": "author_royalty",
+      "ref": "23",
+      "availableAt": 1789219790,
+      "voidedAt": null,
+      "settledBatchId": null,
+      "attempts": 0,
+      "parkedAt": null,
+      "state": "claimable"
+    }
+  ],
+  "payoutsAfter": [
+    {
+      "id": 48,
+      "payee": "0.0.10497454",
+      "amount": 2500,
+      "reason": "author_royalty",
+      "ref": "23",
+      "availableAt": 1789219790,
+      "voidedAt": null,
+      "settledBatchId": 22,
+      "attempts": 0,
+      "parkedAt": null,
+      "state": "settled"
+    }
+  ],
+  "mirrorTxs": {
+    "0.0.10475802@1789219790.496048550": {
+      "transactions": [
+        {
+          "batch_key": null,
+          "bytes": null,
+          "charged_tx_fee": 68228334,
+          "consensus_timestamp": "1789219798.320236104",
+          "entity_id": null,
+          "high_volume": false,
+          "high_volume_pricing_multiplier": 0,
+          "max_fee": "100000000",
+          "max_custom_fees": [],
+          "memo_base64": "Y2FycG9vbDpiYXRjaDoyMjpiNzBjYmU2Mw==",
+          "name": "CRYPTOTRANSFER",
+          "nft_transfers": [],
+          "node": "0.0.7",
+          "nonce": 0,
+          "parent_consensus_timestamp": null,
+          "result": "SUCCESS",
+          "scheduled": false,
+          "staking_reward_transfers": [],
+          "token_transfers": [
+            {
+              "token_id": "0.0.429274",
+              "account": "0.0.10475802",
+              "amount": -2500,
+              "is_approval": false
+            },
+            {
+              "token_id": "0.0.429274",
+              "account": "0.0.10497454",
+              "amount": 2500,
+              "is_approval": false
+            }
+          ],
+          "transaction_hash": "vJuHPCnM9mK9nIw6y8VA87WUQEWYeu+5XUZR/6hlOkivS0m+JSrrtNg5fwlpZA6A",
+          "transaction_id": "0.0.10475802-1789219790-496048550",
+          "transfers": [
+            {
+              "account": "0.0.802",
+              "amount": 68228334,
+              "is_approval": false
+            },
+            {
+              "account": "0.0.10475802",
+              "amount": -68228334,
+              "is_approval": false
+            }
+          ],
+          "valid_duration_seconds": "120",
+          "valid_start_timestamp": "1789219790.496048550"
+        }
+      ]
+    }
+  }
+}

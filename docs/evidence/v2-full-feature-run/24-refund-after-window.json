@@ -1,0 +1,22 @@
+{
+  "txId": "0.0.7162784@1789205128.592553101",
+  "secondsSincePurchase": 206,
+  "refundWindowSeconds": 120,
+  "status": 409,
+  "body": {
+    "error": "refund window has closed"
+  },
+  "statePurchase": {
+    "id": 15,
+    "magnet": "swarm:363b8d3d82cf37035cc4c3ca03268be34878cbcc7986f130636959749b374912",
+    "buyer": "0.0.10497426",
+    "txId": "0.0.7162784@1789205128.592553101",
+    "paid": 3000,
+    "ts": 1789205136,
+    "refundState": "closed",
+    "refundDeadline": 1789205256,
+    "refundedAt": null,
+    "authorRoyaltyPayoutId": 30,
+    "trackerFeePayoutId": 31
+  }
+}

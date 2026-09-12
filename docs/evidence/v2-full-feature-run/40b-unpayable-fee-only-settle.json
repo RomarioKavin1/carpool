@@ -1,0 +1,34 @@
+{
+  "batches": [
+    {
+      "id": 6,
+      "txId": "",
+      "payees": 1,
+      "total": 500,
+      "moved": 0,
+      "leaves": [
+        [
+          "0.0.10475802",
+          500
+        ]
+      ]
+    }
+  ],
+  "anchor": {
+    "anchored": true,
+    "root": "cae896087e6a9cff2b6f6a2ed97286aef78363b70d1390ae8571b9a90f140f13",
+    "message": {
+      "epoch": 1789205414529,
+      "batchTxIds": [],
+      "merkleRoot": "cae896087e6a9cff2b6f6a2ed97286aef78363b70d1390ae8571b9a90f140f13",
+      "leafCount": 2,
+      "artifactCount": 1,
+      "payeeCount": 1
+    }
+  },
+  "replayed": {
+    "replayed": 0,
+    "failed": 0,
+    "unresolvable": 0
+  }
+}

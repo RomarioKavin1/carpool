@@ -1,0 +1,23 @@
+{
+  "status": 402,
+  "paymentRequiredHeader": "eyJ4NDAyVmVyc2lvbiI6MiwicmVzb3VyY2UiOnsidXJsIjoiaHR0cDovLzEyNy4wLjAuMTo4NDAzL2FydGlmYWN0L3N3YXJtJTNBYjE5ODRkMWQyODI1YWQ2MDlhYzY3YTAzM2U3ZmM5NTY5MGZhY2NiNjRhMjNiODMxYjFlZDUzMzQyNzQ1NjZjZCJ9LCJhY2NlcHRzIjpbeyJzY2hlbWUiOiJleGFjdCIsIm5ldHdvcmsiOiJoZWRlcmE6dGVzdG5ldCIsImFtb3VudCI6IjMwMDAiLCJhc3NldCI6IjAuMC40MjkyNzQiLCJwYXlUbyI6IjAuMC4xMDQ3NTgwMiIsIm1heFRpbWVvdXRTZWNvbmRzIjozMDAsImV4dHJhIjp7ImZlZVBheWVyIjoiMC4wLjcxNjI3ODQifX1dfQ==",
+  "body": {
+    "x402Version": 2,
+    "resource": {
+      "url": "http://127.0.0.1:8403/artifact/swarm%3Ab1984d1d2825ad609ac67a033e7fc95690faccb64a23b831b1ed5334274566cd"
+    },
+    "accepts": [
+      {
+        "scheme": "exact",
+        "network": "hedera:testnet",
+        "amount": "3000",
+        "asset": "0.0.429274",
+        "payTo": "0.0.10475802",
+        "maxTimeoutSeconds": 300,
+        "extra": {
+          "feePayer": "0.0.7162784"
+        }
+      }
+    ]
+  }
+}

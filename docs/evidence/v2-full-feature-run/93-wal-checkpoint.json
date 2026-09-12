@@ -1,0 +1,21 @@
+{
+  "_what": "The WAL trap from docs/RUNBOOK.md, reproduced again on this run: a backup that copies only ledger.sqlite archives a nearly empty database. Sizes in bytes.",
+  "withServerRunning": {
+    "ledger.sqlite": 1740800,
+    "ledger.sqlite-wal": 4132392
+  },
+  "afterTheServerExited": {
+    "ledger.sqlite": 1740800,
+    "ledger.sqlite-wal": 4132392
+  },
+  "afterWalCheckpointTruncate": {
+    "ledger.sqlite": 1757184,
+    "ledger.sqlite-wal": 0
+  },
+  "_midRunObservation": {
+    "_what": "Observed directly during the run (at 18:16 local, while one registry process held the database and no driver had closed a connection since): the main file was 4,096 bytes with 3,230,112 bytes of live data in the -wal. This is the RUNBOOK's trap in its severe form. It is recorded as an observation with its time rather than re-measured, because by the end of the run the driver processes had each closed their own connection and checkpointed most of it \u2014 which is why the numbers below are much less dramatic.",
+    "ledger.sqlite": 4096,
+    "ledger.sqlite-wal": 3230112
+  },
+  "_reading": "The trap is real and its severity is not constant: it is worst when a long-lived writer holds the only connection. Checkpointing before archiving is still the rule, because the operator cannot tell from the file sizes which case they are in."
+}

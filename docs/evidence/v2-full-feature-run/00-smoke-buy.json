@@ -1,0 +1,74 @@
+{
+  "ok": true,
+  "paid": 3000,
+  "txId": "0.0.7162784@1789204700.711201202",
+  "verification": {
+    "state": "verified",
+    "source": "manifest",
+    "bodyHash": "7e18945b547f0bd8c79d66d7d71766f98d15771babe42941172fbbfd240e4d66"
+  },
+  "bodyBytes": 522,
+  "latencyMs": 9006,
+  "balancesBefore": {
+    "0.0.10497426": 2000000,
+    "0.0.10475802": 5004502
+  },
+  "balancesAfter": {
+    "0.0.10497426": 1997000,
+    "0.0.10475802": 5007502
+  },
+  "mirror": {
+    "transactions": [
+      {
+        "batch_key": null,
+        "bytes": null,
+        "charged_tx_fee": 1475816,
+        "consensus_timestamp": "1789204713.851242368",
+        "entity_id": null,
+        "high_volume": false,
+        "high_volume_pricing_multiplier": 0,
+        "max_fee": "100000000",
+        "max_custom_fees": [],
+        "memo_base64": "",
+        "name": "CRYPTOTRANSFER",
+        "nft_transfers": [],
+        "node": "0.0.3",
+        "nonce": 0,
+        "parent_consensus_timestamp": null,
+        "result": "SUCCESS",
+        "scheduled": false,
+        "staking_reward_transfers": [],
+        "token_transfers": [
+          {
+            "token_id": "0.0.429274",
+            "account": "0.0.10475802",
+            "amount": 3000,
+            "is_approval": false
+          },
+          {
+            "token_id": "0.0.429274",
+            "account": "0.0.10497426",
+            "amount": -3000,
+            "is_approval": false
+          }
+        ],
+        "transaction_hash": "isK0rSYejlKNR3A5xienSvTqQRdyXkvbB5mgcfemj/+v7vlz6nlXJ1+2vHmNSMos",
+        "transaction_id": "0.0.7162784-1789204700-711201202",
+        "transfers": [
+          {
+            "account": "0.0.802",
+            "amount": 1475816,
+            "is_approval": false
+          },
+          {
+            "account": "0.0.7162784",
+            "amount": -1475816,
+            "is_approval": false
+          }
+        ],
+        "valid_duration_seconds": "120",
+        "valid_start_timestamp": "1789204700.711201202"
+      }
+    ]
+  }
+}

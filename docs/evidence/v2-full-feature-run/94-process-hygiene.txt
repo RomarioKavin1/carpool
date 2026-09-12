@@ -1,0 +1,42 @@
+carpool v2 full-feature testnet run — process hygiene
+
+Every registry process was launched with its PID captured and killed by that PID,
+never by pattern. docs/RUNBOOK.md records why: the clean-up for v1's
+anchor-every-600-seconds incident was `pkill -f "apps/settlement/dist/server.js"`,
+which matched nothing and said nothing, because the process had been started as
+`cd apps/settlement && node dist/server.js` and its command line never contained
+the path.
+
+EPOCH_SECONDS=86400 for the whole run, so the epoch timer could not fire
+unattended. Every settlement was an explicit bounded POST /settle or a one-shot
+driver process. Nothing anchored on a timer.
+
+Registry PIDs launched, in order:
+
+  55552  server-01  killed by PID
+  66303  server-02  died under host memory pressure (SIGKILL from the host)
+  72821  server-03  died under host memory pressure
+  92621  server-04  killed by PID, deliberately, so the restart's boot
+                    reconcile() would recover the dropped-receipt batch
+   7414  server-05  killed by PID at the end of the run
+
+All five are gone. Their logs are in server-logs/; server-05.log contains the
+line this run exists partly to produce:
+
+  reconcile: batch 14 confirmed paid as 0.0.10475802-1789218820-213817468
+
+Final check, after the run:
+
+  $ ps -eo pid,etime,command | grep -E "node .*(server|registry|settle)" | grep -v grep
+  (no output — exit 1)
+
+  $ lsof -iTCP:8403 -sTCP:LISTEN
+  (no output — exit 1)
+
+  $ lsof -nP -iTCP -sTCP:LISTEN | grep -i node
+  (no output)
+
+A sibling agent's registry was listening on 8404 during this run with
+`creds: false` and `registryAccount: 0.0.9999` — no Hedera client, no topic, its
+own ledger file. It could not move money and it was not this run's. It is gone
+too.
