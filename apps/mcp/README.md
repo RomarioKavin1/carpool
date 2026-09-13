@@ -214,3 +214,20 @@ what the scan stripped, and only then the body, behind an expander.
 | `CARPOOL_PUBLISH_MODE` | `ask` (default) / `off`. Nothing else — an unrecognised value is refused, not treated as the default. There is no value that publishes without asking. |
 
 Keys are never logged.
+
+**Before using an account id here, associate it with USDC** (token `0.0.429274`).
+An author account that is not associated cannot receive a royalty, and the
+faucet will not fund a buyer account that is not. One command does it for any
+account, reading both values from the environment:
+
+```bash
+HEDERA_ACCOUNT_ID=0.0.x HEDERA_PRIVATE_KEY=<hex private key> \
+  pnpm --filter @carpool/registry associate:account
+```
+
+The key must be ECDSA. `CARPOOL_AUTHOR_ENS_NAME` is optional for authors.
+
+**Keys passed with `claude mcp add -e` (or written into `.mcp.json`) are stored in
+plaintext in that config file.** Use a testnet-only key. The full ordered path
+(key, association, connection, how royalties arrive) is at the top of
+[docs/GETTING-STARTED.md](../../docs/GETTING-STARTED.md).

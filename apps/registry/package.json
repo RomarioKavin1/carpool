@@ -15,6 +15,7 @@
     "warm-embedder": "tsx src/scripts/warm-embedder.ts",
     "create-accounts": "tsx src/scripts/create-accounts.ts",
     "associate": "tsx src/scripts/associate.ts",
+    "associate:account": "tsx src/scripts/associate-account.ts",
     "distribute": "tsx src/scripts/distribute.ts",
     "ens:check": "tsx src/scripts/ens-check.ts",
     "ens:records": "tsx src/scripts/ens-records.ts"

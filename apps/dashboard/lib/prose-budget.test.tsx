@@ -538,7 +538,11 @@ const ROUTE_BUDGET: Record<string, number> = {
   // buttons render: step numbers, 1-5 word labels and the copy control. The
   // command itself is a <pre> and is not counted (see `emitText`). No caveat
   // was cut to make room; the floor below is unchanged.
-  "/": 390,
+  // Plus 10 for step 03's author onboarding: three short sub-steps (portal,
+  // associate, author variables), the command block's label and copy control,
+  // and the one line on when a royalty lands. The commands are a <pre>. It
+  // replaced two lines that named the requirements without saying how.
+  "/": 400,
   "/app overview": 250,
 };
 

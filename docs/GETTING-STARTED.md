@@ -29,6 +29,82 @@ Nobody earns real money here. Do not read any figure below as income.
 
 ---
 
+## The short path
+
+Four steps, in this order. The sections below explain each one in depth.
+
+### 1. Get a key
+
+1. Go to [portal.hedera.com](https://portal.hedera.com) and create a
+   **testnet** account with an **ECDSA** key. Not ED25519: it fails inside the
+   x402 Hedera signer with an error that looks like a facilitator fault.
+2. Copy the account id (`0.0.x`) and the HEX encoded private key. Portal
+   accounts come with test HBAR, which pays the association fee.
+
+### 2. Associate USDC
+
+Required to be paid, and required before the faucet will send you anything.
+
+```bash
+HEDERA_ACCOUNT_ID=0.0.x HEDERA_PRIVATE_KEY=<hex private key> \
+  pnpm --filter @carpool/registry associate:account
+```
+
+- Reads the two variables from the environment only (never the repo `.env`,
+  never an argument) and never prints the key. A `0x` prefix is fine.
+- Checks the mirror node first. An associated account prints
+  `already associated with USDC 0.0.429274. Nothing to do.` and exits 0.
+- Otherwise it sends a `TokenAssociateTransaction` for `0.0.429274`, prints the
+  transaction id and status, and confirms on the mirror node.
+- Refuses clearly on an ED25519 account, a key that is not the account's, an
+  account that does not exist on testnet, or no HBAR.
+
+**Buyers only:** now, and not before, get test USDC from
+[faucet.circle.com](https://faucet.circle.com) (Hedera Testnet). It silently
+declines an unassociated account. Authors need no USDC.
+
+### 3. Connect the key to the MCP
+
+Build first (`pnpm --filter @carpool/mcp build`), then register the server with
+the variables for the direction you want. Use either block of `-e` lines, or both
+with the same key:
+
+```bash
+claude mcp add carpool \
+  -e CARPOOL_REGISTRY_URL=https://carpool-registry-production.up.railway.app \
+  -e CARPOOL_ARTIFACT_DIR=$HOME/carpool-artifacts \
+  -e CARPOOL_AUTHOR_ACCOUNT_ID=0.0.x \
+  -e CARPOOL_AUTHOR_PRIVATE_KEY=<hex private key> \
+  -e CARPOOL_BUYER_ACCOUNT_ID=0.0.x \
+  -e CARPOOL_BUYER_PRIVATE_KEY=<hex private key> \
+  -- node /abs/path/to/carpool/apps/mcp/dist/server.js
+```
+
+- `CARPOOL_AUTHOR_ENS_NAME` is optional for authors.
+- **Keys passed with `-e` are stored in plaintext in your Claude config.** Use a
+  testnet-only key that holds nothing you care about.
+- **Authors: install the consent hook** from [section 2 of Author](#2-install-the-consent-hook)
+  (the same JSON is in `apps/mcp/README.md`). Without the build it fails closed
+  and refuses every publish.
+
+### 4. How you get paid
+
+1. `carpool_publish` always asks you to confirm before anything is listed.
+2. A buyer pays via x402 to the **registry's** account, not yours. That is what
+   makes refunds possible.
+3. The sale is held for the **120 second refund window**.
+4. At the next settlement after that, the registry sends your royalty (the price
+   minus the 500 µUSDC fee) to your account as an HTS transfer.
+5. The live registry settles **every hour** (`EPOCH_SECONDS=3600`) or when the
+   operator triggers it, so a royalty can take up to an hour to arrive.
+6. Track it on the Earnings page, `/app#earnings?account=0.0.x`: held, then
+   claimable, then settled, with a HashScan link.
+
+If your account is not associated the payout fails, and after 5 attempts it is
+parked. The operator can recover it once you associate, so it is a delay, not a loss.
+
+---
+
 ## 0. Install the MCP server
 
 Both roles need this and it is the only install. Four tools arrive with it:
@@ -267,8 +343,9 @@ are doing both, one account can do both, and then the same keypair is in
    first receipt, and the faucet checks for an existing one before it sends, so
    it declines silently. No transfer, no error, no explanation.
 
-   If the account is one the registry operator scripts made, there is a command
-   for it: `pnpm --filter @carpool/registry associate`.
+   For your own account:
+   `HEDERA_ACCOUNT_ID=0.0.x HEDERA_PRIVATE_KEY=<hex private key> pnpm --filter @carpool/registry associate:account`.
+   For the registry operator's own accounts: `pnpm --filter @carpool/registry associate`.
 
 3. **Faucet:** [faucet.circle.com](https://faucet.circle.com), Hedera Testnet,
    token `0.0.429274`. Rate-limited per address per two hours.

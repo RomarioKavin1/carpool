@@ -80,6 +80,7 @@ export function JoinDesk({
       <Install />
       <FreeFirst onView={onView} />
       <Directions wellKnown={wellKnown} />
+      <KeyPath wellKnown={wellKnown} onView={onView} />
       <Traps />
       <Operator health={health} />
     </Section>
@@ -426,6 +427,177 @@ function Directions({ wellKnown }: { wellKnown: WellKnown | null }) {
           </div>
         </div>
       </Panel>
+    </Sub>
+  );
+}
+
+/* ---------------------------------------------------------------- region 4b */
+
+/**
+ * The ordered path from nothing to paid: key, association, connection, payout.
+ * Directions says which variables; this says where their values come from and
+ * what has to happen to an account before it can receive a royalty. Every
+ * command here is one that exists in the repo (`associate:account` is
+ * `apps/registry/src/scripts/associate-account.ts`) and matches
+ * `docs/GETTING-STARTED.md`'s "The short path".
+ */
+function KeyPath({ wellKnown, onView }: { wellKnown: WellKnown | null; onView: (v: View) => void }) {
+  const fee = wellKnown ? fmtUsd(wellKnown.prices.trackerFeeMicroUsdc, 4) : "the tracker";
+  const windowText = wellKnown ? `${wellKnown.refundWindowSeconds}-second` : "refund";
+  const mono = "font-mono text-ink [overflow-wrap:anywhere]";
+  const steps: { n: string; title: string; body: React.ReactNode }[] = [
+    {
+      n: "01",
+      title: "Get a key",
+      body: (
+        <>
+          <p className="measure-wide text-base text-ink-soft">
+            Create a testnet account at{" "}
+            <a
+              href="https://portal.hedera.com"
+              target="_blank"
+              rel="noreferrer"
+              className="text-wire underline decoration-plate-line underline-offset-4 hover:decoration-wire"
+            >
+              portal.hedera.com
+            </a>{" "}
+            with an <span className="text-ink">ECDSA</span> key, not ED25519.
+          </p>
+          <p className="measure-wide mt-3 text-base text-ink-soft">
+            Copy the account id (<span className={mono}>0.0.x</span>) and the hex private key. It
+            comes with test HBAR for fees.
+          </p>
+        </>
+      ),
+    },
+    {
+      n: "02",
+      title: "Associate USDC",
+      body: (
+        <>
+          <p className="measure-wide text-base text-ink-soft">
+            Required to be paid, and before the faucet will send anything. Run it from the clone.
+          </p>
+          <Command
+            label="associate any account"
+            text={
+              "HEDERA_ACCOUNT_ID=0.0.x HEDERA_PRIVATE_KEY=<hex key> \\\n" +
+              "  pnpm --filter @carpool/registry associate:account"
+            }
+          />
+          <p className="measure-wide mt-4 text-sm text-ink-soft">
+            Reads both from the environment, never prints the key, and exits cleanly if already
+            associated.
+          </p>
+          <p className="measure-wide mt-2 text-sm text-ink-soft">
+            Buying? Only now request test USDC from{" "}
+            <a
+              href="https://faucet.circle.com"
+              target="_blank"
+              rel="noreferrer"
+              className="text-wire underline decoration-plate-line underline-offset-4 hover:decoration-wire"
+            >
+              faucet.circle.com
+            </a>{" "}
+            (Hedera Testnet).
+          </p>
+        </>
+      ),
+    },
+    {
+      n: "03",
+      title: "Connect as author or buyer",
+      body: (
+        <>
+          <p className="measure-wide text-base text-ink-soft">
+            Add either pair, or both with the same key, to the{" "}
+            <span className={mono}>claude mcp add</span> above, before{" "}
+            <span className={mono}>--</span>.
+          </p>
+          <div className="grid grid-cols-[minmax(0,1fr)] gap-x-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+            <Command
+              label="as author"
+              text={"  -e CARPOOL_AUTHOR_ACCOUNT_ID=0.0.x \\\n  -e CARPOOL_AUTHOR_PRIVATE_KEY=<hex key> \\"}
+            />
+            <Command
+              label="as buyer"
+              text={"  -e CARPOOL_BUYER_ACCOUNT_ID=0.0.x \\\n  -e CARPOOL_BUYER_PRIVATE_KEY=<hex key> \\"}
+            />
+          </div>
+          <p className="measure-wide mt-4 text-sm text-ink-soft">
+            Keys passed with <span className={mono}>-e</span> sit in plaintext in your Claude
+            config. Use a testnet-only key.
+          </p>
+          <p className="measure-wide mt-2 text-sm text-ink-soft">
+            Authors: <span className={mono}>CARPOOL_AUTHOR_ENS_NAME</span> is optional, and the
+            consent hook above is required.
+          </p>
+        </>
+      ),
+    },
+    {
+      n: "04",
+      title: "Get paid",
+      body: (
+        <>
+          <ol className="measure-wide text-base text-ink-soft">
+            <li>1. Every publish asks you to confirm first.</li>
+            <li className="mt-2">
+              2. A buyer pays the registry&rsquo;s account, which holds it for the {windowText} window.
+            </li>
+            <li className="mt-2">3. The next settlement sends you the price minus the {fee} fee.</li>
+            <li className="mt-2">
+              4. The hosted registry settles hourly, so a royalty can take up to an hour.
+            </li>
+          </ol>
+          <p className="measure-wide mt-4 text-sm text-ink-soft">
+            Track it at <span className={mono}>/app#earnings?account=0.0.x</span>: held, claimable,
+            settled, with a HashScan link.
+          </p>
+          <div className="mt-5">
+            <Button variant="secondary" onClick={() => onView("earnings")}>
+              Open Earnings
+              <span aria-hidden="true">&rarr;</span>
+            </Button>
+          </div>
+          <Caveat summary="Why it waits, and what if unassociated" className="mt-4">
+            <p>
+              Paying the registry rather than you is what makes a refund possible inside the window.
+            </p>
+            <p>
+              An unassociated payout fails. After 5 attempts it is parked until the operator retries
+              it once you associate.
+            </p>
+            <p>
+              A local registry settles on its own <span className={mono}>EPOCH_SECONDS</span>, not
+              necessarily hourly.
+            </p>
+          </Caveat>
+        </>
+      ),
+    },
+  ];
+  return (
+    <Sub
+      node="54%"
+      eyebrow="From key to paid"
+      title="Get a key, associate, connect, get paid"
+      lede="The same four steps for authors and buyers."
+    >
+      <ol>
+        {steps.map((t) => (
+          <li
+            key={t.n}
+            className="hairline-b grid grid-cols-[3ch_minmax(0,1fr)] gap-x-5 py-6 last:shadow-none sm:grid-cols-[5ch_minmax(0,1fr)] sm:gap-x-10"
+          >
+            <span className="tnum pt-1 font-mono text-sm text-ink-faint">{t.n}</span>
+            <div className="min-w-0">
+              <h4 className="mb-3 text-xl font-medium text-ink">{t.title}</h4>
+              {t.body}
+            </div>
+          </li>
+        ))}
+      </ol>
     </Sub>
   );
 }

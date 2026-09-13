@@ -155,6 +155,14 @@ const INSTALL_COMMAND =
   // client happens to launch.
   '  -- node "$PWD/apps/mcp/dist/server.js"';
 
+/** Step 03's commands: the association script, then the author variables added to the install above. */
+const AUTHOR_COMMAND =
+  "HEDERA_ACCOUNT_ID=0.0.x HEDERA_PRIVATE_KEY=<hex key> \\\n" +
+  "  pnpm --filter @carpool/registry associate:account\n\n" +
+  "# add to claude mcp add, before --\n" +
+  "  -e CARPOOL_AUTHOR_ACCOUNT_ID=0.0.x \\\n" +
+  "  -e CARPOOL_AUTHOR_PRIVATE_KEY=<hex key> \\";
+
 const EVIDENCE_NOTE = `Source: ${EVIDENCE_FILES.dir}, re-checked against the mirror node by ${EVIDENCE_FILES.verifier}.`;
 
 export function Explainer() {
@@ -787,8 +795,26 @@ function GetCarpool({ register }: { register: (el: HTMLElement | null) => void }
           </li>
           <li className="hairline-b py-5">
             <Step n="03" title="Publish and earn" />
-            <p className="mt-2 pl-8 text-sm text-ink-soft">Needs a Hedera ECDSA key.</p>
-            <p className="mt-1 pl-8 text-sm text-ink-soft">Associate USDC first.</p>
+            <ol className="mt-2 pl-8 text-sm text-ink-soft">
+              <li>
+                a.{" "}
+                <a
+                  href="https://portal.hedera.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-wire underline decoration-plate-line underline-offset-4 hover:decoration-wire"
+                >
+                  portal.hedera.com
+                </a>
+                : ECDSA testnet account.
+              </li>
+              <li className="mt-1">b. Associate USDC to be paid.</li>
+              <li className="mt-1">c. Add the author variables.</li>
+            </ol>
+            <Command label="associate, then connect" text={AUTHOR_COMMAND} />
+            <p className="mt-3 text-sm text-ink-soft">
+              Royalty lands after the 2-minute refund window, at the next hourly settlement.
+            </p>
           </li>
           <li className="pt-6">
             <Link
