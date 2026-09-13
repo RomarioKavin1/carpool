@@ -74,7 +74,11 @@ if (expected.length === 0) {
 
 const turbo = spawn(
   "npx",
-  ["turbo", "run", "test", "--continue", ...args],
+  // `--log-prefix=task` because turbo drops the `<pkg>:test:` prefix when it
+  // detects GitHub Actions and wraps each task in a ::group:: block instead.
+  // Every line this script parses keys off that prefix, so on CI without it
+  // all seven packages read as "never ran" while every test had passed.
+  ["turbo", "run", "test", "--continue", "--log-prefix=task", ...args],
   { cwd: ROOT, stdio: ["inherit", "pipe", "pipe"], env: process.env },
 );
 
@@ -90,7 +94,10 @@ tee(turbo.stdout, process.stdout);
 tee(turbo.stderr, process.stderr);
 
 turbo.on("close", (code) => {
-  const lines = captured.split("\n");
+  // CI forces colour, and vitest's `Tests  234 passed (234)` then arrives with
+  // escape codes between the words and after the closing bracket. Parse the
+  // text a person would read, not the bytes.
+  const lines = captured.replace(/\x1b\[[0-9;]*[A-Za-z]/g, "").split("\n");
 
   /** package → { tests, failed, files, filesFailed, cached } */
   const results = new Map();

@@ -635,11 +635,12 @@ one.** The cause is HIP-904 automatic association: accounts are created with
 token relationship and the association fee is charged to the transaction payer,
 which is the registry, not the author.
 
-At a 2,500 µUSDC royalty and an assumed ~$0.20 per HBAR (the HBAR price is the
-one assumption in this paragraph; the tinybar figures are measured), onboarding
-one author costs the registry about **$0.135 of HBAR to deliver $0.0025 of
-USDC**: 54x the payout, and about 270x the 500 µUSDC the registry earned on that
-sale. `docs/RUNBOOK.md` said association costs $0.05 per account per token,
+Hedera prices fees in USD, so the dollar figure does not depend on the HBAR
+price: 0.674 ℏ at the $0.0749 HashScan showed on 13 Sep 2026 is about **$0.05**,
+which is exactly the documented association fee. Onboarding one author therefore
+costs the registry about **$0.05 to deliver a $0.0025 royalty**: 20x the payout,
+and about 100x the 500 µUSDC the registry earned on that sale. (An earlier draft
+assumed $0.20 per HBAR and said $0.135; that was wrong.) `docs/RUNBOOK.md` said association costs $0.05 per account per token,
 once, which is true and says nothing about *who pays* when it happens
 automatically. Nothing in the repository priced this before, because no live
 batch had ever paid a payee that had not already been funded by hand.
@@ -719,7 +720,7 @@ Grounded in items already open in the repository, not invented.
 1. **Price or move the first-payout association cost.** Either require an author
    to associate USDC themselves before their first royalty, which moves $0.05
    once to the party that benefits, or charge the first sale for it. Today the
-   registry spends about $0.135 of HBAR to deliver $0.0025 of USDC to a new
+   registry spends about $0.05 of HBAR to deliver $0.0025 of USDC to a new
    author, which is section 6.
 2. **Normalise the two transaction-id spellings**, with a test pinning both the
    `markSettled` and the `reconcile` path, and document that `txId` has one
