@@ -66,6 +66,8 @@ import {
   secondsUntilFinal,
 } from "../lib/seeding";
 import { DecayBarPanel } from "./DecayBar";
+import { EnsAuthorRecord } from "./EnsAuthor";
+import { parseEnsAuthorString } from "../lib/ens";
 import { Badge, Band, Caveat, CornerMark, KV, Mark, NoData, Out, Panel, TableScroll, Td, Term, Th } from "./primitives";
 
 export function ArtifactDetail({
@@ -542,6 +544,7 @@ function Pricing({
 function Record({ artifact, wellKnown }: { artifact: ArtifactState; wellKnown: WellKnown | null }) {
   const m = artifact.manifest;
   const author = parseAuthor(m.author);
+  const ens = parseEnsAuthorString(m.author);
   const p = m.provenance;
   const status = artifactStatus(artifact);
   return (
@@ -554,13 +557,15 @@ function Record({ artifact, wellKnown }: { artifact: ArtifactState; wellKnown: W
       <KV
         k="author"
         v={
-          author.payoutAccount ? (
+          ens ? (
+            <span className="text-xs">{ens.name}</span>
+          ) : author.payoutAccount ? (
             <Out href={acctUrl(author.payoutAccount)}>{author.payoutAccount}</Out>
           ) : (
             <span className="text-xs">{shortId(m.author, 12, 8)}</span>
           )
         }
-        title="manifest.author. The protocol treats it as opaque; this registry's convention is <account>:<publicKey>."
+        title="manifest.author. The protocol treats it as opaque; this registry reads <account>:<publicKey> or ens:<name>:<fallbackAccount>:<publicKey>."
       />
       <KV k="body" v={`${fmtBytes(m.bodyBytes)}, sha256 ${shortId(m.bodyHash, 8, 6)}`} />
       <KV k="half-life" v={`${m.decay.halfLifeDays} ${m.decay.halfLifeDays === 1 ? "day" : "days"}`} />
@@ -600,6 +605,7 @@ function Record({ artifact, wellKnown }: { artifact: ArtifactState; wellKnown: W
         }
       />
       <KV k="redacted" v={m.redacted ? "yes" : "no"} />
+      {ens ? <EnsAuthorRecord author={m.author} /> : null}
 
       <div className="mt-6 flex items-baseline justify-between gap-3">
         <h5 className="text-sm font-medium text-ink">What the author says it cost them</h5>

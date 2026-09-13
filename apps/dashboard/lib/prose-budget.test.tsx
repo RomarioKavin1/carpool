@@ -83,6 +83,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import type { ReactElement } from "react";
 import { ActivityDesk } from "../components/ActivityDesk";
 import { EarningsDesk } from "../components/EarningsDesk";
+import { EnsAuthorView } from "../components/EnsAuthor";
 import { EvidenceDesk } from "../components/EvidenceDesk";
 import { Explainer } from "../components/Explainer";
 import { FindDesk } from "../components/FindDesk";
@@ -473,6 +474,36 @@ const DESK_SURFACES: [string, () => ReactElement][] = [
   ],
   ["evidence", () => <EvidenceDesk state={state()} wellKnown={WELL_KNOWN} />],
   ["join", () => <JoinDesk wellKnown={WELL_KNOWN} health={HEALTH} onView={noop} />],
+  [
+    "ens author",
+    () => (
+      <EnsAuthorView
+        error={null}
+        identity={{
+          kind: "ens",
+          author: `ens:carpool-author.eth:0.0.1111:${"02" + "ab".repeat(32)}`,
+          name: "carpool-author.eth",
+          fallbackAccount: "0.0.1111",
+          publicKey: "02" + "ab".repeat(32),
+          binding: {
+            name: "carpool-author.eth",
+            status: "unbound",
+            checks: { key: "missing", hederaAddr: "missing", payoutSig: "missing" },
+            hederaAccount: null,
+            problems: [
+              "carpool-author.eth has no io.carpool.key text record",
+              "carpool-author.eth has no Hedera address record (coin type 3030)",
+              "carpool-author.eth has no io.carpool.payout-sig text record",
+            ],
+          },
+          payoutNow: { account: "0.0.1111", source: "fallback" },
+          profile: { description: "Writes about ENS" },
+          network: "sepolia",
+          checkedAt: Math.floor(NOW_MS / 1000),
+        }}
+      />
+    ),
+  ],
 ];
 
 const ALL_SURFACES: [string, () => ReactElement][] = [
@@ -521,6 +552,7 @@ const CAVEAT_FLOOR: Record<string, number> = {
   activity: 15,
   evidence: 900,
   join: 450,
+  "ens author": 40,
 };
 
 describe("prose budget", () => {
