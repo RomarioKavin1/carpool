@@ -1,4 +1,5 @@
 import {
+  ensAuthorString,
   floorForPrice,
   magnetOf,
   normalizeQuestion,
@@ -54,7 +55,27 @@ export async function publishArtifact(
    */
   let author: string;
   try {
-    author = `${accountId}:${publicKeyHexOf(key)}`;
+    const publicKeyHex = publicKeyHexOf(key);
+    /**
+     * `CARPOOL_AUTHOR_ENS_NAME` publishes under an ENS name instead:
+     * `"ens:<name>:<accountId>:<publicKeyHex>"` (@carpool/core ens.ts). The
+     * account stays in the string as the author-signed fallback payee; the
+     * registry pays the name's attested Hedera record instead whenever the name
+     * verifies at purchase time. See docs/ENS.md for the records to set.
+     */
+    const ensName = process.env.CARPOOL_AUTHOR_ENS_NAME?.trim();
+    if (ensName) {
+      try {
+        author = ensAuthorString(ensName, accountId, publicKeyHex);
+      } catch (e) {
+        return {
+          ok: false,
+          error: `CARPOOL_AUTHOR_ENS_NAME is not usable: ${(e as Error).message}. Unset it to publish under the account id alone.`,
+        };
+      }
+    } else {
+      author = `${accountId}:${publicKeyHex}`;
+    }
   } catch (e) {
     return {
       ok: false,
