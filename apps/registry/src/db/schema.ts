@@ -53,6 +53,11 @@ export const purchase = sqliteTable("purchase", {
   // this purchase accrued without a fragile reason/ref string match.
   authorRoyaltyPayoutId: integer("author_royalty_payout_id"),
   trackerFeePayoutId: integer("tracker_fee_payout_id"),
+  // How the author royalty's payee was chosen at purchase time, pinned with it.
+  // NULL for a Hedera author (the payee is in the author string). For an ENS
+  // author, `ens:<name>` when the name's attested Hedera record was paid, or
+  // `ens-fallback:<name>` when the author-signed fallback was (see ens.ts).
+  payoutVia: text("payout_via"),
 });
 
 /**
@@ -190,7 +195,8 @@ CREATE TABLE IF NOT EXISTS purchase (
   refund_deadline INTEGER,
   refunded_at INTEGER,
   author_royalty_payout_id INTEGER,
-  tracker_fee_payout_id INTEGER
+  tracker_fee_payout_id INTEGER,
+  payout_via TEXT
 );
 -- One settled payment opens at most one purchase row, and tx_id is the key that
 -- makes onPaid idempotent, /refund findable and a replay safe. An empty tx_id
@@ -276,6 +282,7 @@ const MIGRATIONS: { table: string; column: string; decl: string }[] = [
   { table: "owed_failure", column: "purchase_id", decl: "INTEGER" },
   { table: "owed_failure", column: "replay_attempts", decl: "INTEGER NOT NULL DEFAULT 0" },
   { table: "owed_failure", column: "last_error", decl: "TEXT" },
+  { table: "purchase", column: "payout_via", decl: "TEXT" },
 ];
 
 /**

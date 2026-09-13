@@ -1,4 +1,4 @@
-import { HederaAuthor, type AuthorIdentity } from "@carpool/core";
+import { HederaAuthor, parseEnsAuthor, type AuthorIdentity } from "@carpool/core";
 import { PublicKey } from "@hiero-ledger/sdk";
 
 /**
@@ -23,6 +23,21 @@ export function parseHederaAuthor(opaque: string): AuthorIdentity {
   const accountId = opaque.slice(0, i);
   const publicKeyHex = opaque.slice(i + 1);
   return new HederaAuthor(publicKeyHex, accountId);
+}
+
+/**
+ * Every author convention this registry accepts, in one place:
+ *
+ * - `"ens:<name>:<fallbackAccountId>:<publicKeyHex>"` is an `EnsAuthor`
+ *   (@carpool/core ens.ts). Its `payout()` is the signed fallback; the payee a
+ *   sale actually uses is decided at purchase time by `choosePayout` (ens.ts).
+ * - anything else goes to `parseHederaAuthor`, unchanged.
+ *
+ * Signature checks (`verify`) are offline for both, so publish, delist and rate
+ * never depend on an Ethereum RPC.
+ */
+export function parseAuthor(opaque: string): AuthorIdentity {
+  return parseEnsAuthor(opaque) ?? parseHederaAuthor(opaque);
 }
 
 /**

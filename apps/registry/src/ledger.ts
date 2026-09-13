@@ -11,7 +11,7 @@ import {
   type RatingSummary,
 } from "@carpool/core";
 import { REFUND_WINDOW_SECONDS } from "./config.js";
-import { parseHederaAuthor } from "./identity.js";
+import { parseAuthor } from "./identity.js";
 import { artifact, purchase, rating, peer, owedFailure, type DB } from "./db/index.js";
 
 export type ArtifactRow = typeof artifact.$inferSelect;
@@ -149,6 +149,10 @@ function stateArtifactRatings(ratings: ArtifactRatings): { ratings?: ArtifactRat
 
 function statePurchaseRated(rated: boolean): { rated?: boolean } {
   return { rated };
+}
+
+function statePurchasePayoutVia(payoutVia: string | null): { payoutVia?: string | null } {
+  return { payoutVia };
 }
 
 function stateSummaryRatingCount(ratingCount: number): { ratingCount?: number } {
@@ -712,6 +716,8 @@ export class RegistryLedger {
     txId: string;
     paid: number;
     payoutAccount: string;
+    /** See `purchase.payout_via`. Omitted (null) for a Hedera author. */
+    payoutVia?: string | null;
     refundWindowSeconds: number;
   }): { purchaseId: number } & AccrualResult {
     // The idempotency key, and therefore not optional. `purchaseByTxId`
@@ -756,6 +762,7 @@ export class RegistryLedger {
           ts: now,
           refundState: "window",
           refundDeadline,
+          payoutVia: args.payoutVia ?? null,
         })
         .run();
       const purchaseId = Number(ins.lastInsertRowid);
@@ -1267,10 +1274,16 @@ export class RegistryLedger {
           buyer: row.payer,
           txId: row.txId,
           paid: row.paid,
-          // The same resolution `onPaid` does, re-derived now rather than stored:
-          // an author who has since republished with a new payout account is paid
-          // at the account they hold today, which is the only one that can receive.
-          payoutAccount: parseHederaAuthor(art.author).payout(),
+          // Re-derived now rather than stored: an author who has since republished
+          // with a new payout account is paid at the account they hold today.
+          //
+          // For an ENS author this is the author-signed FALLBACK, not a live name
+          // resolution: replay is synchronous and runs at startup and inside the
+          // epoch, and the fallback is an account the author signed for, so a
+          // replayed sale can be paid late but never to a stranger. `payoutVia`
+          // says which happened.
+          payoutAccount: parseAuthor(art.author).payout(),
+          payoutVia: art.author.startsWith("ens:") ? `ens-fallback:${parseAuthor(art.author).display()}` : null,
           refundWindowSeconds: this.refundWindowSeconds,
         });
         this.db
@@ -1554,6 +1567,9 @@ export class RegistryLedger {
         // row and nothing else — a client that has to POST /rate and read a 409 to
         // find out is a client that rates by trial and error.
         ...statePurchaseRated(rated.has(p.id)),
+        // How the royalty's payee was chosen at purchase time: null for a Hedera
+        // author, `ens:<name>` or `ens-fallback:<name>` for an ENS one.
+        ...statePurchasePayoutVia(p.payoutVia ?? null),
       })),
       peers,
       // The window every `refundDeadline` above was computed with, so a client

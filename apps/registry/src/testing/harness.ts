@@ -93,6 +93,9 @@ export async function startRegistry(opts: HarnessOptions = {}): Promise<Registry
   process.env.CARPOOL_ACCOUNT_ID = registryAccount;
   process.env.CARPOOL_PRIVATE_KEY = "";
   process.env.HCS_TOPIC_ID = "";
+  // No Ethereum RPC from a test: an ENS author published through the harness
+  // pays its signed fallback, exactly as it would with the resolver down.
+  process.env.CARPOOL_ENS_CHAIN = "off";
   process.env.TRACKER_FEE_MICRO_USDC = String(opts.trackerFeeMicroUsdc ?? 500);
   process.env.FACILITATOR_URL = fac.url;
   process.env.MIRROR_NODE_URL = mir.url;

@@ -170,6 +170,9 @@ importers:
       express:
         specifier: ^4.21.2
         version: 4.22.2
+      viem:
+        specifier: 2.56.3
+        version: 2.56.3(typescript@5.9.3)(zod@3.25.76)
       zod:
         specifier: ^3.24.1
         version: 3.25.76

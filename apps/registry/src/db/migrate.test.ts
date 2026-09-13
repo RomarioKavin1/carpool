@@ -171,6 +171,9 @@ describe("opening a pre-rating database", () => {
       tracker_fee_payout_id: 2,
     });
     expect(payouts[0]!.amount + payouts[1]!.amount).toBe(33_000);
+    // purchase.payout_via (ENS authors) arrives by ALTER TABLE, NULL on every
+    // pre-existing sale: those were all Hedera authors.
+    expect(purchase).toHaveProperty("payout_via", null);
 
     // Then everything else that was in there.
     expect(sqlite.prepare(`SELECT magnet FROM artifact`).pluck().all()).toEqual([MAGNET]);

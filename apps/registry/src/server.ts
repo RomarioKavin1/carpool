@@ -30,9 +30,11 @@ import { RegistryLedger, rowToManifest, type ArtifactRatings } from "./ledger.js
 import { RegistrySearch, loadSearchOptions } from "./search.js";
 import { createEpochRunner, createRegistrySettler } from "./settlement.js";
 import { BodyStore } from "./store.js";
+import { assertNormalisedEnsName, choosePayout } from "./ens.js";
+import { registerEnsRoutes } from "./ens-routes.js";
 import {
   mirrorNodeKeyResolver,
-  parseHederaAuthor,
+  parseAuthor,
   verifyBuyerAction,
   verifyBuyerRefund,
   type AccountKeyResolver,
@@ -319,13 +321,25 @@ const gate = new PaymentGate({
     }
     const row = ledger.getArtifact(magnet);
     if (!row) throw new Error(`artifact ${magnet} vanished between quote and settle`);
-    const payoutAccount = parseHederaAuthor(row.author).payout();
+    // A retried onPaid for a recorded sale changes nothing, so it must not pay
+    // for an ENS read either (recordPurchase would return the prior row anyway).
+    if (ledger.purchaseByTxId(ctx.txId)) return;
+    // Resolved HERE, after settlement and immediately before the row is written,
+    // and pinned into it: for an ENS author this is the name's attested Hedera
+    // account right now, or the author-signed fallback if anything about the
+    // name fails to verify. `choosePayout` never rejects for an ENS author, so an
+    // ENS outage cannot turn a settled sale into an owed_failure. See ens.ts.
+    const payout = await choosePayout(row.author);
+    if (payout.via !== null) {
+      console.log(`registry: sale ${ctx.txId} pays ${payout.account} (${payout.via}): ${payout.reason}`);
+    }
     ledger.recordPurchase({
       magnet,
       buyer: ctx.payer,
       txId: ctx.txId,
       paid: ctx.paid,
-      payoutAccount,
+      payoutAccount: payout.account,
+      payoutVia: payout.via,
       refundWindowSeconds: REFUND_WINDOW_SECONDS,
     });
   },
@@ -515,7 +529,13 @@ app.post(
       );
     }
 
-    const authorIdentity = parseHederaAuthor(manifest.author);
+    let authorIdentity;
+    try {
+      authorIdentity = parseAuthor(manifest.author);
+      if (manifest.author.startsWith("ens:")) assertNormalisedEnsName(authorIdentity.display());
+    } catch (e) {
+      throw new HttpError(400, (e as Error).message);
+    }
     const sigOk = await authorIdentity.verify(manifestHash, parsed.authorSig);
     if (!sigOk) throw new HttpError(401, "author_sig does not verify against manifest_hash for manifest.author");
 
@@ -602,7 +622,7 @@ app.post(
     if (!row) throw new HttpError(404, `no artifact ${parsed.magnet}`);
 
     const messageHashHex = sha256(`${parsed.magnet}:delist`);
-    const signed = await parseHederaAuthor(row.author).verify(messageHashHex, parsed.authorSig);
+    const signed = await parseAuthor(row.author).verify(messageHashHex, parsed.authorSig);
     if (!signed) {
       throw new HttpError(
         401,
@@ -813,7 +833,7 @@ app.post(
     // Authenticated. Now: is this the author rating their own work?
     const art = ledger.getArtifact(p.magnet);
     if (art) {
-      const authorIdentity = parseHederaAuthor(art.author);
+      const authorIdentity = parseAuthor(art.author);
       const sameAccount = authorIdentity.payout() === p.buyer;
       const sameKey = authorIdentity.id().toLowerCase() === parsed.buyerPublicKey.trim().toLowerCase().replace(/^0x/, "");
       if (sameAccount || sameKey) {
@@ -1164,6 +1184,9 @@ app.get(
     return ledger.eventsSince(since);
   }),
 );
+
+// ENS identity reads: GET /identity and GET /ens/:name. Read-only; see ens-routes.ts.
+registerEnsRoutes(app, ledger);
 
 const PORT = cfg.port;
 
