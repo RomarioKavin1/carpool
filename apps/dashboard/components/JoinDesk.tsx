@@ -177,12 +177,12 @@ function Install() {
     >
       <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <div className="min-w-0">
-          <Command label="run from npm" text={"npx -y carpool-mcp"} />
+          <Command label="the whole setup, one command" text={"npx carpool-mcp setup"} />
           <p className="mt-5 text-sm text-ink-soft">
-            Node 20.19+. Nothing to clone or build; npx fetches it when your client starts.
+            Asks for your account, associates USDC and registers Carpool with Claude Code. Enter skips to search only.
           </p>
           <p className="mt-2 text-sm text-ink-soft">
-            Contributing? Clone the repo and build from source instead.
+            Prefer doing it by hand? The command beside it, then the variables below.
           </p>
         </div>
 
@@ -877,7 +877,7 @@ export function Command({ label, text }: { label: string; text: string }) {
           {state === "done" ? "Copied" : state === "failed" ? "Failed" : "Copy"}
         </Button>
       </div>
-      <pre className="mt-4 overflow-x-auto font-mono text-xs leading-[1.7] text-paper sm:text-sm">
+      <pre className="code-scroll mt-4 overflow-x-auto font-mono text-xs leading-[1.7] text-paper sm:text-sm">
         {text}
       </pre>
       {state === "failed" && (

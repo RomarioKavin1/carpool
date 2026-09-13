@@ -629,3 +629,9 @@ div.fx-wipe {
  * they were doing no work: the platform scrollbar is the one every reader
  * already knows.
  */
+
+/* Command blocks sit on a dark plate; the default light scrollbar track read as a white bar. */
+.code-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklch, var(--ink-lift) 55%, transparent) transparent;
+}

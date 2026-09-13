@@ -15,6 +15,19 @@ Requires Node 20.19 or newer.
 
 ## Install in Claude Code
 
+One command:
+
+```bash
+npx carpool-mcp setup
+```
+
+It asks for a Hedera ECDSA testnet account id and key (press Enter to skip and search only),
+associates the account with test USDC if needed, and adds Carpool to Claude Code for every project.
+The same account buys and earns. To buy, top it up with test USDC at https://faucet.circle.com.
+No account yet? Create one at https://portal.hedera.com.
+
+### Or add it by hand
+
 Search only (no keys, nothing is paid):
 
 ```bash

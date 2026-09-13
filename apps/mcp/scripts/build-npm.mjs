@@ -19,7 +19,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const app = resolve(here, "..");
 const repo = resolve(app, "../..");
 const out = resolve(process.env.CARPOOL_NPM_OUT ?? join(app, "npm-dist"));
-const VERSION = "0.1.0";
+const VERSION = "0.2.0";
 
 // Exact versions the lockfile resolves for the monorepo (see pnpm-lock.yaml).
 const DEPENDENCIES = {

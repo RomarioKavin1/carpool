@@ -140,25 +140,8 @@ const LANES = 6;
  */
 const PRODUCTION_REGISTRY_URL = "https://carpool-registry-production.up.railway.app";
 
-/** The published npm package: nothing to clone or build. */
-const INSTALL_COMMAND =
-  "claude mcp add carpool \\\n" +
-  `  -e CARPOOL_REGISTRY_URL=${PRODUCTION_REGISTRY_URL} \\\n` +
-  "  -- npx -y carpool-mcp";
-
-/** Step 03's commands: associate, then the author variables added to the install above. */
-/** Step 02's commands: associate USDC, then the buyer variables added to the install above. */
-const BUYER_COMMAND =
-  "HEDERA_ACCOUNT_ID=0.0.x HEDERA_PRIVATE_KEY=<hex key> \\\n" +
-  "  npx carpool-mcp associate\n\n" +
-  "# add to claude mcp add, before --\n" +
-  "  -e CARPOOL_BUYER_ACCOUNT_ID=0.0.x \\\n" +
-  "  -e CARPOOL_BUYER_PRIVATE_KEY=<hex key> \\";
-
-const AUTHOR_COMMAND =
-  "# same account works; add before --\n" +
-  "  -e CARPOOL_AUTHOR_ACCOUNT_ID=0.0.x \\\n" +
-  "  -e CARPOOL_AUTHOR_PRIVATE_KEY=<hex key> \\";
+/** One command: asks for an account, associates USDC, runs `claude mcp add`. */
+const SETUP_COMMAND = "npx carpool-mcp setup";
 
 const EVIDENCE_NOTE = `Source: ${EVIDENCE_FILES.dir}, re-checked against the mirror node by ${EVIDENCE_FILES.verifier}.`;
 
@@ -769,64 +752,67 @@ function GetCarpool({ register }: { register: (el: HTMLElement | null) => void }
         <p className="label mb-5 text-2xs text-ink-faint">Take part</p>
         <h2 className="text-deck font-semibold uppercase text-ink">
           <span className="block">Get Carpool</span>
-          <span className="block pl-[5%] text-ink-faint sm:pl-[11%]">in three steps</span>
+          <span className="block pl-[5%] text-ink-faint sm:pl-[11%]">in one command</span>
         </h2>
       </div>
 
-      <div className="mt-12 grid grid-cols-[minmax(0,1fr)] gap-x-12 gap-y-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)]">
+      <div className="mt-12 grid grid-cols-[minmax(0,1fr)] gap-x-12 gap-y-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
         <div className="beat-fx fx-rise min-w-0" style={{ "--i": 1 } as CSSProperties}>
-          <Step n="01" title="Install" />
-          <Command label="npx" text={INSTALL_COMMAND} />
-          <p className="mt-3 text-sm text-ink-soft">
+          <Command label="in your terminal" text={SETUP_COMMAND} />
+          <p className="mt-4 text-sm text-ink-soft">
+            Needs Node 20.19+.{" "}
             <a
               href="https://github.com/RomarioKavin1/carpool"
               target="_blank"
               rel="noreferrer"
               className="text-wire underline decoration-plate-line underline-offset-4 hover:decoration-wire"
             >
-              Contributors: GitHub
+              Source on GitHub
             </a>
           </p>
         </div>
 
-        <ol className="beat-fx fx-rise min-w-0 self-end" style={{ "--i": 2 } as CSSProperties}>
-          <li className="hairline-b py-5">
-            <Step n="02" title="Buy with USDC" />
+        <ol className="beat-fx fx-rise min-w-0 self-center" style={{ "--i": 2 } as CSSProperties}>
+          <li className="hairline-b pb-5">
+            <Step n="01" title="Paste an account" />
             <p className="mt-2 pl-8 text-sm text-ink-soft">
-              Search is free. To buy:{" "}
+              ID and key from{" "}
               <a
                 href="https://portal.hedera.com"
                 target="_blank"
                 rel="noreferrer"
                 className="text-wire underline decoration-plate-line underline-offset-4 hover:decoration-wire"
               >
-                testnet account
+                portal.hedera.com
               </a>
-              , associate, then{" "}
+              . Enter skips: search only.
+            </p>
+          </li>
+          <li className="hairline-b py-5">
+            <Step n="02" title="It does the rest" />
+            <p className="mt-2 pl-8 text-sm text-ink-soft">Associates USDC, adds Carpool to Claude Code.</p>
+          </li>
+          <li className="hairline-b py-5">
+            <Step n="03" title="Top up to buy" />
+            <p className="mt-2 pl-8 text-sm text-ink-soft">
+              Test USDC from{" "}
               <a
                 href="https://faucet.circle.com"
                 target="_blank"
                 rel="noreferrer"
                 className="text-wire underline decoration-plate-line underline-offset-4 hover:decoration-wire"
               >
-                test USDC
+                faucet.circle.com
               </a>
-              .
+              . Earning needs none.
             </p>
-            <Command label="associate, then connect" text={BUYER_COMMAND} />
-          </li>
-          <li className="hairline-b py-5">
-            <Step n="03" title="Publish and earn" />
-            <p className="mt-2 pl-8 text-sm text-ink-soft">Same associated account works.</p>
-            <Command label="connect" text={AUTHOR_COMMAND} />
-            <p className="mt-3 text-sm text-ink-soft">Paid after the refund window, hourly.</p>
           </li>
           <li className="pt-6">
             <Link
               href="/app#join"
               className="text-sm text-wire underline decoration-plate-line underline-offset-4 hover:decoration-wire"
             >
-              Full setup guide <span aria-hidden="true">&rarr;</span>
+              Setup guide <span aria-hidden="true">&rarr;</span>
             </Link>
           </li>
         </ol>

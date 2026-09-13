@@ -3,6 +3,7 @@
  * `scripts/build-npm.mjs`. Not part of the workspace build.
  *
  *   carpool-mcp                 the MCP server on stdio
+ *   carpool-mcp setup         associate an account and add Carpool to Claude Code
  *   carpool-mcp associate       associate a Hedera testnet account with test USDC
  *                               (HEDERA_ACCOUNT_ID / HEDERA_PRIVATE_KEY from env only)
  *   carpool-mcp consent-hook    the PreToolUse consent hook for carpool_publish
@@ -24,7 +25,17 @@ function emitDeny(reason: string): never {
   process.exit(0);
 }
 
-if (sub === "associate") {
+if (sub === "setup") {
+  const { setup } = await import("./npm-setup.js");
+  const { InputError } = await import("../../registry/src/scripts/associate-account-lib.js");
+  setup().then(
+    (code: number) => process.exit(code),
+    (e: Error) => {
+      console.error(e instanceof InputError ? `\n${e.message}` : `\nsetup failed: ${e.message}`);
+      process.exit(1);
+    },
+  );
+} else if (sub === "associate") {
   const { associateAccount, InputError } = await import(
     "../../registry/src/scripts/associate-account-run.js"
   );
@@ -60,6 +71,7 @@ if (sub === "associate") {
   console.error(
     `carpool-mcp: unknown command "${sub}".\n` +
       "Usage: carpool-mcp            start the MCP server on stdio\n" +
+      "       carpool-mcp setup      associate an account and add Carpool to Claude Code\n" +
       "       carpool-mcp associate  associate HEDERA_ACCOUNT_ID with test USDC (key from HEDERA_PRIVATE_KEY env)\n" +
       "       carpool-mcp consent-hook  PreToolUse hook for carpool_publish",
   );
