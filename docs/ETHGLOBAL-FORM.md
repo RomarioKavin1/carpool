@@ -22,6 +22,8 @@ Buyers have a two-minute refund window. The registry holds each payment for that
 
 Agents use it through an MCP server with four tools: search, fetch, publish and delist. It installs into Claude Code. Search is free and needs no account. Publishing always asks the user first, and it removes secrets and local file paths before anything is listed. Buyers can rate a purchase as worth it or not, one rating per purchase, signed by the key that paid.
 
+Authors can also publish under their own ENS name. The name's records hold their Hedera payout account and signing key, and each sale looks up where to pay at the moment it happens, so an author can move payouts to a new account without republishing anything.
+
 We measured one real case. Redoing an ETHOnline prize analysis cost at least $3.97 in tokens; buying the same document cost $0.44. We also ran every payment path on Hedera testnet: refunds, a 13-author payout split across two transactions, recovering a batch whose receipt was lost, and two settlement processes hitting the same batch at once, which still produced a single transfer.
 
 ## How it's made
@@ -35,6 +37,8 @@ Hedera: settlement uses @hiero-ledger/sdk. Payouts go out as HTS token transfers
 Registry: Express with SQLite through better-sqlite3, sqlite-vec for the vector index, and MiniLM embeddings running locally through transformers.js. A lease row in SQLite stops two processes from settling the same batch twice. We found that bug in a simulation, where it paid one author twice, and then confirmed the fix on testnet.
 
 MCP server: built on the official SDK. A Claude Code PreToolUse hook blocks publishing unless a person confirms it.
+
+ENS: an author can publish as `name.eth` on the ENSv2 beta on Sepolia. Reads go through viem's Universal Resolver. The registry trusts the name only when three records agree (Hedera address, coin type 3030; the signing key; and a signature from that key over the name and account), then reads the payout account at purchase time and records how it paid. If ENS is slow or the records don't match, the sale still goes through and pays the backup account the author signed into the listing.
 
 Things we ran into:
 - Circle's faucet quietly refuses any account that hasn't associated the token yet, and automatic association doesn't count.
@@ -91,3 +95,47 @@ Things that cost us time, roughly in order of how long:
 6. The result code list doesn't say which failures are guaranteed to have moved no value. We had to decide that code by code before we could safely retry a failed payout.
 
 What worked well: fees were small and predictable ($0.001 for a payout transfer), HCS worked on the first try, and Blocky402 settled every payment we sent it.
+
+---
+
+# ENS prize: Best Use of ENSv2
+
+## Why are you eligible for this prize?
+
+Carpool uses ENSv2 names as author identity for research sold on Hedera. It runs on the ENSv2 beta on Sepolia and is not hard-coded: any name whose owner sets three records works.
+
+An author publishes as `name.eth`. The name holds:
+- the Hedera account to pay, as a multichain address record (coin type 3030)
+- `io.carpool.key`, the public key that signs the author's research
+- `io.carpool.payout-sig`, that key's signature over the name and the account
+
+The registry treats the name as verified only when all three agree. The signature is the part that matters: a public key is public, so someone who took over a name could copy it and point the address at themselves, but they can't sign for their own account.
+
+The payout account is read from ENS when each sale happens and stored with the purchase, so an author can switch accounts by editing two records without republishing. A slow resolver or mismatched records never blocks a sale; it pays the backup account the author signed into the listing. `description`, `url`, `keywords` and `com.github` show as the author's profile.
+
+Live proof, 13 Sep 2026:
+- `remotemppp.eth` registered through the ENSv2 ETHRegistrar with a PermissionedResolver: [register tx](https://sepolia.etherscan.io/tx/0xb0bc488205203fd59503ec1cb2f3d5e0fcee2476928d6393660b7f3d524273a0)
+- records set in one transaction: [records tx](https://sepolia.etherscan.io/tx/0xb16dc2219280b7c3cc0f8740e6312477e6ac105ce3909b26ae60cfc0fad7a645)
+- a real Carpool sale then paid 21,500 µUSDC to the name's Hedera account, recorded as `payoutVia: "ens:remotemppp.eth"`: [0.0.10513939@1789304240.596100921](https://hashscan.io/testnet/transaction/0.0.10513939@1789304240.596100921)
+- `docs/evidence/ensv2-live-payout/verify.mjs` re-checks the Sepolia records and the Hedera payout live, with no code from the repo
+
+What we did not use: subregistries, record or namespace aliasing, and the role-based access control. The payout account in this demo is also the author's backup account, so the Hedera transfer on its own can't show which path paid; the recorded `payoutVia` and the registry log do.
+
+## Link to the code
+
+- ENS author, Hedera address encoding, three-record check: [packages/carpool-core/src/ens.ts#L240](https://github.com/RomarioKavin1/carpool/blob/5edaf489b728647281145ad60097a87b09535506/packages/carpool-core/src/ens.ts#L240)
+- payout decision with fallback: [packages/carpool-core/src/ens.ts#L346](https://github.com/RomarioKavin1/carpool/blob/5edaf489b728647281145ad60097a87b09535506/packages/carpool-core/src/ens.ts#L346)
+- Universal Resolver reads via viem: [apps/registry/src/ens.ts#L61](https://github.com/RomarioKavin1/carpool/blob/5edaf489b728647281145ad60097a87b09535506/apps/registry/src/ens.ts#L61)
+- payout chosen at purchase time: [apps/registry/src/server.ts#L332](https://github.com/RomarioKavin1/carpool/blob/5edaf489b728647281145ad60097a87b09535506/apps/registry/src/server.ts#L332)
+- publishing under a name from the MCP server: [apps/mcp/src/publish.ts#L66](https://github.com/RomarioKavin1/carpool/blob/5edaf489b728647281145ad60097a87b09535506/apps/mcp/src/publish.ts#L66)
+- identity routes, `/identity` and `/ens/:name`: [apps/registry/src/ens-routes.ts#L11](https://github.com/RomarioKavin1/carpool/blob/5edaf489b728647281145ad60097a87b09535506/apps/registry/src/ens-routes.ts#L11)
+- design notes and sources: [docs/ENS.md](https://github.com/RomarioKavin1/carpool/blob/5edaf489b728647281145ad60097a87b09535506/docs/ENS.md)
+- live evidence and verifier: [docs/evidence/ensv2-live-payout](https://github.com/RomarioKavin1/carpool/tree/5edaf489b728647281145ad60097a87b09535506/docs/evidence/ensv2-live-payout)
+
+## Additional feedback
+
+1. Finding a name's resolver on the Sepolia beta: viem's Universal Resolver and the v2 registry agreed, which was reassuring, but it took reading contract events to confirm that reads really went through v2 and not v1.
+2. We couldn't tell whether the beta ENS App lets you set a non-EVM address such as Hedera (coin type 3030), so we set records with a direct contract call.
+3. Right after the register receipt, one `ownerOf` read returned the zero address; a few seconds later it returned the owner. A note on read-after-write timing would help.
+4. The beta charges in MockUSDC that you mint yourself. That's easy once you know, but it isn't obvious from the app.
+5. What worked well: the resolver interface is unchanged from v1, so existing viem code resolved v2 names with no changes, and ENSIP-9 plus the address-encoder test vectors made the Hedera encoding straightforward to get right.
