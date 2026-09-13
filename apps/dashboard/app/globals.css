@@ -460,7 +460,50 @@ svg .beat-fx {
   }
 }
 
+/* ---------------------------------------------------------------------------
+ * Swarm field (Particles). Squares flow toward one node: see primitives.tsx.
+ * Only transform and opacity animate, on full-size wrappers, so percentages in
+ * translate are fractions of the field and nothing is measured in JavaScript.
+ * ------------------------------------------------------------------------- */
+.swarm-p,
+.swarm-node {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+}
+.swarm-p {
+  animation-name: swarm-flow;
+  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  animation-iteration-count: infinite;
+}
+.swarm-p.swarm-decay {
+  animation-name: swarm-decay;
+}
+@keyframes swarm-flow {
+  0%   { transform: translate(-3%, var(--y0)); opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: translate(var(--xn), var(--yn)); opacity: 0; }
+}
+@keyframes swarm-decay {
+  0%   { transform: translate(-3%, var(--y0)) scale(1); opacity: 0; }
+  12%  { opacity: 1; }
+  100% { transform: translate(var(--xn), var(--y0)) scale(0.2); opacity: 0; }
+}
+.swarm-node {
+  animation: swarm-node 3.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@keyframes swarm-node {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  /* A loop shortened to 1ms flickers, so the swarm is stopped, not shortened. */
+  .swarm-p,
+  .swarm-node {
+    animation: none !important;
+  }
   .tick {
     animation: none;
   }

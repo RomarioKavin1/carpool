@@ -157,36 +157,47 @@ export function CornerMark({
 }
 
 /**
- * A particle field: small squares scattered across a region, used as a section
- * transition.
+ * A swarm field: squares flowing across a region and converging into one node,
+ * used as a section transition.
  *
- * Three properties worth stating, because each is a failure this avoids:
+ * It moves because a frozen scatter of small squares reads as a rendering
+ * glitch, not as a design. The motion is the product's one idea drawn small:
+ * many independent requests arriving at a single artifact. Each square travels
+ * left to right while its height eases toward the node's line, then fades into
+ * the node.
  *
- * 1. **Deterministic.** The positions come from a fixed linear congruential
- *    sequence evaluated once at module scope, so the server and the client draw
- *    the same field and React never reports a hydration mismatch. `Math.random()`
- *    here would be a hydration error on every load.
- * 2. **Static.** The reference drifts its particles. That is decorative motion,
- *    which the product register bans outright, so these do not move on either
- *    route — which also means there is nothing for `prefers-reduced-motion` to
- *    have to remove.
- * 3. **`trace`, not a second warm accent.** The reference's particles are its
- *    coral. `ember` is decay and nothing else here, so the field is `trace`
- *    everywhere except the one place where the particles ARE decay, which is
- *    where `tone="ember"` is used.
+ * - **Deterministic.** Positions, sizes and timings come from a fixed linear
+ *   congruential sequence at module scope, so server and client render the same
+ *   markup and hydration never mismatches.
+ * - **Compositor only.** Each square sits in a full-size wrapper and only that
+ *   wrapper's `transform` and `opacity` animate. Percentages in `translate` are
+ *   relative to the wrapper, which is the whole field, so no JavaScript measures
+ *   anything and no layout property animates.
+ * - **Reduced motion.** The animation is removed, not shortened (the global
+ *   rule shortens animations to 1ms, which would make a loop flicker). Each
+ *   square is left where it would be at its own point on the path, so the
+ *   still frame is a funnel narrowing into the node, which still reads as the
+ *   idea.
+ * - **`trace`, not a second warm accent.** `tone="ember"` exists only where the
+ *   squares are decay; that variant shrinks as it travels instead of arriving.
  */
-const PARTICLES: { x: number; y: number; s: number }[] = (() => {
+const SWARM: { y: number; s: number; d: number; lag: number }[] = (() => {
   let seed = 1337;
   const next = () => {
     seed = (seed * 1103515245 + 12345) % 2147483648;
     return seed / 2147483648;
   };
   return [...Array(44)].map(() => ({
-    x: Math.round(next() * 1000) / 10,
-    y: Math.round(next() * 1000) / 10,
+    y: Math.round(next() * 900) / 10,
     s: 2 + Math.round(next() * 4),
+    d: 14 + Math.round(next() * 100) / 10,
+    lag: next(),
   }));
 })();
+
+/** Where the node sits, as a share of the field's height and width. */
+const NODE_Y = 50;
+const NODE_X = 94;
 
 export function Particles({
   tone = "trace",
@@ -199,14 +210,39 @@ export function Particles({
 }) {
   const fill = tone === "ember" ? "bg-ember" : "bg-trace";
   return (
-    <div aria-hidden="true" className={`pointer-events-none absolute inset-0 ${className}`}>
-      {PARTICLES.slice(0, count).map((p, i) => (
+    <div aria-hidden="true" className={`swarm pointer-events-none absolute inset-0 overflow-hidden ${className}`}>
+      {SWARM.slice(0, count).map((p, i) => {
+        // Still-frame position: this square's own point along its path.
+        const t = p.lag;
+        const x = t * NODE_X;
+        const y = p.y + (NODE_Y - p.y) * t * t;
+        return (
+          <span
+            key={i}
+            className={`swarm-p ${tone === "ember" ? "swarm-decay" : ""}`}
+            style={
+              {
+                "--y0": `${p.y}%`,
+                "--yn": `${NODE_Y}%`,
+                "--xn": `${NODE_X}%`,
+                transform: `translate(${x}%, ${y}%)`,
+                animationDuration: `${p.d}s`,
+                animationDelay: `${-(p.lag * p.d).toFixed(2)}s`,
+              } as React.CSSProperties
+            }
+          >
+            <span className={`block rounded-[1px] ${fill}`} style={{ width: p.s, height: p.s }} />
+          </span>
+        );
+      })}
+      {tone === "trace" && (
         <span
-          key={i}
-          className={`absolute block rounded-[1px] ${fill}`}
-          style={{ left: `${p.x}%`, top: `${p.y}%`, width: p.s, height: p.s }}
-        />
-      ))}
+          className="swarm-node"
+          style={{ transform: `translate(${NODE_X}%, ${NODE_Y}%)` } as React.CSSProperties}
+        >
+          <span className="block h-2.5 w-2.5 rounded-[2px] bg-ink" />
+        </span>
+      )}
     </div>
   );
 }

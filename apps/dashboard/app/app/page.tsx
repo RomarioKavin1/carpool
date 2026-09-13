@@ -384,11 +384,10 @@ export default function Page() {
             </Frame>
 
             {/*
-              The transition between the masthead and the table. Static squares,
-              not drifting ones: the reference animates its particle fields and
-              decorative motion is a product-register ban, so this is the shape
-              without the movement. `trace`, never `ember`: nothing but decay is
-              allowed to be amber.
+              The transition between the masthead and the table: squares flowing
+              into one node, the product's idea drawn small. A frozen scatter
+              read as a rendering glitch. `trace`, never `ember`: nothing but
+              decay is allowed to be amber.
             */}
             <Frame className="pointer-events-none relative mt-16 h-24 sm:h-28">
               <Particles count={30} className="opacity-70" />
