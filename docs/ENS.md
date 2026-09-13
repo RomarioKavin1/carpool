@@ -6,9 +6,11 @@ at the moment of each sale, which Hedera account the royalty goes to, and the
 registry shows the name as the author only when the name and the signing key
 vouch for each other.
 
-Everything here is **read-only**. The registry holds no Ethereum key and writes to
-no Ethereum chain. The name's owner sets records in the ENS App or their own
-wallet.
+The registry is **read-only** toward Ethereum: it holds no Ethereum key and writes
+to no Ethereum chain. The name's owner sets records in the ENS App or their own
+wallet. (For the live proof below, the name was registered and its records set by
+a separate script with the owner's Sepolia wallet; no Ethereum key was ever given
+to the registry.)
 
 ## What ENSv2 is today, and what that means for this build
 
@@ -45,11 +47,12 @@ Researched on 2026-09-13 from ENS's own documentation and blog.
   vectors.
 
 **So, plainly:** the registry defaults to **Sepolia**, where ENSv2 is live in beta,
-and the one live read in this repository went through the ENSv2 hierarchy there
-(evidence below). The same code pointed at mainnet (`CARPOOL_ENS_CHAIN=mainnet`)
+and the live evidence below (a read of an existing name, then a name registered,
+verified and paid through) went through the ENSv2 hierarchy there. The same code pointed at mainnet (`CARPOOL_ENS_CHAIN=mainnet`)
 resolves **ENSv1** today, because that is what mainnet runs. Nothing here uses a
-v2-only write API; the v2-specific part is the network and the contracts the read
-traverses.
+v2-only API; the v2-specific part is the network and the contracts the read
+traverses. The registration in the evidence did use the v2 ETHRegistrar and
+PermissionedResolver, from outside the registry.
 
 ## What was built
 
@@ -197,31 +200,53 @@ Reproduce: `CARPOOL_ENS_RPC_URL=https://ethereum-sepolia-rpc.publicnode.com pnpm
 or `CARPOOL_ENS_LIVE=1` on `src/ens-live.test.ts` (skipped otherwise, so the suite
 never needs the network).
 
-**Mocked:** every `verified` outcome, rotation, and every payout case in the table
-above. They run against an in-memory `EnsRecordReader` through the real registry
-app, stub facilitator and real ledger. No name anywhere carries Carpool records or
-an HBAR address record that this work could read, and setting them needs an
-Ethereum key this work deliberately does not have.
+**Live, a verified name and an ENS-paid sale**, 2026-09-13:
+[`docs/evidence/ensv2-live-payout/`](evidence/ensv2-live-payout/README.md), re-checkable
+with `node docs/evidence/ensv2-live-payout/verify.mjs` (standard library only, no
+repository imports).
+
+- `remotemppp.eth` was registered on the ENSv2 Sepolia beta through the documented
+  ETHRegistrar (commit, 60 s minimum age, register paid in the beta's MockUSDC) with
+  a per-account PermissionedResolver deployed through VerifiableFactory.
+  `ETHRegistry.ownerOf` is the registering wallet.
+- `ens:records` produced the three Carpool records for the author key of
+  `0.0.10475801`; they and `description`, `keywords`, `url` were set in one resolver
+  multicall on the resolver the name actually uses, read back through viem's
+  Universal Resolver, and `checkEnsBinding` returned **verified**.
+- A registry on this branch, run locally against real Blocky402 and Hedera testnet,
+  sold one artifact published through the MCP path under that name. `onPaid`
+  resolved the name at purchase time and pinned `payoutVia: "ens:remotemppp.eth"`.
+  Settlement `0.0.10513939@1789304240.596100921` paid the 21,500 µUSDC royalty to
+  `0.0.10475801`, `SUCCESS` on the mirror node, anchored on HCS topic `0.0.10523441`.
+- The dashboard's ENS panel rendered the name as verified against that registry.
+
+**Still only mocked:** rotation (the name's account changing between sales), a
+takeover, resolver outage and timeout at purchase time, and every fallback case in
+the table above. They run against an in-memory `EnsRecordReader` through the real
+registry app, stub facilitator and real ledger.
 
 ## Known gaps
 
-- **No live `verified` name and no live ENS-paid sale.** Needs a Sepolia v2 name
-  whose owner sets the three records above; then one testnet purchase would show a
-  royalty paid to the name's account with `payoutVia: "ens:<name>"`.
+- **The live sale does not separate the name from the fallback by account.** The
+  name's Hedera record and the manifest's signed fallback are both `0.0.10475801`, so
+  the transfer alone looks the same either way; `payoutVia`, the registry's log line
+  and the live binding check are what show the name was used. A live rotation to a
+  different account has not been run.
+- **One name, one sale, Sepolia beta.** Nothing on mainnet, where ENSv2 is not
+  deployed.
 - **Replay pays the fallback**, never the name, because `replayOwedFailures` is
   synchronous. Late, never misdirected.
 - **Fallback is permanent per artifact.** An author who loses the fallback
   account's key relies on the name verifying at every sale.
 - **The Hedera address record's account must hold the USDC association**, like any
   payee; if not, the transfer fails and the existing parking path applies.
-- **The dashboard earnings view** looks payouts up by the account in a Hedera
-  author string; for an ENS author it has no account to ask with, so an ENS author's
-  payouts are visible through `GET /payouts?payee=` and `/state` but not yet on the
-  Earnings desk (left alone because that file is changing elsewhere).
+- **The dashboard earnings view** finds an ENS author's payouts only by the Hedera
+  account typed into its lookup; it does not group earnings under the name.
 - **No reverse direction.** ENS primary names are keyed by EVM address, and Hedera
   accounts have none to reverse, so a Hedera author is not shown as a name.
-- **Whether the ENS App's Sepolia beta exposes an HBAR address field was not
-  checked.** A wallet or contract call that writes the 20-byte value works either way.
+- **The ENS App was not used.** Records were written by a direct resolver
+  multicall; whether the App's Sepolia beta exposes an HBAR address field is still
+  unchecked.
 - **Namehash and normalisation** follow viem (ENSIP-15). A name with emoji or
   non-Latin labels was not tested live.
 - **The Sepolia v2 beta contracts may change before mainnet.** The resolution code
