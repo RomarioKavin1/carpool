@@ -147,10 +147,16 @@ const INSTALL_COMMAND =
   "  -- npx -y carpool-mcp";
 
 /** Step 03's commands: associate, then the author variables added to the install above. */
-const AUTHOR_COMMAND =
+/** Step 02's commands: associate USDC, then the buyer variables added to the install above. */
+const BUYER_COMMAND =
   "HEDERA_ACCOUNT_ID=0.0.x HEDERA_PRIVATE_KEY=<hex key> \\\n" +
   "  npx carpool-mcp associate\n\n" +
   "# add to claude mcp add, before --\n" +
+  "  -e CARPOOL_BUYER_ACCOUNT_ID=0.0.x \\\n" +
+  "  -e CARPOOL_BUYER_PRIVATE_KEY=<hex key> \\";
+
+const AUTHOR_COMMAND =
+  "# same account works; add before --\n" +
   "  -e CARPOOL_AUTHOR_ACCOUNT_ID=0.0.x \\\n" +
   "  -e CARPOOL_AUTHOR_PRIVATE_KEY=<hex key> \\";
 
@@ -214,8 +220,8 @@ export function Explainer() {
               </Readout>
               <Caveat className="mt-7">
                 <p>
-                  Both figures are floors. Four subagent transcripts were not retained, and the
-                  dollars price measured tokens below the tier actually billed.
+                  Both figures are floors. Four subagent transcripts were not retained, and the dollars price measured
+                  tokens below the tier actually billed.
                 </p>
                 <p>Six lanes is an illustration, not a count.</p>
                 <p>{NOT_SHOWN[6]}</p>
@@ -270,12 +276,12 @@ export function Explainer() {
               </Readout>
               <Caveat className="mt-7">
                 <p>
-                  Two kinds of number, printed together on purpose. One is a floor from a price
-                  list; the other is what the gate took from a real account.
+                  Two kinds of number, printed together on purpose. One is a floor from a price list; the other is what
+                  the gate took from a real account.
                 </p>
                 <p>
-                  This repository claims no wall-clock ratio. The listed price was a judgement call
-                  at a tenth of the measured redo floor.
+                  This repository claims no wall-clock ratio. The listed price was a judgement call at a tenth of the
+                  measured redo floor.
                 </p>
               </Caveat>
             </Beat>
@@ -300,10 +306,7 @@ export function Explainer() {
                 <DecayArt />
                 {/* The axis, in the app's own terms: linear in freshness, so each
                     gap is one halving and each is half the width of the last. */}
-                <div
-                  aria-hidden="true"
-                  className="relative mt-2 h-4 select-none font-mono text-2xs text-ink-soft"
-                >
+                <div aria-hidden="true" className="relative mt-2 h-4 select-none font-mono text-2xs text-ink-soft">
                   {/* Below 640px the ⅛ mark lands 43px in and this word is 38px
                       wide, so the two collide exactly where the bar is most
                       interesting. The ladder underneath names both ends anyway. */}
@@ -326,17 +329,12 @@ export function Explainer() {
               </Plate>
 
               <PriceLadder />
-              <p className="mt-7 max-w-[68ch] text-sm text-ink-soft">
-                Hatched below an eighth is expired.
-              </p>
+              <p className="mt-7 max-w-[68ch] text-sm text-ink-soft">Hatched below an eighth is expired.</p>
               <Caveat summary="Why a day" className="mt-4">
+                <p>The hatching is drawn from the day an artifact is published, not from the day it dies.</p>
                 <p>
-                  The hatching is drawn from the day an artifact is published, not from the day it
-                  dies.
-                </p>
-                <p>
-                  Research goes stale. A free substitute usually turns up within about half a day,
-                  which is why half-lives default to one.
+                  Research goes stale. A free substitute usually turns up within about half a day, which is why
+                  half-lives default to one.
                 </p>
               </Caveat>
             </Beat>
@@ -385,17 +383,26 @@ export function Explainer() {
                 <p className="label text-2xs text-ink-lift">On Hedera testnet, {SETTLED.date}</p>
                 <dl className="mt-5">
                   <DarkRow k="settlement transfer">
-                    <Out href={hashscanTx(SETTLED.settlementTxId)} className="focus-light !text-paper !decoration-ink-lift hover:!decoration-paper">
+                    <Out
+                      href={hashscanTx(SETTLED.settlementTxId)}
+                      className="focus-light !text-paper !decoration-ink-lift hover:!decoration-paper"
+                    >
                       {SETTLED.settlementTxId}
                     </Out>
                   </DarkRow>
                   <DarkRow k="x402 purchase">
-                    <Out href={hashscanTx(SETTLED.purchaseTxId)} className="focus-light !text-paper !decoration-ink-lift hover:!decoration-paper">
+                    <Out
+                      href={hashscanTx(SETTLED.purchaseTxId)}
+                      className="focus-light !text-paper !decoration-ink-lift hover:!decoration-paper"
+                    >
                       {SETTLED.purchaseTxId}
                     </Out>
                   </DarkRow>
                   <DarkRow k="author's account">
-                    <Out href={hashscanAccount(SETTLED.author)} className="focus-light !text-paper !decoration-ink-lift hover:!decoration-paper">
+                    <Out
+                      href={hashscanAccount(SETTLED.author)}
+                      className="focus-light !text-paper !decoration-ink-lift hover:!decoration-paper"
+                    >
                       {SETTLED.author}
                     </Out>
                   </DarkRow>
@@ -406,10 +413,7 @@ export function Explainer() {
                 Both are <span className="text-ink">SUCCESS</span> on the mirror node.
               </p>
               <Caveat summary="Why two transactions" className="mt-4">
-                <p>
-                  The registry holds the buyer&rsquo;s payment for two minutes so a refund can still
-                  reverse it.
-                </p>
+                <p>The registry holds the buyer&rsquo;s payment for two minutes so a refund can still reverse it.</p>
                 <p>Paying the author is therefore a second transaction, not part of the first.</p>
               </Caveat>
             </Beat>
@@ -475,14 +479,13 @@ function Hero() {
   return (
     <section className="mx-auto flex w-full max-w-[1320px] flex-1 flex-col justify-center px-5 pb-12 pt-12 sm:px-8 sm:pb-16 sm:pt-16">
       <h1 className="text-hero font-semibold uppercase text-ink">
-        <span className="hero-in block" style={{ "--i": 1 } as CSSProperties}>Research</span>
+        <span className="hero-in block" style={{ "--i": 1 } as CSSProperties}>
+          Research
+        </span>
         <span className="hero-in block pl-[4%] sm:pl-[9%]" style={{ "--i": 2 } as CSSProperties}>
           nobody should
         </span>
-        <span
-          className="hero-in block pl-[8%] text-ink-faint sm:pl-[18%]"
-          style={{ "--i": 3 } as CSSProperties}
-        >
+        <span className="hero-in block pl-[8%] text-ink-faint sm:pl-[18%]" style={{ "--i": 3 } as CSSProperties}>
           do twice
         </span>
       </h1>
@@ -501,10 +504,7 @@ function Hero() {
         >
           An agent buys the research instead of redoing it, and the author gets paid.
         </p>
-        <div
-          className="hero-in flex flex-wrap items-start gap-3 lg:justify-end"
-          style={{ "--i": 5 } as CSSProperties}
-        >
+        <div className="hero-in flex flex-wrap items-start gap-3 lg:justify-end" style={{ "--i": 5 } as CSSProperties}>
           {/* `#get` scrolls smoothly through the page's own `scroll-behavior`,
               which reduced motion already turns off. */}
           <a
@@ -553,10 +553,7 @@ function Spine({ active }: { active: number }) {
   return (
     <nav aria-label="The five steps" className="sticky top-0 hidden h-fit pt-24 lg:block">
       <ol className="relative pl-5">
-        <span
-          aria-hidden="true"
-          className="absolute left-0 top-1.5 block h-[calc(100%-0.75rem)] w-px bg-plate-line"
-        >
+        <span aria-hidden="true" className="absolute left-0 top-1.5 block h-[calc(100%-0.75rem)] w-px bg-plate-line">
           <span className="spine-fill block h-full w-px bg-trace" />
         </span>
         {BEATS.map((b, i) => (
@@ -714,7 +711,10 @@ function DarkRow({ k, children }: { k: string; children: ReactNode }) {
  * labels would collide exactly where the decay is most interesting.
  */
 function PriceLadder() {
-  const a = { priceBase: BUY.priceBaseMicroUsdc, priceFloor: BUY.priceFloorMicroUsdc };
+  const a = {
+    priceBase: BUY.priceBaseMicroUsdc,
+    priceFloor: BUY.priceFloorMicroUsdc,
+  };
   const rows = [
     { f: 1, when: "published", i: 0 },
     { f: 0.5, when: "one half-life later", i: 10 },
@@ -791,31 +791,35 @@ function GetCarpool({ register }: { register: (el: HTMLElement | null) => void }
 
         <ol className="beat-fx fx-rise min-w-0 self-end" style={{ "--i": 2 } as CSSProperties}>
           <li className="hairline-b py-5">
-            <Step n="02" title="Search free" />
-            <p className="mt-2 pl-8 text-sm text-ink-soft">No account needed.</p>
+            <Step n="02" title="Buy with USDC" />
+            <p className="mt-2 pl-8 text-sm text-ink-soft">
+              Search is free. To buy:{" "}
+              <a
+                href="https://portal.hedera.com"
+                target="_blank"
+                rel="noreferrer"
+                className="text-wire underline decoration-plate-line underline-offset-4 hover:decoration-wire"
+              >
+                testnet account
+              </a>
+              , associate, then{" "}
+              <a
+                href="https://faucet.circle.com"
+                target="_blank"
+                rel="noreferrer"
+                className="text-wire underline decoration-plate-line underline-offset-4 hover:decoration-wire"
+              >
+                test USDC
+              </a>
+              .
+            </p>
+            <Command label="associate, then connect" text={BUYER_COMMAND} />
           </li>
           <li className="hairline-b py-5">
             <Step n="03" title="Publish and earn" />
-            <ol className="mt-2 pl-8 text-sm text-ink-soft">
-              <li>
-                a.{" "}
-                <a
-                  href="https://portal.hedera.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-wire underline decoration-plate-line underline-offset-4 hover:decoration-wire"
-                >
-                  portal.hedera.com
-                </a>
-                : ECDSA testnet account.
-              </li>
-              <li className="mt-1">b. Associate USDC to be paid.</li>
-              <li className="mt-1">c. Add the author variables.</li>
-            </ol>
-            <Command label="associate, then connect" text={AUTHOR_COMMAND} />
-            <p className="mt-3 text-sm text-ink-soft">
-              Royalty lands after the 2-minute refund window, at the next hourly settlement.
-            </p>
+            <p className="mt-2 pl-8 text-sm text-ink-soft">Same associated account works.</p>
+            <Command label="connect" text={AUTHOR_COMMAND} />
+            <p className="mt-3 text-sm text-ink-soft">Paid after the refund window, hourly.</p>
           </li>
           <li className="pt-6">
             <Link
@@ -914,9 +918,7 @@ function CallToApp({ register }: { register: (el: HTMLElement | null) => void })
               <span className="block">Now watch it</span>
               <span className="block pl-[5%] text-ink-lift sm:pl-[12%]">happen for real</span>
             </h2>
-            <p className="mt-8 max-w-[52ch] text-base text-ink-lift">
-              All of it, on a running registry.
-            </p>
+            <p className="mt-8 max-w-[52ch] text-base text-ink-lift">All of it, on a running registry.</p>
             <p className="mt-4 max-w-[52ch] text-base text-ink-lift">Nothing to sign up for.</p>
           </div>
           {/*
@@ -948,8 +950,8 @@ function CallToApp({ register }: { register: (el: HTMLElement | null) => void })
       </p>
       <Caveat summary="Not live data" className="mt-4">
         <p>
-          Nothing on this page is read from a running registry. The drawings are of the mechanism,
-          not of anybody&rsquo;s data.
+          Nothing on this page is read from a running registry. The drawings are of the mechanism, not of
+          anybody&rsquo;s data.
         </p>
       </Caveat>
     </footer>

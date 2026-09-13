@@ -74,7 +74,7 @@ export function JoinDesk({
       title="There is no sign-up"
       deck={["There is no", "sign-up"]}
       node="19%"
-      lede="No account, no email, no invite. Your identity is a Hedera keypair."
+      lede="No sign-up, no email, no invite. Your identity is a Hedera keypair."
     >
       <Mechanism wellKnown={wellKnown} />
       <Install />
