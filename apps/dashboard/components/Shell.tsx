@@ -114,7 +114,7 @@ export function TopBar({
             onClick={() => onView("overview")}
             className="flex min-w-0 items-baseline gap-3 rounded-sm text-left"
           >
-            <span className="text-lg font-semibold tracking-[-0.05em] text-ink">carpool</span>
+            <span className="text-2xl font-bold leading-none tracking-[-0.06em] text-ink sm:text-3xl">carpool</span>
             <span className="hidden truncate text-sm text-ink-soft sm:inline">
               research somebody already did
             </span>
@@ -156,7 +156,7 @@ export function TopBar({
             <Link
               href="/"
               title="The mechanism in five drawings, with the measured numbers"
-              className="shrink-0 rounded-full px-3 py-1.5 text-sm text-ink-soft transition-colors duration-150 ease-out hover:bg-paper hover:text-ink"
+              className="pill-motion inline-flex shrink-0 items-center gap-2 rounded-full bg-paper px-5 py-2.5 text-sm font-medium text-ink hover:bg-plate"
             >
               How it works <span aria-hidden="true">&#8599;</span>
             </Link>
@@ -303,7 +303,7 @@ export function OverviewMasthead({
           <button
             type="button"
             onClick={() => onView("find")}
-            className="inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-lg font-medium text-paper transition-colors duration-150 ease-out hover:bg-wire active:bg-ink"
+            className="pill-motion inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-lg font-medium text-paper hover:bg-wire active:bg-ink"
           >
             Search this registry
             <span aria-hidden="true">&rarr;</span>

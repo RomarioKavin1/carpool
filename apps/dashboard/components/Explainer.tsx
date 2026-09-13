@@ -137,9 +137,13 @@ export function Explainer() {
   const redoUsd = redoCostUsd();
 
   return (
-    <div className="min-h-screen bg-field text-ink">
-      <Masthead />
-      <Hero />
+    <div className="snap-page min-h-screen bg-field text-ink">
+      {/* The opening fold: masthead and hero share one screen, so the first
+          thing a reader sees is a whole composition rather than part of one. */}
+      <div className="snap-section flex min-h-[100svh] flex-col">
+        <Masthead />
+        <Hero />
+      </div>
 
       {/* The narrative. `narrative` also names the view timeline the spine's fill
           runs on, which is the one scroll-position-driven thing here and costs no
@@ -258,12 +262,16 @@ export function Explainer() {
               decay: it opens the beat where the price starts falling. Everywhere
               else on both routes the field is `trace`.
             */}
-            <div aria-hidden="true" className="relative h-16 sm:h-20">
-              <Particles tone="ember" count={26} className="opacity-70" />
-            </div>
-
             {/* ---------------------------------------------------- beat 4 */}
-            <Beat n={3} register={register}>
+            <Beat
+              n={3}
+              register={register}
+              prelude={
+                <div aria-hidden="true" className="relative mb-8 h-16 sm:h-20">
+                  <Particles tone="ember" count={26} className="opacity-70" />
+                </div>
+              }
+            >
               <Plate>
                 <DecayArt />
                 {/* The axis, in the app's own terms: linear in freshness, so each
@@ -385,8 +393,8 @@ export function Explainer() {
         </div>
       </div>
 
-      <Limits />
-      <CallToApp />
+      <Limits register={register} />
+      <CallToApp register={register} />
     </div>
   );
 }
@@ -395,17 +403,18 @@ export function Explainer() {
 
 function Masthead() {
   return (
-    <header className="mx-auto w-full max-w-[1320px] px-5 pt-5 sm:px-8">
+    <header className="hero-in mx-auto w-full max-w-[1320px] px-5 pt-5 sm:px-8">
       <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
-        <p className="text-lg font-semibold tracking-[-0.05em] text-ink">carpool</p>
+        <p className="text-2xl font-bold leading-none tracking-[-0.06em] text-ink sm:text-3xl">carpool</p>
         {/*
-          Demoted from a filled pill to a quiet link, on purpose. The hero holds
-          the one filled control on this page; two pills saying the same thing,
-          160px apart, is two primary actions and therefore none.
+          A real button, but the SECONDARY one: a paper pill rather than ink. The
+          hero holds the one filled ink control on this page; two ink pills
+          saying the same thing, 160px apart, is two primary actions and
+          therefore none.
         */}
         <Link
           href="/app"
-          className="rounded-full px-3 py-1.5 text-sm text-ink-soft transition-colors duration-150 ease-out hover:bg-paper hover:text-ink"
+          className="pill-motion inline-flex items-center gap-2 rounded-full bg-paper px-5 py-2.5 text-sm font-medium text-ink hover:bg-plate"
         >
           Live registry <span aria-hidden="true">&rarr;</span>
         </Link>
@@ -429,11 +438,18 @@ function Masthead() {
  */
 function Hero() {
   return (
-    <section className="mx-auto w-full max-w-[1320px] px-5 pb-12 pt-12 sm:px-8 sm:pb-16 sm:pt-16">
+    <section className="mx-auto flex w-full max-w-[1320px] flex-1 flex-col justify-center px-5 pb-12 pt-12 sm:px-8 sm:pb-16 sm:pt-16">
       <h1 className="text-hero font-semibold uppercase text-ink">
-        <span className="block">Research</span>
-        <span className="block pl-[4%] sm:pl-[9%]">nobody should</span>
-        <span className="block pl-[8%] text-ink-faint sm:pl-[18%]">do twice</span>
+        <span className="hero-in block" style={{ "--i": 1 } as CSSProperties}>Research</span>
+        <span className="hero-in block pl-[4%] sm:pl-[9%]" style={{ "--i": 2 } as CSSProperties}>
+          nobody should
+        </span>
+        <span
+          className="hero-in block pl-[8%] text-ink-faint sm:pl-[18%]"
+          style={{ "--i": 3 } as CSSProperties}
+        >
+          do twice
+        </span>
       </h1>
 
       {/*
@@ -443,13 +459,20 @@ function Hero() {
         scrolling: it cost a first-time reader a decision and bought nothing.
       */}
       <div className="mt-14 grid grid-cols-[minmax(0,1fr)] gap-x-12 gap-y-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <p data-lede="" className="max-w-[54ch] text-beat-lead text-ink-soft">
+        <p
+          data-lede=""
+          className="hero-in max-w-[54ch] text-beat-lead text-ink-soft"
+          style={{ "--i": 4 } as CSSProperties}
+        >
           An agent buys the research instead of redoing it, and the author gets paid.
         </p>
-        <div className="flex flex-wrap items-start gap-3 lg:justify-end">
+        <div
+          className="hero-in flex flex-wrap items-start gap-3 lg:justify-end"
+          style={{ "--i": 5 } as CSSProperties}
+        >
           <Link
             href="/app"
-            className="inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-lg font-medium text-paper transition-colors duration-150 ease-out hover:bg-wire"
+            className="pill-motion inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-lg font-medium text-paper hover:bg-wire"
           >
             Open the live registry
             <span aria-hidden="true">&rarr;</span>
@@ -457,7 +480,11 @@ function Hero() {
         </div>
       </div>
 
-      <div aria-hidden="true" className="relative mt-10 h-16 sm:mt-12 sm:h-20">
+      <div
+        aria-hidden="true"
+        className="hero-in relative mt-10 h-16 sm:mt-12 sm:h-20"
+        style={{ "--i": 6 } as CSSProperties}
+      >
         <span className="absolute left-[6%] top-0 block h-full w-px bg-plate-line" />
         <span className="node absolute bottom-0 left-[6%] -translate-x-[2.5px]" />
         <Particles count={18} className="opacity-60" />
@@ -529,10 +556,12 @@ function Spine({ active }: { active: number }) {
 function Beat({
   n,
   register,
+  prelude,
   children,
 }: {
   n: number;
   register: (el: HTMLElement | null) => void;
+  prelude?: ReactNode;
   children: ReactNode;
 }) {
   const beat = BEATS[n]!;
@@ -541,12 +570,13 @@ function Beat({
       id={beat.id}
       ref={register}
       data-beat={n}
-      className="beat scroll-mt-6 py-12 sm:py-16"
+      className="beat snap-section flex min-h-[100svh] scroll-mt-6 flex-col justify-center py-12 sm:py-16"
     >
-      <CrossRule at={beat.node} className="mb-12" />
+      {prelude}
+      <CrossRule at={beat.node} className="beat-fx fx-wipe mb-12" />
 
       <div className="grid grid-cols-[minmax(0,1fr)] items-end gap-x-12 gap-y-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)]">
-        <div className="min-w-0">
+        <div className="beat-fx fx-rise min-w-0">
           <p className="label mb-5 text-2xs text-ink-faint">
             <span className="tnum font-mono">{String(n + 1).padStart(2, "0")}</span>{" "}
             <span className="pl-2">{beat.station}</span>
@@ -556,7 +586,11 @@ function Beat({
             <span className="block pl-[5%] text-ink-faint sm:pl-[11%]">{beat.title[1]}</span>
           </h2>
         </div>
-        <p data-lede="" className="max-w-[46ch] text-base text-ink-soft lg:pb-2">
+        <p
+          data-lede=""
+          className="beat-fx fx-rise max-w-[46ch] text-base text-ink-soft lg:pb-2"
+          style={{ "--i": 1 } as CSSProperties}
+        >
           {beat.lead}
         </p>
       </div>
@@ -680,12 +714,15 @@ function PriceLadder() {
  * one, so the two halves are visibly unequal rather than a split of the page in
  * half.
  */
-function Limits() {
+function Limits({ register }: { register: (el: HTMLElement | null) => void }) {
   const lines = [SETTLED_LIMITS[0]!, SETTLED_LIMITS[1]!, NOT_SHOWN[0]!, NOT_SHOWN[2]!];
   return (
-    <section className="mx-auto w-full max-w-[1320px] px-5 py-16 sm:px-8">
-      <CrossRule at="40%" className="mb-14" />
-      <div className="grid grid-cols-[minmax(0,1fr)] gap-x-14 gap-y-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
+    <section
+      ref={register}
+      className="beat snap-section mx-auto flex min-h-[100svh] w-full max-w-[1320px] flex-col justify-center px-5 py-16 sm:px-8"
+    >
+      <CrossRule at="40%" className="beat-fx fx-wipe mb-14" />
+      <div className="beat-fx fx-rise grid grid-cols-[minmax(0,1fr)] gap-x-14 gap-y-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
         <div className="relative min-w-0">
           <h2 className="text-deck font-semibold uppercase text-ink">
             <span className="block">What none</span>
@@ -733,14 +770,17 @@ function Limits() {
   );
 }
 
-function CallToApp() {
+function CallToApp({ register }: { register: (el: HTMLElement | null) => void }) {
   return (
-    <footer className="mx-auto w-full max-w-[1320px] px-5 pb-20 sm:px-8 sm:pb-24">
+    <footer
+      ref={register}
+      className="beat snap-section mx-auto flex min-h-[100svh] w-full max-w-[1320px] flex-col justify-center px-5 pb-20 pt-10 sm:px-8 sm:pb-24"
+    >
       <div aria-hidden="true" className="relative h-24 sm:h-28">
         <Particles count={22} className="opacity-60" />
       </div>
 
-      <Panel tone="dark" className="relative overflow-hidden px-6 py-10 sm:px-12 sm:py-14">
+      <Panel tone="dark" className="beat-fx fx-rise relative overflow-hidden px-6 py-10 sm:px-12 sm:py-14">
         <CornerMark kind="triangle" className="absolute bottom-4 left-4 fill-ink-lift" />
         <div className="grid grid-cols-[minmax(0,1fr)] items-end gap-x-12 gap-y-9 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)]">
           <div className="min-w-0">
@@ -762,7 +802,7 @@ function CallToApp() {
           <div className="flex flex-col gap-4 lg:items-end">
             <Link
               href="/app"
-              className="focus-inset inline-flex items-center gap-2 self-start rounded-full bg-paper px-5 py-2.5 text-sm font-medium text-ink transition-colors duration-150 ease-out hover:bg-plate lg:self-auto"
+              className="pill-motion focus-inset inline-flex items-center gap-2 self-start rounded-full bg-paper px-5 py-2.5 text-sm font-medium text-ink hover:bg-plate lg:self-auto"
             >
               Open the live registry
               <span aria-hidden="true">&rarr;</span>

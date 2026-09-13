@@ -461,6 +461,76 @@ svg .beat-fx {
 }
 
 /* ---------------------------------------------------------------------------
+ * Page flow on the explainer.
+ *
+ * Every landing section is at least one screen tall, and the document snaps to
+ * section starts with PROXIMITY, never mandatory: a section taller than the
+ * screen scrolls freely inside itself, and a small screen can never be trapped
+ * between two snap points. Scoped with `:has()` so `/app` keeps plain scrolling.
+ * A browser without `:has()` simply does not snap, which is the finished state.
+ * ------------------------------------------------------------------------- */
+html:has(.snap-page) {
+  scroll-snap-type: y proximity;
+}
+.snap-section {
+  scroll-snap-align: start;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.snap-page) {
+    scroll-behavior: smooth;
+  }
+}
+
+/* A horizontal rule wipes in from its own start, not from its middle. */
+div.fx-wipe {
+  transform-origin: left center;
+}
+
+/*
+ * The hero's entrance. Pure CSS, so it needs no JavaScript and cannot be left
+ * half-run by a client that never hydrates: the keyframes end on the resting
+ * frame and `backwards` fill means nothing is held once they finish. It exists
+ * only under `no-preference`, so a reader who asked for no motion never sees a
+ * start frame at all. Seven steps at 70ms over 560ms lands inside a second.
+ */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-in {
+    animation: hero-in 560ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+    animation-delay: calc(var(--i, 0) * 70ms);
+  }
+}
+
+/*
+ * Pills: a one-pixel lift on hover and a 0.98 press. Transform only, on top of
+ * the colour change every pill already had. Declared after the utilities, so it
+ * wins over `transition-colors` on the same element.
+ */
+.pill-motion {
+  transition-property: color, background-color, transform;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+}
+@media (hover: hover) {
+  .pill-motion:not(:disabled):hover {
+    transform: translateY(-1px);
+  }
+}
+.pill-motion:not(:disabled):active {
+  transform: scale(0.98);
+  transition-duration: 100ms;
+}
+
+/* ---------------------------------------------------------------------------
  * Swarm field (Particles). Squares flow toward one node: see primitives.tsx.
  * Only transform and opacity animate, on full-size wrappers, so percentages in
  * translate are fractions of the field and nothing is measured in JavaScript.
@@ -506,6 +576,13 @@ svg .beat-fx {
   }
   .tick {
     animation: none;
+  }
+  .hero-in {
+    animation: none !important;
+  }
+  .pill-motion:hover,
+  .pill-motion:active {
+    transform: none !important;
   }
   /*
    * The explainer's finished frame, asserted rather than inherited. The client

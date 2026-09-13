@@ -842,7 +842,7 @@ export function Button({
   loading?: boolean;
 }) {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition-colors duration-150 ease-out disabled:cursor-not-allowed";
+    "pill-motion inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-medium disabled:cursor-not-allowed";
   const tone = {
     primary:
       "bg-ink text-paper hover:bg-wire active:bg-ink disabled:bg-plate disabled:text-ink-faint disabled:hover:bg-plate",
