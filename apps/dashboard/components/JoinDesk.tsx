@@ -177,8 +177,8 @@ function Install() {
       <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <div className="min-w-0">
           <Command
-            label="in a clone of this repository"
-            text={"nvm use\npnpm install\npnpm --filter @carpool/mcp build"}
+            label="clone and build"
+            text={"git clone https://github.com/RomarioKavin1/carpool.git\ncd carpool\nnvm use\npnpm install\npnpm --filter @carpool/mcp build"}
           />
           <p className="mt-5 text-sm text-ink-soft">Node 20.19.0. The build step is not optional.</p>
           <Caveat summary="Why both of those matter" className="mt-3">
