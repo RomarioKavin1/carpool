@@ -15,7 +15,9 @@
     "warm-embedder": "tsx src/scripts/warm-embedder.ts",
     "create-accounts": "tsx src/scripts/create-accounts.ts",
     "associate": "tsx src/scripts/associate.ts",
-    "distribute": "tsx src/scripts/distribute.ts"
+    "distribute": "tsx src/scripts/distribute.ts",
+    "ens:check": "tsx src/scripts/ens-check.ts",
+    "ens:records": "tsx src/scripts/ens-records.ts"
   },
   "dependencies": {
     "@carpool/core": "workspace:*",

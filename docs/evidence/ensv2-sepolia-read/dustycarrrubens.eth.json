@@ -1,0 +1,30 @@
+{
+  "network": "sepolia",
+  "name": "dustycarrrubens.eth",
+  "checkedAt": "2026-09-13T06:00:20.040Z",
+  "blockNumber": "11694025",
+  "ethRegistryFromRoot": "0xBDC85dD5b15D7ecb354cd7cb6f2c50b4f2c4F0E2",
+  "ethRegistryMatchesDocs": true,
+  "resolverFromV2Registry": "0x43Ea2ACE8745Bd3fA08DcdfE2f678Ee5D00a6a41",
+  "resolverFromUniversalResolver": "0x43Ea2ACE8745Bd3fA08DcdfE2f678Ee5D00a6a41",
+  "sameResolver": true,
+  "profile": {
+    "description": "A Monstrous Regiment of Women",
+    "avatar": "https://avatar-upload-staging.ens-cf.workers.dev/sepolia/dustycarrrubens.eth"
+  },
+  "binding": {
+    "name": "dustycarrrubens.eth",
+    "status": "unbound",
+    "checks": {
+      "key": "missing",
+      "hederaAddr": "missing",
+      "payoutSig": "missing"
+    },
+    "hederaAccount": null,
+    "problems": [
+      "dustycarrrubens.eth has no io.carpool.key text record",
+      "dustycarrrubens.eth has no Hedera address record (coin type 3030)",
+      "dustycarrrubens.eth has no io.carpool.payout-sig text record"
+    ]
+  }
+}
