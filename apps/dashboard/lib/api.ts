@@ -30,13 +30,12 @@ import type { PurchaseEventData, RegistryLedger } from "../../registry/src/ledge
 export const REGISTRY_URL =
   process.env.NEXT_PUBLIC_SETTLEMENT_URL || "http://localhost:8403";
 
-/**
- * The payout account whose seeding view opens by default, when the operator
- * has one. Absent → the seeding view asks which account is yours instead of
- * guessing. The dashboard has no wallet and no session; it never claims to
- * know who is looking at it.
+/*
+ * There is deliberately no "this account is you" constant here any more.
+ * `NEXT_PUBLIC_CARPOOL_AUTHOR` used to be baked in at deploy and rendered as
+ * "you", which named a seed account as the viewer. The page only knows an
+ * account when the viewer types one or connects a wallet (lib/account.ts).
  */
-export const SELF_AUTHOR_ACCOUNT = process.env.NEXT_PUBLIC_CARPOOL_AUTHOR || null;
 
 export type RegistryState = ReturnType<RegistryLedger["state"]>;
 export type ArtifactState = RegistryState["artifacts"][number];
@@ -179,8 +178,34 @@ async function getJson<T>(path: string, signal?: AbortSignal): Promise<T> {
   return (await res.json()) as T;
 }
 
+/**
+ * Assert the one structural fact a consumer depends on, at the fetcher.
+ *
+ * `GET /payouts` gained its `{ payouts, parked }` envelope on a money-path
+ * change. Nothing checked a response's shape, so the envelope handed to
+ * `buildSeeders` where rows are expected dies as `payouts.map is not a
+ * function`, and a key that moved would read as `undefined` rows. Checked here,
+ * drift becomes an `ApiError` naming the route, which the desks already render
+ * as "did not answer" instead of as a blank or a zero.
+ * `lib/registry-contract.test.ts` runs these fetchers over captured live
+ * responses.
+ */
+function expectShape<T>(path: string, ok: boolean, body: T): T {
+  if (!ok) throw new ApiError(path, 200, `${path} answered in an unexpected shape`);
+  return body;
+}
+
+const isRecord = (v: unknown): v is Record<string, unknown> =>
+  typeof v === "object" && v !== null && !Array.isArray(v);
+
 export function getState(signal?: AbortSignal): Promise<RegistryState> {
-  return getJson<RegistryState>("/state", signal);
+  return getJson<unknown>("/state", signal).then((r) =>
+    expectShape(
+      "/state",
+      isRecord(r) && Array.isArray(r.artifacts) && Array.isArray(r.purchases),
+      r as RegistryState,
+    ),
+  );
 }
 
 /** `sinceSeconds` is unix SECONDS, matching /events' own `since` contract. */
@@ -213,10 +238,15 @@ export function getPayouts(payee: string, signal?: AbortSignal): Promise<Payout[
       new ApiError("/payouts", null, "a payee is required; the unscoped payout table is operator-gated"),
     );
   }
-  return getJson<{ payouts: Payout[] }>(
-    `/payouts?payee=${encodeURIComponent(scope)}`,
-    signal,
-  ).then((r) => r.payouts);
+  // The envelope is `{ payouts, parked }`. `parked` is a filter of `payouts`
+  // (rows whose `parkedAt` is set), so reading `payouts` loses nothing.
+  return getJson<unknown>(`/payouts?payee=${encodeURIComponent(scope)}`, signal).then((r) =>
+    expectShape(
+      "/payouts",
+      isRecord(r) && Array.isArray(r.payouts),
+      (r as { payouts: Payout[] }).payouts,
+    ),
+  );
 }
 
 /**
@@ -225,7 +255,9 @@ export function getPayouts(payee: string, signal?: AbortSignal): Promise<Payout[
  * the Hedera `txId` anyone can read on a mirror node.
  */
 export function getBatches(signal?: AbortSignal): Promise<Batch[]> {
-  return getJson<{ batches: Batch[] }>("/batches", signal).then((r) => r.batches);
+  return getJson<unknown>("/batches", signal).then((r) =>
+    expectShape("/batches", isRecord(r) && Array.isArray(r.batches), (r as { batches: Batch[] }).batches),
+  );
 }
 
 /**

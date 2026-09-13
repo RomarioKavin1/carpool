@@ -98,7 +98,9 @@ import { SwarmTable } from "../components/SwarmTable";
 import { buildFooter, buildRows, sortRows } from "./derive";
 import {
   fixtureArtifact,
+  fixtureBatch,
   fixtureManifest,
+  fixturePayout,
   fixturePurchase,
   fixtureState,
   FIXTURE_MAGNET_A,
@@ -407,12 +409,53 @@ const DESK_SURFACES: [string, () => ReactElement][] = [
         state={state()}
         wellKnown={WELL_KNOWN}
         nowMs={NOW_MS}
+        account={null}
+        onAccount={noop}
         payouts={[]}
         payoutsError={null}
         batches={[]}
         selectedAuthor={null}
         onSelectAuthor={noop}
         onOpenArtifact={noop}
+        onView={noop}
+      />
+    ),
+  ],
+  [
+    "earnings · an author looked up",
+    () => (
+      <EarningsDesk
+        state={state()}
+        wellKnown={WELL_KNOWN}
+        nowMs={NOW_MS}
+        account="0.0.1111"
+        onAccount={noop}
+        payouts={[fixturePayout({ state: "settled", settledBatchId: 1 })]}
+        payoutsError={null}
+        batches={[fixtureBatch()]}
+        selectedAuthor={null}
+        onSelectAuthor={noop}
+        onOpenArtifact={noop}
+        onView={noop}
+      />
+    ),
+  ],
+  [
+    "earnings · an account that published nothing",
+    () => (
+      <EarningsDesk
+        state={state()}
+        wellKnown={WELL_KNOWN}
+        nowMs={NOW_MS}
+        account="0.0.2222"
+        onAccount={noop}
+        payouts={[]}
+        payoutsError={null}
+        batches={[]}
+        selectedAuthor={null}
+        onSelectAuthor={noop}
+        onOpenArtifact={noop}
+        onView={noop}
       />
     ),
   ],
@@ -474,6 +517,7 @@ const CAVEAT_FLOOR: Record<string, number> = {
   "/app overview": 30,
   find: 90,
   earnings: 30,
+  "earnings · an account that published nothing": 40,
   activity: 15,
   evidence: 900,
   join: 450,

@@ -1,0 +1,851 @@
+{
+ "capturedFrom": "https://carpool-registry-production.up.railway.app",
+ "capturedAt": "2026-09-13T05:50:12.896Z",
+ "note": "Verbatim responses from the live registry. Do not hand-edit: re-capture instead.",
+ "responses": {
+  "/state": {
+   "status": 200,
+   "body": {
+    "artifacts": [
+     {
+      "manifest": {
+       "magnet": "swarm:39efe669fa3b770d5cc7a58718826deb38ff872abe3de885fcb54500fe36db38",
+       "question": "What is Carpool, and what does buying prior research save against redoing it?",
+       "questionNorm": "what is carpool, and what does buying prior research save against redoing it",
+       "scope": "carpool-repo",
+       "abstract": "Carpool's own README.md, published as a seed artifact for the public read-only demo. The body is that file verbatim (13947 bytes). Provenance is derived or zero, never invented: outputTokens is the document's own length at 4 bytes/token; estimatedCostUsd is that token count at Claude Opus 5's published $25/MTok output price, which is a FLOOR on re-emitting the document and not a measurement of what it cost to write; inputTokens, durationSeconds and toolCalls are 0 because this repository has no measurement of them for this file, so depth() scores it on length and sources alone. sources are the 0 external URLs the document actually cites, with fetchedAt set to the file's own mtime because the repo does not record when each link was read. producedAt is that same mtime. Half-life 30 days: reference documentation decays far slower than the one-day default the README derives for event research.",
+       "sources": [],
+       "provenance": {
+        "model": "claude-opus-5",
+        "durationSeconds": 0,
+        "inputTokens": 0,
+        "outputTokens": 3487,
+        "estimatedCostUsd": 0.087175,
+        "toolCalls": 0
+       },
+       "decay": {
+        "halfLifeDays": 30,
+        "producedAt": "2026-09-12T19:58:24.314Z"
+       },
+       "author": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+       "bodyHash": "ce05096dab8bfd70e5e29bdc21cec7738262df970e1dbbc4d1de8623ad4ba631",
+       "bodyBytes": 13947,
+       "redacted": false
+      },
+      "live": true,
+      "priceBase": 8718,
+      "priceFloor": 1000,
+      "priceNow": 9636,
+      "freshness": 0.9905502753951385,
+      "health": 0.3962201101580554,
+      "distinctBuyers": 0,
+      "refundRate": 0,
+      "ratings": {
+       "count": 0,
+       "worth": 0,
+       "notWorth": 0,
+       "verdict": null,
+       "discounted": 0,
+       "reasons": []
+      },
+      "ageDays": 0.41093681712962965,
+      "anchoredAt": 1789276268,
+      "delistedAt": null
+     },
+     {
+      "manifest": {
+       "magnet": "swarm:2b51a113ab10e350bd75ce03e96242eedcef9f0b586f7793eab3e0eff8798524",
+       "question": "What is the wire contract between a Carpool client and the registry?",
+       "questionNorm": "what is the wire contract between a carpool client and the registry",
+       "scope": "carpool-repo",
+       "abstract": "Carpool's own CONTRACT.md, published as a seed artifact for the public read-only demo. The body is that file verbatim (40710 bytes). Provenance is derived or zero, never invented: outputTokens is the document's own length at 4 bytes/token; estimatedCostUsd is that token count at Claude Opus 5's published $25/MTok output price, which is a FLOOR on re-emitting the document and not a measurement of what it cost to write; inputTokens, durationSeconds and toolCalls are 0 because this repository has no measurement of them for this file, so depth() scores it on length and sources alone. sources are the 0 external URLs the document actually cites, with fetchedAt set to the file's own mtime because the repo does not record when each link was read. producedAt is that same mtime. Half-life 30 days: reference documentation decays far slower than the one-day default the README derives for event research.",
+       "sources": [],
+       "provenance": {
+        "model": "claude-opus-5",
+        "durationSeconds": 0,
+        "inputTokens": 0,
+        "outputTokens": 10178,
+        "estimatedCostUsd": 0.25445,
+        "toolCalls": 0
+       },
+       "decay": {
+        "halfLifeDays": 30,
+        "producedAt": "2026-09-12T19:41:30.101Z"
+       },
+       "author": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+       "bodyHash": "0e2b630ba72dcb9035e42b26c4aa0114e0ad7a0ef45a51beb76a4f844a1cf082",
+       "bodyBytes": 40710,
+       "redacted": false
+      },
+      "live": true,
+      "priceBase": 25445,
+      "priceFloor": 2545,
+      "priceNow": 27743,
+      "freshness": 0.9902816560618837,
+      "health": 0.3961126624247535,
+      "distinctBuyers": 0,
+      "refundRate": 0,
+      "ratings": {
+       "count": 0,
+       "worth": 0,
+       "notWorth": 0,
+       "verdict": null,
+       "discounted": 0,
+       "reasons": []
+      },
+      "ageDays": 0.4226753935185185,
+      "anchoredAt": 1789276268,
+      "delistedAt": null
+     },
+     {
+      "manifest": {
+       "magnet": "swarm:9a90824cb089b7830b6d4a331fabd7ad8aad7173bfe6ef82ac402a869f070c12",
+       "question": "How is Carpool designed across its payment rail, core model and tracker?",
+       "questionNorm": "how is carpool designed across its payment rail, core model and tracker",
+       "scope": "carpool-repo",
+       "abstract": "Carpool's own DESIGN.md, published as a seed artifact for the public read-only demo. The body is that file verbatim (32455 bytes). Provenance is derived or zero, never invented: outputTokens is the document's own length at 4 bytes/token; estimatedCostUsd is that token count at Claude Opus 5's published $25/MTok output price, which is a FLOOR on re-emitting the document and not a measurement of what it cost to write; inputTokens, durationSeconds and toolCalls are 0 because this repository has no measurement of them for this file, so depth() scores it on length and sources alone. sources are the 0 external URLs the document actually cites, with fetchedAt set to the file's own mtime because the repo does not record when each link was read. producedAt is that same mtime. Half-life 30 days: reference documentation decays far slower than the one-day default the README derives for event research.",
+       "sources": [],
+       "provenance": {
+        "model": "claude-opus-5",
+        "durationSeconds": 0,
+        "inputTokens": 0,
+        "outputTokens": 8114,
+        "estimatedCostUsd": 0.20285,
+        "toolCalls": 0
+       },
+       "decay": {
+        "halfLifeDays": 30,
+        "producedAt": "2026-09-12T21:13:32.673Z"
+       },
+       "author": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+       "bodyHash": "15c574bc6acfef2fac23f55e4e1a0ad3f885fd10f409e31319e7ee70f6d87196",
+       "bodyBytes": 32455,
+       "redacted": false
+      },
+      "live": true,
+      "priceBase": 20285,
+      "priceFloor": 2029,
+      "priceNow": 22147,
+      "freshness": 0.9917452187017535,
+      "health": 0.3966980874807014,
+      "distinctBuyers": 0,
+      "refundRate": 0,
+      "ratings": {
+       "count": 0,
+       "worth": 0,
+       "notWorth": 0,
+       "verdict": null,
+       "discounted": 0,
+       "reasons": []
+      },
+      "ageDays": 0.3587567361111111,
+      "anchoredAt": 1789276268,
+      "delistedAt": null
+     },
+     {
+      "manifest": {
+       "magnet": "swarm:e297242f7a58d83cb678ca0addb920d681aa31d786cbe2cc175468fd7e31a515",
+       "question": "What problem does Carpool solve for an agent about to start researching something?",
+       "questionNorm": "what problem does carpool solve for an agent about to start researching something",
+       "scope": "carpool-repo",
+       "abstract": "Carpool's own PRODUCT.md, published as a seed artifact for the public read-only demo. The body is that file verbatim (5315 bytes). Provenance is derived or zero, never invented: outputTokens is the document's own length at 4 bytes/token; estimatedCostUsd is that token count at Claude Opus 5's published $25/MTok output price, which is a FLOOR on re-emitting the document and not a measurement of what it cost to write; inputTokens, durationSeconds and toolCalls are 0 because this repository has no measurement of them for this file, so depth() scores it on length and sources alone. sources are the 0 external URLs the document actually cites, with fetchedAt set to the file's own mtime because the repo does not record when each link was read. producedAt is that same mtime. Half-life 30 days: reference documentation decays far slower than the one-day default the README derives for event research.",
+       "sources": [],
+       "provenance": {
+        "model": "claude-opus-5",
+        "durationSeconds": 0,
+        "inputTokens": 0,
+        "outputTokens": 1329,
+        "estimatedCostUsd": 0.033225,
+        "toolCalls": 0
+       },
+       "decay": {
+        "halfLifeDays": 30,
+        "producedAt": "2026-09-12T14:57:08.871Z"
+       },
+       "author": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+       "bodyHash": "a5db6ec0304b455ded992bb38279459382cd1c719bd02f34f88d483fd5537f93",
+       "bodyBytes": 5315,
+       "redacted": false
+      },
+      "live": true,
+      "priceBase": 3323,
+      "priceFloor": 1000,
+      "priceNow": 4276,
+      "freshness": 0.9857738088999045,
+      "health": 0.5126023806279504,
+      "distinctBuyers": 1,
+      "refundRate": 0,
+      "ratings": {
+       "count": 0,
+       "worth": 0,
+       "notWorth": 0,
+       "verdict": null,
+       "discounted": 0,
+       "reasons": []
+      },
+      "ageDays": 0.6201433333333334,
+      "anchoredAt": 1789276268,
+      "delistedAt": null
+     },
+     {
+      "manifest": {
+       "magnet": "swarm:64460564ae655577d3465cdf8bc49bbae7ddaea8ba19978925081de717adf684",
+       "question": "How do you operate a Carpool registry on Hedera testnet without leaving a settler running?",
+       "questionNorm": "how do you operate a carpool registry on hedera testnet without leaving a settler running",
+       "scope": "carpool-repo",
+       "abstract": "Carpool's own docs/RUNBOOK.md, published as a seed artifact for the public read-only demo. The body is that file verbatim (11433 bytes). Provenance is derived or zero, never invented: outputTokens is the document's own length at 4 bytes/token; estimatedCostUsd is that token count at Claude Opus 5's published $25/MTok output price, which is a FLOOR on re-emitting the document and not a measurement of what it cost to write; inputTokens, durationSeconds and toolCalls are 0 because this repository has no measurement of them for this file, so depth() scores it on length and sources alone. sources are the 3 external URLs the document actually cites, with fetchedAt set to the file's own mtime because the repo does not record when each link was read. producedAt is that same mtime. Half-life 30 days: reference documentation decays far slower than the one-day default the README derives for event research.",
+       "sources": [
+        {
+         "url": "https://portal.hedera.com",
+         "fetchedAt": "2026-09-12T19:58:31.626Z"
+        },
+        {
+         "url": "https://faucet.circle.com",
+         "fetchedAt": "2026-09-12T19:58:31.626Z"
+        },
+        {
+         "url": "https://api.testnet.blocky402.com",
+         "fetchedAt": "2026-09-12T19:58:31.626Z"
+        }
+       ],
+       "provenance": {
+        "model": "claude-opus-5",
+        "durationSeconds": 0,
+        "inputTokens": 0,
+        "outputTokens": 2859,
+        "estimatedCostUsd": 0.071475,
+        "toolCalls": 0
+       },
+       "decay": {
+        "halfLifeDays": 30,
+        "producedAt": "2026-09-12T19:58:31.626Z"
+       },
+       "author": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+       "bodyHash": "b95ba4bdae8710b0052ab5076eef0c158be3b41bff30fea4623b2295e3be17f5",
+       "bodyBytes": 11433,
+       "redacted": false
+      },
+      "live": true,
+      "priceBase": 7148,
+      "priceFloor": 1000,
+      "priceNow": 8080,
+      "freshness": 0.9905522122790611,
+      "health": 0.39622088491162444,
+      "distinctBuyers": 0,
+      "refundRate": 0,
+      "ratings": {
+       "count": 0,
+       "worth": 0,
+       "notWorth": 0,
+       "verdict": null,
+       "discounted": 0,
+       "reasons": []
+      },
+      "ageDays": 0.4108521875,
+      "anchoredAt": 1789276268,
+      "delistedAt": null
+     },
+     {
+      "manifest": {
+       "magnet": "swarm:1fdbb28bb802ff80d584e11917b220c01ecc40ecac3dd0a957fafac0c14a6b08",
+       "question": "Do many independent people produce the same research about one event?",
+       "questionNorm": "do many independent people produce the same research about one event",
+       "scope": "carpool-repo",
+       "abstract": "Carpool's own docs/PHASE0.md, published as a seed artifact for the public read-only demo. The body is that file verbatim (17495 bytes). Provenance is derived or zero, never invented: outputTokens is the document's own length at 4 bytes/token; estimatedCostUsd is that token count at Claude Opus 5's published $25/MTok output price, which is a FLOOR on re-emitting the document and not a measurement of what it cost to write; inputTokens, durationSeconds and toolCalls are 0 because this repository has no measurement of them for this file, so depth() scores it on length and sources alone. sources are the 0 external URLs the document actually cites, with fetchedAt set to the file's own mtime because the repo does not record when each link was read. producedAt is that same mtime. Half-life 30 days: reference documentation decays far slower than the one-day default the README derives for event research.",
+       "sources": [],
+       "provenance": {
+        "model": "claude-opus-5",
+        "durationSeconds": 0,
+        "inputTokens": 0,
+        "outputTokens": 4374,
+        "estimatedCostUsd": 0.10935,
+        "toolCalls": 0
+       },
+       "decay": {
+        "halfLifeDays": 30,
+        "producedAt": "2026-09-12T08:56:08.789Z"
+       },
+       "author": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+       "bodyHash": "a2a000998f823d567c1bde833e213c8caabdee7935ef052b6a963443840407f2",
+       "bodyBytes": 17495,
+       "redacted": false
+      },
+      "live": true,
+      "priceBase": 10935,
+      "priceFloor": 1094,
+      "priceNow": 11811,
+      "freshness": 0.9800804224683737,
+      "health": 0.3920321689873495,
+      "distinctBuyers": 0,
+      "refundRate": 0,
+      "ratings": {
+       "count": 0,
+       "worth": 0,
+       "notWorth": 0,
+       "verdict": null,
+       "discounted": 0,
+       "reasons": []
+      },
+      "ageDays": 0.8708387268518518,
+      "anchoredAt": 1789276268,
+      "delistedAt": null
+     },
+     {
+      "manifest": {
+       "magnet": "swarm:45b5a86b4ed1556af1acd34deeeeba0ad87a928be9111170cb2ecd4621e27059",
+       "question": "What did one avoided duplicate research run actually cost in tokens and dollars?",
+       "questionNorm": "what did one avoided duplicate research run actually cost in tokens and dollars",
+       "scope": "carpool-repo",
+       "abstract": "Carpool's own docs/AB-MEASUREMENT.md, published as a seed artifact for the public read-only demo. The body is that file verbatim (28185 bytes). Provenance is derived or zero, never invented: outputTokens is the document's own length at 4 bytes/token; estimatedCostUsd is that token count at Claude Opus 5's published $25/MTok output price, which is a FLOOR on re-emitting the document and not a measurement of what it cost to write; inputTokens, durationSeconds and toolCalls are 0 because this repository has no measurement of them for this file, so depth() scores it on length and sources alone. sources are the 1 external URLs the document actually cites, with fetchedAt set to the file's own mtime because the repo does not record when each link was read. producedAt is that same mtime. Half-life 30 days: reference documentation decays far slower than the one-day default the README derives for event research.",
+       "sources": [
+        {
+         "url": "http://127.0.0.1:8403",
+         "fetchedAt": "2026-09-12T13:39:11.180Z"
+        }
+       ],
+       "provenance": {
+        "model": "claude-opus-5",
+        "durationSeconds": 0,
+        "inputTokens": 0,
+        "outputTokens": 7047,
+        "estimatedCostUsd": 0.176175,
+        "toolCalls": 0
+       },
+       "decay": {
+        "halfLifeDays": 30,
+        "producedAt": "2026-09-12T13:39:11.180Z"
+       },
+       "author": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+       "bodyHash": "575b2eb8c1e34b1b8bc8c6418f908a8b40643dc8766daae2b7e405fcd60635bd",
+       "bodyBytes": 28185,
+       "redacted": false
+      },
+      "live": true,
+      "priceBase": 17618,
+      "priceFloor": 1762,
+      "priceNow": 19108,
+      "freshness": 0.9845414770646209,
+      "health": 0.3938165908258484,
+      "distinctBuyers": 0,
+      "refundRate": 0,
+      "ratings": {
+       "count": 0,
+       "worth": 0,
+       "notWorth": 0,
+       "verdict": null,
+       "discounted": 0,
+       "reasons": []
+      },
+      "ageDays": 0.674283275462963,
+      "anchoredAt": 1789276268,
+      "delistedAt": null
+     },
+     {
+      "manifest": {
+       "magnet": "swarm:9c78aa2e273a81328fb4796a68b49720b61b73ac68f575154925b22d6aeb1bc5",
+       "question": "How do you get Carpool running from a clean clone?",
+       "questionNorm": "how do you get carpool running from a clean clone",
+       "scope": "carpool-repo",
+       "abstract": "Carpool's own docs/GETTING-STARTED.md, published as a seed artifact for the public read-only demo. The body is that file verbatim (17253 bytes). Provenance is derived or zero, never invented: outputTokens is the document's own length at 4 bytes/token; estimatedCostUsd is that token count at Claude Opus 5's published $25/MTok output price, which is a FLOOR on re-emitting the document and not a measurement of what it cost to write; inputTokens, durationSeconds and toolCalls are 0 because this repository has no measurement of them for this file, so depth() scores it on length and sources alone. sources are the 4 external URLs the document actually cites, with fetchedAt set to the file's own mtime because the repo does not record when each link was read. producedAt is that same mtime. Half-life 30 days: reference documentation decays far slower than the one-day default the README derives for event research.",
+       "sources": [
+        {
+         "url": "http://127.0.0.1:8403",
+         "fetchedAt": "2026-09-12T19:57:41.843Z"
+        },
+        {
+         "url": "https://portal.hedera.com",
+         "fetchedAt": "2026-09-12T19:57:41.843Z"
+        },
+        {
+         "url": "https://faucet.circle.com",
+         "fetchedAt": "2026-09-12T19:57:41.843Z"
+        },
+        {
+         "url": "http://127.0.0.1:9/none",
+         "fetchedAt": "2026-09-12T19:57:41.843Z"
+        }
+       ],
+       "provenance": {
+        "model": "claude-opus-5",
+        "durationSeconds": 0,
+        "inputTokens": 0,
+        "outputTokens": 4314,
+        "estimatedCostUsd": 0.10785,
+        "toolCalls": 0
+       },
+       "decay": {
+        "halfLifeDays": 30,
+        "producedAt": "2026-09-12T19:57:41.843Z"
+       },
+       "author": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+       "bodyHash": "e7ee50068b98981e93719aaa383af11d9c55f1a62c44ea0ea99c70135500ea92",
+       "bodyBytes": 17253,
+       "redacted": false
+      },
+      "live": true,
+      "priceBase": 10785,
+      "priceFloor": 1079,
+      "priceNow": 11762,
+      "freshness": 0.9905390252789584,
+      "health": 0.3962156101115834,
+      "distinctBuyers": 0,
+      "refundRate": 0,
+      "ratings": {
+       "count": 0,
+       "worth": 0,
+       "notWorth": 0,
+       "verdict": null,
+       "discounted": 0,
+       "reasons": []
+      },
+      "ageDays": 0.41142837962962964,
+      "anchoredAt": 1789276268,
+      "delistedAt": null
+     },
+     {
+      "manifest": {
+       "magnet": "swarm:6d3c5c7821d504d94f5c5e2b4e2ea7c987de3df2d459f35e1fb0eba545925009",
+       "question": "How does the x402 payment protocol work over Hedera and USDC?",
+       "questionNorm": "how does the x402 payment protocol work over hedera and usdc",
+       "scope": "carpool-repo",
+       "abstract": "Carpool's own docs/X402-RESEARCH.md, published as a seed artifact for the public read-only demo. The body is that file verbatim (6790 bytes). Provenance is derived or zero, never invented: outputTokens is the document's own length at 4 bytes/token; estimatedCostUsd is that token count at Claude Opus 5's published $25/MTok output price, which is a FLOOR on re-emitting the document and not a measurement of what it cost to write; inputTokens, durationSeconds and toolCalls are 0 because this repository has no measurement of them for this file, so depth() scores it on length and sources alone. sources are the 8 external URLs the document actually cites, with fetchedAt set to the file's own mtime because the repo does not record when each link was read. producedAt is that same mtime. Half-life 30 days: reference documentation decays far slower than the one-day default the README derives for event research.",
+       "sources": [
+        {
+         "url": "https://api.testnet.blocky402.com/supported",
+         "fetchedAt": "2026-09-11T12:15:13.848Z"
+        },
+        {
+         "url": "https://x402.org/facilitator",
+         "fetchedAt": "2026-09-11T12:15:13.848Z"
+        },
+        {
+         "url": "https://faucet.circle.com",
+         "fetchedAt": "2026-09-11T12:15:13.848Z"
+        },
+        {
+         "url": "https://yields.llama.fi/pools",
+         "fetchedAt": "2026-09-11T12:15:13.848Z"
+        },
+        {
+         "url": "https://coins.llama.fi/prices/historical/{ts}/{coin}",
+         "fetchedAt": "2026-09-11T12:15:13.848Z"
+        },
+        {
+         "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
+         "fetchedAt": "2026-09-11T12:15:13.848Z"
+        },
+        {
+         "url": "https://sourcify.dev/server/v2/contract/{chainId}/{address}",
+         "fetchedAt": "2026-09-11T12:15:13.848Z"
+        },
+        {
+         "url": "https://portal.hedera.com",
+         "fetchedAt": "2026-09-11T12:15:13.848Z"
+        }
+       ],
+       "provenance": {
+        "model": "claude-opus-5",
+        "durationSeconds": 0,
+        "inputTokens": 0,
+        "outputTokens": 1698,
+        "estimatedCostUsd": 0.04245,
+        "toolCalls": 0
+       },
+       "decay": {
+        "halfLifeDays": 30,
+        "producedAt": "2026-09-11T12:15:13.848Z"
+       },
+       "author": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+       "bodyHash": "9654a540d8337258e6717f6f13af4ea570e345badd5cc74b8196bbcca32c2e1d",
+       "bodyBytes": 6790,
+       "redacted": false
+      },
+      "live": true,
+      "priceBase": 4245,
+      "priceFloor": 1000,
+      "priceNow": 5078,
+      "freshness": 0.9607594337423246,
+      "health": 0.3843037734969299,
+      "distinctBuyers": 0,
+      "refundRate": 0,
+      "ratings": {
+       "count": 0,
+       "worth": 0,
+       "notWorth": 0,
+       "verdict": null,
+       "discounted": 0,
+       "reasons": []
+      },
+      "ageDays": 1.7325857291666666,
+      "anchoredAt": 1789276268,
+      "delistedAt": null
+     },
+     {
+      "manifest": {
+       "magnet": "swarm:b71390256dc92ec01bbf81c9b9a6c028246d2bbe3a533d2b66e4ec2980ee6171",
+       "question": "What money-handling defects did Carpool's own audit find in the registry?",
+       "questionNorm": "what money-handling defects did carpool's own audit find in the registry",
+       "scope": "carpool-repo",
+       "abstract": "Carpool's own docs/AUDIT-MONEY.md, published as a seed artifact for the public read-only demo. The body is that file verbatim (25840 bytes). Provenance is derived or zero, never invented: outputTokens is the document's own length at 4 bytes/token; estimatedCostUsd is that token count at Claude Opus 5's published $25/MTok output price, which is a FLOOR on re-emitting the document and not a measurement of what it cost to write; inputTokens, durationSeconds and toolCalls are 0 because this repository has no measurement of them for this file, so depth() scores it on length and sources alone. sources are the 0 external URLs the document actually cites, with fetchedAt set to the file's own mtime because the repo does not record when each link was read. producedAt is that same mtime. Half-life 30 days: reference documentation decays far slower than the one-day default the README derives for event research.",
+       "sources": [],
+       "provenance": {
+        "model": "claude-opus-5",
+        "durationSeconds": 0,
+        "inputTokens": 0,
+        "outputTokens": 6460,
+        "estimatedCostUsd": 0.1615,
+        "toolCalls": 0
+       },
+       "decay": {
+        "halfLifeDays": 30,
+        "producedAt": "2026-09-12T07:26:32.636Z"
+       },
+       "author": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+       "bodyHash": "3156d16c5d84494c811393883c0f55b9b82571c7d924f69e2e52022a92f1e1d3",
+       "bodyBytes": 25840,
+       "redacted": false
+      },
+      "live": true,
+      "priceBase": 16150,
+      "priceFloor": 1615,
+      "priceNow": 17421,
+      "freshness": 0.9786723933150737,
+      "health": 0.3914689573260295,
+      "distinctBuyers": 0,
+      "refundRate": 0,
+      "ratings": {
+       "count": 0,
+       "worth": 0,
+       "notWorth": 0,
+       "verdict": null,
+       "discounted": 0,
+       "reasons": []
+      },
+      "ageDays": 0.9330627199074074,
+      "anchoredAt": 1789276268,
+      "delistedAt": null
+     },
+     {
+      "manifest": {
+       "magnet": "swarm:d67b1ba884fe3c575b55b45ce42f6fe3565a020f2d93cdedea04fc7eda51772b",
+       "question": "How are research artifacts distributed and addressed like a torrent swarm?",
+       "questionNorm": "how are research artifacts distributed and addressed like a torrent swarm",
+       "scope": "carpool-repo",
+       "abstract": "Carpool's own docs/SWARM.md, published as a seed artifact for the public read-only demo. The body is that file verbatim (18191 bytes). Provenance is derived or zero, never invented: outputTokens is the document's own length at 4 bytes/token; estimatedCostUsd is that token count at Claude Opus 5's published $25/MTok output price, which is a FLOOR on re-emitting the document and not a measurement of what it cost to write; inputTokens, durationSeconds and toolCalls are 0 because this repository has no measurement of them for this file, so depth() scores it on length and sources alone. sources are the 0 external URLs the document actually cites, with fetchedAt set to the file's own mtime because the repo does not record when each link was read. producedAt is that same mtime. Half-life 30 days: reference documentation decays far slower than the one-day default the README derives for event research.",
+       "sources": [],
+       "provenance": {
+        "model": "claude-opus-5",
+        "durationSeconds": 0,
+        "inputTokens": 0,
+        "outputTokens": 4548,
+        "estimatedCostUsd": 0.1137,
+        "toolCalls": 0
+       },
+       "decay": {
+        "halfLifeDays": 30,
+        "producedAt": "2026-09-12T13:52:10.592Z"
+       },
+       "author": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+       "bodyHash": "19ec1496b7bb5fc834032e7d8a0cf4d78980c2380794e88c90bb526b1f40eb20",
+       "bodyBytes": 18191,
+       "redacted": false
+      },
+      "live": true,
+      "priceBase": 11370,
+      "priceFloor": 1137,
+      "priceNow": 12334,
+      "freshness": 0.984746705166907,
+      "health": 0.3938986820667628,
+      "distinctBuyers": 0,
+      "refundRate": 0,
+      "ratings": {
+       "count": 0,
+       "worth": 0,
+       "notWorth": 0,
+       "verdict": null,
+       "discounted": 0,
+       "reasons": []
+      },
+      "ageDays": 0.6652623032407408,
+      "anchoredAt": 1789276268,
+      "delistedAt": null
+     },
+     {
+      "manifest": {
+       "magnet": "swarm:da4f2877462fa64bc86947f7c0507b4316040331adaf509426a293ab5004e032",
+       "question": "How does a Carpool sale split between the author's royalty and the tracker fee?",
+       "questionNorm": "how does a carpool sale split between the author's royalty and the tracker fee",
+       "scope": "carpool-repo",
+       "abstract": "Carpool's own apps/registry/README.md, published as a seed artifact for the public read-only demo. The body is that file verbatim (22059 bytes). Provenance is derived or zero, never invented: outputTokens is the document's own length at 4 bytes/token; estimatedCostUsd is that token count at Claude Opus 5's published $25/MTok output price, which is a FLOOR on re-emitting the document and not a measurement of what it cost to write; inputTokens, durationSeconds and toolCalls are 0 because this repository has no measurement of them for this file, so depth() scores it on length and sources alone. sources are the 0 external URLs the document actually cites, with fetchedAt set to the file's own mtime because the repo does not record when each link was read. producedAt is that same mtime. Half-life 30 days: reference documentation decays far slower than the one-day default the README derives for event research.",
+       "sources": [],
+       "provenance": {
+        "model": "claude-opus-5",
+        "durationSeconds": 0,
+        "inputTokens": 0,
+        "outputTokens": 5515,
+        "estimatedCostUsd": 0.137875,
+        "toolCalls": 0
+       },
+       "decay": {
+        "halfLifeDays": 30,
+        "producedAt": "2026-09-12T13:51:09.414Z"
+       },
+       "author": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+       "bodyHash": "6a28f677d3bc21c779ab58b40c759cac039e909ffb1e42e1d47510792108c7fa",
+       "bodyBytes": 22059,
+       "redacted": false
+      },
+      "live": true,
+      "priceBase": 13788,
+      "priceFloor": 1379,
+      "priceNow": 14956,
+      "freshness": 0.9847305947520937,
+      "health": 0.3938922379008375,
+      "distinctBuyers": 0,
+      "refundRate": 0,
+      "ratings": {
+       "count": 0,
+       "worth": 0,
+       "notWorth": 0,
+       "verdict": null,
+       "discounted": 0,
+       "reasons": []
+      },
+      "ageDays": 0.6659703819444445,
+      "anchoredAt": 1789276268,
+      "delistedAt": null
+     },
+     {
+      "manifest": {
+       "magnet": "swarm:bc3865a43cd4671db2dabde2f55f2fa2f0e94dc134ad53f1727b52a0ccf399a9",
+       "question": "How does Carpool rank research artifacts by depth rather than similarity alone?",
+       "questionNorm": "how does carpool rank research artifacts by depth rather than similarity alone",
+       "scope": "carpool-repo",
+       "abstract": "Carpool's own packages/carpool-tracker/README.md, published as a seed artifact for the public read-only demo. The body is that file verbatim (13193 bytes). Provenance is derived or zero, never invented: outputTokens is the document's own length at 4 bytes/token; estimatedCostUsd is that token count at Claude Opus 5's published $25/MTok output price, which is a FLOOR on re-emitting the document and not a measurement of what it cost to write; inputTokens, durationSeconds and toolCalls are 0 because this repository has no measurement of them for this file, so depth() scores it on length and sources alone. sources are the 0 external URLs the document actually cites, with fetchedAt set to the file's own mtime because the repo does not record when each link was read. producedAt is that same mtime. Half-life 30 days: reference documentation decays far slower than the one-day default the README derives for event research.",
+       "sources": [],
+       "provenance": {
+        "model": "claude-opus-5",
+        "durationSeconds": 0,
+        "inputTokens": 0,
+        "outputTokens": 3299,
+        "estimatedCostUsd": 0.082475,
+        "toolCalls": 0
+       },
+       "decay": {
+        "halfLifeDays": 30,
+        "producedAt": "2026-09-12T08:11:35.619Z"
+       },
+       "author": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+       "bodyHash": "0bc909aec5be54537c2138e7d8b291b0bd46e8b73fe85060e2c1a95960088bf0",
+       "bodyBytes": 13193,
+       "redacted": false
+      },
+      "live": true,
+      "priceBase": 8248,
+      "priceFloor": 1000,
+      "priceNow": 9078,
+      "freshness": 0.979380058915407,
+      "health": 0.39175202356616284,
+      "distinctBuyers": 0,
+      "refundRate": 0,
+      "ratings": {
+       "count": 0,
+       "worth": 0,
+       "notWorth": 0,
+       "verdict": null,
+       "discounted": 0,
+       "reasons": []
+      },
+      "ageDays": 0.9017781944444444,
+      "anchoredAt": 1789276268,
+      "delistedAt": null
+     },
+     {
+      "manifest": {
+       "magnet": "swarm:6fd5987112a58d0e2f45d9467fc1808391c1908b5d5d4f8b1780878735de8cf9",
+       "question": "What MCP tools does an agent use to search for and buy prior research?",
+       "questionNorm": "what mcp tools does an agent use to search for and buy prior research",
+       "scope": "carpool-repo",
+       "abstract": "Carpool's own apps/mcp/README.md, published as a seed artifact for the public read-only demo. The body is that file verbatim (10793 bytes). Provenance is derived or zero, never invented: outputTokens is the document's own length at 4 bytes/token; estimatedCostUsd is that token count at Claude Opus 5's published $25/MTok output price, which is a FLOOR on re-emitting the document and not a measurement of what it cost to write; inputTokens, durationSeconds and toolCalls are 0 because this repository has no measurement of them for this file, so depth() scores it on length and sources alone. sources are the 1 external URLs the document actually cites, with fetchedAt set to the file's own mtime because the repo does not record when each link was read. producedAt is that same mtime. Half-life 30 days: reference documentation decays far slower than the one-day default the README derives for event research.",
+       "sources": [
+        {
+         "url": "http://127.0.0.1:8403",
+         "fetchedAt": "2026-09-12T19:58:09.292Z"
+        }
+       ],
+       "provenance": {
+        "model": "claude-opus-5",
+        "durationSeconds": 0,
+        "inputTokens": 0,
+        "outputTokens": 2699,
+        "estimatedCostUsd": 0.067475,
+        "toolCalls": 0
+       },
+       "decay": {
+        "halfLifeDays": 30,
+        "producedAt": "2026-09-12T19:58:09.292Z"
+       },
+       "author": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+       "bodyHash": "034481c5dfcb46404d4753d3ef35aaf512a1643757a0ba1fdf7c5e050198271e",
+       "bodyBytes": 10793,
+       "redacted": false
+      },
+      "live": true,
+      "priceBase": 6748,
+      "priceFloor": 1000,
+      "priceNow": 7684,
+      "freshness": 0.9905462962125077,
+      "health": 0.3962185184850031,
+      "distinctBuyers": 0,
+      "refundRate": 0,
+      "ratings": {
+       "count": 0,
+       "worth": 0,
+       "notWorth": 0,
+       "verdict": null,
+       "discounted": 0,
+       "reasons": []
+      },
+      "ageDays": 0.4111106828703704,
+      "anchoredAt": 1789276268,
+      "delistedAt": null
+     }
+    ],
+    "purchases": [
+     {
+      "id": 1,
+      "magnet": "swarm:e297242f7a58d83cb678ca0addb920d681aa31d786cbe2cc175468fd7e31a515",
+      "buyer": "0.0.10477413",
+      "txId": "0.0.7162784@1789276127.843209072",
+      "paid": 4278,
+      "ts": 1789276137,
+      "refundState": "closed",
+      "refundDeadline": 1789276257,
+      "refundedAt": null,
+      "authorRoyaltyPayoutId": 1,
+      "trackerFeePayoutId": 2,
+      "rated": false
+     }
+    ],
+    "peers": [
+     {
+      "account": "0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+      "published": 14,
+      "purchased": 0,
+      "refundsReceived": 0,
+      "refundsIssued": 0
+     },
+     {
+      "account": "0.0.10477413",
+      "published": 0,
+      "purchased": 1,
+      "refundsReceived": 0,
+      "refundsIssued": 0
+     }
+    ],
+    "refundWindowSeconds": 120,
+    "summary": {
+     "artifactCount": 14,
+     "purchaseCount": 1,
+     "gross": 4278,
+     "refunded": 0,
+     "ratingCount": 0
+    }
+   }
+  },
+  "/batches": {
+   "status": 200,
+   "body": {
+    "batches": [
+     {
+      "id": 1,
+      "txId": "0.0.10513939@1789276261.161325440",
+      "status": "SUCCESS",
+      "ts": 1789276264,
+      "root": "dc6d07641d94001a133eb4fd122fa6eb90e541b48efac41e87eecbd77196c2f1",
+      "memo": "carpool:batch:1:dc6d0764",
+      "reconcileAttempts": 0
+     }
+    ],
+    "needsOperator": []
+   }
+  },
+  "/payouts?payee=0.0.10475801": {
+   "status": 200,
+   "body": {
+    "payouts": [
+     {
+      "id": 1,
+      "payee": "0.0.10475801",
+      "amount": 3778,
+      "reason": "author_royalty",
+      "ref": "1",
+      "availableAt": 1789276257,
+      "voidedAt": null,
+      "settledBatchId": 1,
+      "attempts": 0,
+      "parkedAt": null,
+      "state": "settled"
+     }
+    ],
+    "parked": []
+   }
+  },
+  "/payouts?payee=0.0.10477413": {
+   "status": 200,
+   "body": {
+    "payouts": [],
+    "parked": []
+   }
+  },
+  "/payouts?payee=0.0.10513939": {
+   "status": 200,
+   "body": {
+    "payouts": [
+     {
+      "id": 2,
+      "payee": "0.0.10513939",
+      "amount": 500,
+      "reason": "tracker_fee",
+      "ref": "1",
+      "availableAt": 1789276137,
+      "voidedAt": null,
+      "settledBatchId": 1,
+      "attempts": 0,
+      "parkedAt": null,
+      "state": "settled"
+     }
+    ],
+    "parked": []
+   }
+  },
+  "/.well-known/carpool": {
+   "status": 200,
+   "body": {
+    "embedding": {
+     "model": "Xenova/all-MiniLM-L6-v2",
+     "dim": 384
+    },
+    "prices": {
+     "trackerFeeMicroUsdc": 500
+    },
+    "refundWindowSeconds": 120,
+    "settlementAccount": "0.0.10513939",
+    "asset": "0.0.429274",
+    "network": "hedera:testnet",
+    "anchorTopic": "0.0.10518035"
+   }
+  },
+  "/health": {
+   "status": 200,
+   "body": {
+    "ok": true,
+    "creds": true,
+    "authEnforced": true,
+    "registryAccount": "0.0.10513939",
+    "network": "hedera:testnet",
+    "asset": "0.0.429274"
+   }
+  }
+ }
+}

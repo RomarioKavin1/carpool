@@ -71,7 +71,7 @@ export const REFUND_STATE_MEANING: Record<RefundState, string> = {
   window:
     "Inside the refund window. The buyer can still reverse this sale, and the author's royalty is held until the deadline passes.",
   closed:
-    "The window expired without a refund. This sale is final — the royalty is the author's and no longer reversible.",
+    "The window expired without a refund. This sale is final: the royalty is the author's and no longer reversible.",
   refunded:
     "The buyer refunded inside the window. The royalty row was voided; the buyer got back what they paid minus the tracker fee, which is never returned.",
 };
@@ -92,7 +92,7 @@ export const PAYOUT_STATE_MEANING: Record<PayoutState, string> = {
   held: "Accrued, but inside its refund window: available_at is the refund deadline, so the buyer can still reverse it.",
   claimable: "Owed and no longer reversible. The next settlement epoch will pay it.",
   settled: "A settlement batch claimed it. The batch names the Hedera transaction that moved the money.",
-  voided: "A refund reversed it. It will never be paid — shown rather than hidden, so a refunded sale does not look like a sale that never happened.",
+  voided: "A refund reversed it. It will never be paid. It is shown rather than hidden, so a refunded sale does not look like a sale that never happened.",
 };
 
 /** `reason` values the rail writes. Only the first is the author's earnings. */

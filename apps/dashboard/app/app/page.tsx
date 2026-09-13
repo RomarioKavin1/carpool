@@ -55,7 +55,6 @@ import {
   getPayouts,
   getState,
   getWellKnown,
-  SELF_AUTHOR_ACCOUNT,
   type Batch,
   type CarpoolEvent,
   type Payout,
@@ -72,6 +71,7 @@ import {
   type SortKey,
 } from "../../lib/derive";
 import { initialCursor, mergeEvents, nextCursor } from "../../lib/events";
+import { hashFor, readHash } from "../../lib/account";
 import { buildSeeders, findSeeder, parseAuthor } from "../../lib/seeding";
 import { ActivityDesk } from "../../components/ActivityDesk";
 import { EarningsDesk } from "../../components/EarningsDesk";
@@ -119,17 +119,46 @@ export default function Page() {
 
   const [view, setView] = useState<View>("overview");
   /**
+   * The account the earnings desk is showing: typed, picked, connected, or read
+   * from the link. Null means the viewer has not named one.
+   */
+  const [account, setAccount] = useState<string | null>(null);
+  /**
    * A desk can be opened directly by hash: `/app#evidence` is where the
-   * explainer's correction link points, and `#earnings` is the one an author
-   * would bookmark. Read once, on mount, and only for a hash that names a real
-   * desk, so an unknown fragment leaves the overview alone instead of landing a
-   * reader on nothing. Not in `useState`'s initialiser: this component renders on
-   * the server first, where there is no location to read.
+   * explainer's correction link points, and `#earnings?account=0.0.x` is the
+   * link an author shares. Read on mount and on every `hashchange`, and only for
+   * a hash that names a real desk, so an unknown fragment leaves the overview
+   * alone instead of landing a reader on nothing. Not in `useState`'s
+   * initialiser: this component renders on the server first, where there is no
+   * location to read.
    */
   useEffect(() => {
-    const id = window.location.hash.replace(/^#/, "");
-    if (ALL_VIEWS.some((d) => d.id === id)) setView(id as View);
+    const apply = () => {
+      const { view: id, account: linked } = readHash(window.location.hash);
+      if (ALL_VIEWS.some((d) => d.id === id)) setView(id as View);
+      if (id === "earnings") setAccount(linked);
+    };
+    apply();
+    window.addEventListener("hashchange", apply);
+    return () => window.removeEventListener("hashchange", apply);
   }, []);
+  /**
+   * And written back, so the address bar is always a link to what is on screen.
+   * `replaceState` rather than assigning `location.hash`: it fires no
+   * `hashchange`, so this cannot loop with the reader above, and switching desks
+   * does not bury the back button under history entries.
+   */
+  const hydrated = useRef(false);
+  useEffect(() => {
+    if (!hydrated.current) {
+      hydrated.current = true;
+      return;
+    }
+    const next = hashFor(view, account);
+    if (window.location.hash !== next) {
+      window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}${next}`);
+    }
+  }, [view, account]);
   /** The magnet whose detail is expanded in the swarm table, or null. */
   const [opened, setOpened] = useState<string | null>(null);
   const [showEveryColumn, setShowEveryColumn] = useState(false);
@@ -253,29 +282,20 @@ export default function Page() {
     ? parseAuthor(openedArtifact.manifest.author).payoutAccount
     : null;
   /**
-   * The payee the earnings desk needs, computed with the SAME rule
-   * `EarningsDesk` uses to decide which author is open, so the two cannot
-   * disagree about who is on screen.
+   * The payee the earnings desk needs: the account the viewer named, else the
+   * author the desk falls back to, computed with the SAME rule `EarningsDesk`
+   * uses so the two cannot disagree about who is on screen.
    *
-   * It used to be an independent search against `selectedAuthor ??
-   * SELF_AUTHOR_ACCOUNT`. With no author selected and no operator author
-   * configured that comparand is null, and an author whose string does not follow
-   * this registry's convention also parses to a null payout account, so the
-   * search matched the first unparseable author and yielded a payee of null.
-   * Nothing was then fetched, and the payouts panel, the one the view exists for,
-   * sat on a loading message for ever. One derivation, shared, is the only
-   * version of this that cannot drift.
+   * A looked-up account is fetched whether or not it published anything here:
+   * a buyer or the settlement account can still hold payout rows.
    */
   const earningsPayee = useMemo(() => {
+    if (account) return account;
     if (!state) return null;
     const seeders = buildSeeders(state);
-    const current =
-      findSeeder(seeders, selectedAuthor) ??
-      findSeeder(seeders, SELF_AUTHOR_ACCOUNT) ??
-      seeders[0] ??
-      null;
+    const current = findSeeder(seeders, selectedAuthor) ?? seeders[0] ?? null;
     return current?.identity.payoutAccount ?? null;
-  }, [state, selectedAuthor]);
+  }, [state, selectedAuthor, account]);
 
   const wantedPayees = useMemo(() => {
     const set = new Set<string>();
@@ -327,6 +347,14 @@ export default function Page() {
 
       <main className="flex-1">
         {connection === "connecting" && !state && <Connecting />}
+        {connection !== "connecting" && connection !== "live" && !state && view === "earnings" && account && (
+          <Frame className="pt-10">
+            <p className="w-fit rounded-sm bg-debit-wash px-3 py-1.5 text-sm text-debit" role="status">
+              Could not look up <span className="font-mono">{account}</span>: the registry is not answering.
+              This link keeps the account and fills in when it does.
+            </p>
+          </Frame>
+        )}
         {connection === "offline" && !state && <RegistryOffline detail={connectionDetail} />}
         {connection === "error" && !state && <RegistryError detail={connectionDetail ?? "unknown"} />}
 
@@ -434,12 +462,15 @@ export default function Page() {
                   state={state}
                   wellKnown={wellKnown}
                   nowMs={nowMs}
+                  account={account}
+                  onAccount={setAccount}
                   payouts={earningsPayee ? payouts[earningsPayee] ?? null : null}
                   payoutsError={payoutsError}
                   batches={batches}
                   selectedAuthor={selectedAuthor}
                   onSelectAuthor={setSelectedAuthor}
                   onOpenArtifact={openArtifact}
+                  onView={setView}
                 />
               )}
               {view === "activity" && (

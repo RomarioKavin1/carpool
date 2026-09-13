@@ -12,6 +12,15 @@ export function fmtUsd(uusdc: number, dp = 4): string {
   return `$${(uusdc / DOLLAR).toFixed(dp)}`;
 }
 
+/**
+ * µUSDC exactly, grouped: 4278 → "4,278 µUSDC". For amounts small enough that a
+ * dollar string rounds them away: at three decimals any sale under 500 µUSDC
+ * reads "$0.000", which looks like nothing was paid.
+ */
+export function fmtMicro(uusdc: number): string {
+  return `${Math.round(uusdc).toLocaleString("en-US")} µUSDC`;
+}
+
 export function pct(x: number, dp = 1): string {
   return `${(x * 100).toFixed(dp)}%`;
 }
