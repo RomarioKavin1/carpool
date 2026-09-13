@@ -67,6 +67,28 @@ export {
   type AuthorIdentity,
 } from "./identity.js";
 
+// --- ENS authors: a name as a portable identity, paid at purchase time -----
+// See ens.ts and docs/ENS.md. Read-only: nothing here writes to Ethereum.
+export {
+  EnsAuthor,
+  HBAR_COIN_TYPE,
+  ENS_KEY_RECORD,
+  ENS_PAYOUT_SIG_RECORD,
+  ENS_PROFILE_KEYS,
+  encodeHederaAddr,
+  decodeHederaAddr,
+  ensAuthorString,
+  parseEnsAuthor,
+  payoutAttestationHash,
+  signPayoutAttestation,
+  checkEnsBinding,
+  resolveEnsPayout,
+  type EnsRecordReader,
+  type EnsBinding,
+  type EnsReadOptions,
+  type EnsPayoutDecision,
+} from "./ens.js";
+
 // v1 (query classes, cache keys, Zipf workload, the fixed universe.json) is
 // gone as of Phase B1: apps/fleet was their only importer, apps/fleet is
 // replaced by apps/bench, and bench draws its Zipf workload over whatever
