@@ -1,0 +1,29 @@
+{
+  "kind": "ens",
+  "author": "ens:remotemppp.eth:0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+  "name": "remotemppp.eth",
+  "fallbackAccount": "0.0.10475801",
+  "publicKey": "032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+  "binding": {
+    "name": "remotemppp.eth",
+    "status": "verified",
+    "checks": {
+      "key": "match",
+      "hederaAddr": "present",
+      "payoutSig": "valid"
+    },
+    "hederaAccount": "0.0.10475801",
+    "problems": []
+  },
+  "payoutNow": {
+    "account": "0.0.10475801",
+    "source": "ens"
+  },
+  "profile": {
+    "description": "Carpool research author on Hedera testnet",
+    "keywords": "carpool, hedera, ens, x402, research",
+    "url": "https://carpool-dashboard-plum.vercel.app"
+  },
+  "network": "sepolia",
+  "checkedAt": 1789304271
+}

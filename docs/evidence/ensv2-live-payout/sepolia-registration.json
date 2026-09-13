@@ -1,0 +1,58 @@
+{
+  "name": "remotemppp.eth",
+  "owner": "0x8ca0Bf095F2407B7C1AB894E6852C3474e04B520",
+  "durationSeconds": "31536000",
+  "deployResolver": {
+    "hash": "0x564b8145bc71586a742ef04094c85582ee5c1f05a05c8c7b5d0d118bbd2e649c",
+    "block": "11695992"
+  },
+  "resolverDeployed": "0xC4f83813404a97cd86B9C47582BB7CCB8BF61564",
+  "commitment": "0xd3cdb79799eccc3324e5c80a198803ead11b146effec00ec9d2b278953e59688",
+  "commit": {
+    "hash": "0x53f6afe7734d732a259c535a36bfbc88ba4c337073935f87e9dc285959812f23",
+    "block": "11695994"
+  },
+  "mintMockUSDC": {
+    "hash": "0xeec32ad36b226f18bdc3d37fb518656cc78aefe1f48e597b2cb90a43a1f7ff50",
+    "block": "11695995"
+  },
+  "approve": {
+    "hash": "0x01f3d810b244c5ec768d26a067cf2c895c40ef909b7ca4c04db120fabff0126f",
+    "block": "11695997"
+  },
+  "register": {
+    "hash": "0xb0bc488205203fd59503ec1cb2f3d5e0fcee2476928d6393660b7f3d524273a0",
+    "block": "11696001"
+  },
+  "ownerCheckImmediatelyAfterRegister": {
+    "status": 2,
+    "expiry": "1820839812",
+    "tokenId": "92175786537701126445399948723941686399887849683080997784439923727257363808256",
+    "ownerOf": "0x0000000000000000000000000000000000000000",
+    "registryResolver": "0xC4f83813404a97cd86B9C47582BB7CCB8BF61564",
+    "ownerMatchesWallet": false,
+    "note": "read right after the register receipt through a load-balanced public RPC; ownerOf returned the zero address there while getState already showed REGISTERED. Re-read below and live in verify.mjs."
+  },
+  "ownerCheck": {
+    "status": 2,
+    "latestOwner": "0x8ca0Bf095F2407B7C1AB894E6852C3474e04B520",
+    "tokenIdHex": "0xcbc9a577b36f620cf5cb92e3bf6fd0d2d596223a09b6febb65211ba900000000",
+    "ownerOf": "0x8ca0Bf095F2407B7C1AB894E6852C3474e04B520",
+    "balanceOf(wallet, tokenId)": "1",
+    "registryResolver": "0xC4f83813404a97cd86B9C47582BB7CCB8BF61564",
+    "ownerMatchesWallet": true
+  },
+  "contracts": {
+    "source": "https://docs.ens.domains/learn/deployments#sepolia-ensv2-beta",
+    "ETHRegistrar": "0xa88553f454b77203b0d036a05c894d555eaaa2cc",
+    "ETHRegistry": "0xbdc85dd5b15d7ecb354cd7cb6f2c50b4f2c4f0e2",
+    "MockUSDC": "0x768f42455a2d082e23ceef7d51e5787c82d67a39",
+    "VerifiableFactory": "0x10dc6333cdfe1fcef624c6e0a8221b91804cd7ef",
+    "PermissionedResolverImpl": "0x9eae5c2730a7dd16bdd1dee6421a1b91e3b0365e"
+  },
+  "price": {
+    "base": "8000021",
+    "premium": "0",
+    "token": "MockUSDC (6 decimals)"
+  }
+}

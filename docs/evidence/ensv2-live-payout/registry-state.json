@@ -1,0 +1,111 @@
+{
+  "artifacts": [
+    {
+      "manifest": {
+        "magnet": "swarm:093006acfbbd71073cfe7322660ddfdf4bef65b178e343c09cb4acf5ccdc2a23",
+        "question": "Where is ENSv2 live today, and what does an app need to read and register names on it?",
+        "questionNorm": "where is ensv2 live today, and what does an app need to read and register names on it",
+        "scope": "ensv2",
+        "abstract": "ENSv2 status by network, library minimums, Sepolia beta contract addresses and the registration flow, checked against a real registration.",
+        "sources": [
+          {
+            "url": "https://docs.ens.domains/ensv2/overview",
+            "fetchedAt": "2026-09-13T12:55:09.176Z"
+          },
+          {
+            "url": "https://docs.ens.domains/learn/deployments",
+            "fetchedAt": "2026-09-13T12:55:09.176Z"
+          },
+          {
+            "url": "https://docs.ens.domains/web/ensv2-readiness",
+            "fetchedAt": "2026-09-13T12:55:09.176Z"
+          },
+          {
+            "url": "https://ens.domains/blog/post/ensv2-beta-public-testing",
+            "fetchedAt": "2026-09-13T12:55:09.176Z"
+          },
+          {
+            "url": "https://github.com/ensdomains/address-encoder/blob/main/src/coin/hbar.ts",
+            "fetchedAt": "2026-09-13T12:55:09.176Z"
+          }
+        ],
+        "provenance": {
+          "model": "claude-opus-5",
+          "durationSeconds": 1800,
+          "inputTokens": 250000,
+          "outputTokens": 20000,
+          "estimatedCostUsd": 1.75,
+          "toolCalls": 40
+        },
+        "decay": {
+          "halfLifeDays": 7,
+          "producedAt": "2026-09-13T12:55:09.192Z"
+        },
+        "author": "ens:remotemppp.eth:0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+        "bodyHash": "a9728e64558d73fc08ac8bcb5e015837fba4c6d7b2c2889bb0d251af43f9294e",
+        "bodyBytes": 963,
+        "redacted": false
+      },
+      "live": true,
+      "priceBase": 20000,
+      "priceFloor": 2000,
+      "priceNow": 21996,
+      "freshness": 0.9998150701222803,
+      "health": 0.5199038364635857,
+      "distinctBuyers": 1,
+      "refundRate": 0,
+      "ratings": {
+        "count": 0,
+        "worth": 0,
+        "notWorth": 0,
+        "verdict": null,
+        "discounted": 0,
+        "reasons": []
+      },
+      "ageDays": 0.0018677546296296296,
+      "anchoredAt": 1789304241,
+      "delistedAt": null
+    }
+  ],
+  "purchases": [
+    {
+      "id": 1,
+      "magnet": "swarm:093006acfbbd71073cfe7322660ddfdf4bef65b178e343c09cb4acf5ccdc2a23",
+      "buyer": "0.0.10477413",
+      "txId": "0.0.7162784@1789304111.817544771",
+      "paid": 22000,
+      "ts": 1789304121,
+      "refundState": "closed",
+      "refundDeadline": 1789304241,
+      "refundedAt": null,
+      "authorRoyaltyPayoutId": 1,
+      "trackerFeePayoutId": 2,
+      "rated": false,
+      "payoutVia": "ens:remotemppp.eth"
+    }
+  ],
+  "peers": [
+    {
+      "account": "ens:remotemppp.eth:0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+      "published": 1,
+      "purchased": 0,
+      "refundsReceived": 0,
+      "refundsIssued": 0
+    },
+    {
+      "account": "0.0.10477413",
+      "published": 0,
+      "purchased": 1,
+      "refundsReceived": 0,
+      "refundsIssued": 0
+    }
+  ],
+  "refundWindowSeconds": 120,
+  "summary": {
+    "artifactCount": 1,
+    "purchaseCount": 1,
+    "gross": 22000,
+    "refunded": 0,
+    "ratingCount": 0
+  }
+}

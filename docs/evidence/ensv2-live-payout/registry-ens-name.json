@@ -1,0 +1,33 @@
+{
+  "name": "remotemppp.eth",
+  "network": "sepolia",
+  "keyRecord": "032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+  "binding": {
+    "name": "remotemppp.eth",
+    "status": "verified",
+    "checks": {
+      "key": "match",
+      "hederaAddr": "present",
+      "payoutSig": "valid"
+    },
+    "hederaAccount": "0.0.10475801",
+    "problems": []
+  },
+  "profile": {
+    "url": "https://carpool-dashboard-plum.vercel.app",
+    "description": "Carpool research author on Hedera testnet",
+    "keywords": "carpool, hedera, ens, x402, research"
+  },
+  "artifacts": [
+    {
+      "magnet": "swarm:093006acfbbd71073cfe7322660ddfdf4bef65b178e343c09cb4acf5ccdc2a23",
+      "question": "Where is ENSv2 live today, and what does an app need to read and register names on it?",
+      "abstract": "ENSv2 status by network, library minimums, Sepolia beta contract addresses and the registration flow, checked against a real registration.",
+      "scope": "ensv2",
+      "priceNow": 21996,
+      "ageDays": 0.0018842013888888888,
+      "producedAt": "2026-09-13T12:55:09.192Z"
+    }
+  ],
+  "unverifiedClaims": 0
+}

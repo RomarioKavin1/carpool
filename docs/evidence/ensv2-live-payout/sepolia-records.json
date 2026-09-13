@@ -1,0 +1,27 @@
+{
+  "name": "remotemppp.eth",
+  "resolver": "0xC4f83813404a97cd86B9C47582BB7CCB8BF61564",
+  "node": "0x6f09c6788e549a671b54c9d710ba4d05379b84d6d02fbcfb206bfa3eafd7384f",
+  "payoutAccount": "0.0.10475801",
+  "addrBytes": "0x00000000000000000000000000000000009fd919",
+  "texts": {
+    "io.carpool.key": "032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+    "io.carpool.payout-sig": "26141e441f1582c30f2fd286fb9227861769663cce7067ce85be7296feedbe320637779b3789ecd25c6a37a4cddb92672b6cc92c86eef8b3e85c5ad33f13ba2c",
+    "description": "Carpool research author on Hedera testnet",
+    "keywords": "carpool, hedera, ens, x402, research",
+    "url": "https://carpool-dashboard-plum.vercel.app"
+  },
+  "recordsTx": {
+    "hash": "0xb16dc2219280b7c3cc0f8740e6312477e6ac105ce3909b26ae60cfc0fad7a645",
+    "block": "11696007"
+  },
+  "readback": {
+    "hederaAddr": "0x00000000000000000000000000000000009fd919",
+    "io.carpool.key": "032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+    "io.carpool.payout-sig": "26141e441f1582c30f2fd286fb9227861769663cce7067ce85be7296feedbe320637779b3789ecd25c6a37a4cddb92672b6cc92c86eef8b3e85c5ad33f13ba2c",
+    "description": "Carpool research author on Hedera testnet",
+    "keywords": "carpool, hedera, ens, x402, research",
+    "url": "https://carpool-dashboard-plum.vercel.app"
+  },
+  "readbackMatches": true
+}

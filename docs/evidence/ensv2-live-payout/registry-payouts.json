@@ -1,0 +1,18 @@
+{
+  "payouts": [
+    {
+      "id": 1,
+      "payee": "0.0.10475801",
+      "amount": 21500,
+      "reason": "author_royalty",
+      "ref": "1",
+      "availableAt": 1789304241,
+      "voidedAt": null,
+      "settledBatchId": 2,
+      "attempts": 0,
+      "parkedAt": null,
+      "state": "settled"
+    }
+  ],
+  "parked": []
+}

@@ -1,0 +1,23 @@
+{
+  "batches": [
+    {
+      "id": 2,
+      "txId": "0.0.10513939@1789304240.596100921",
+      "status": "SUCCESS",
+      "ts": 1789304248,
+      "root": "0de4047ce9c5d9cbb508977a40c77c086573adbbb13d7bf9778f68897741c7ef",
+      "memo": "carpool:batch:2:0de4047c",
+      "reconcileAttempts": 0
+    },
+    {
+      "id": 1,
+      "txId": null,
+      "status": "SETTLED_NO_TRANSFER",
+      "ts": 1789304239,
+      "root": "31e27f39b9291371e89527a8f479d0bb2796b1a3c32fdeccbd2b0547786dc500",
+      "memo": "carpool:batch:1:31e27f39",
+      "reconcileAttempts": 0
+    }
+  ],
+  "needsOperator": []
+}

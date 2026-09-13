@@ -1,0 +1,39 @@
+{
+  "status": 200,
+  "body": {
+    "batches": [
+      {
+        "id": 2,
+        "txId": "0.0.10513939@1789304240.596100921",
+        "payees": 1,
+        "total": 21500,
+        "moved": 21500,
+        "leaves": [
+          [
+            "0.0.10475801",
+            21500
+          ]
+        ]
+      }
+    ],
+    "anchor": {
+      "anchored": true,
+      "root": "0de4047ce9c5d9cbb508977a40c77c086573adbbb13d7bf9778f68897741c7ef",
+      "message": {
+        "epoch": 1789304250894,
+        "batchTxIds": [
+          "0.0.10513939@1789304240.596100921"
+        ],
+        "merkleRoot": "0de4047ce9c5d9cbb508977a40c77c086573adbbb13d7bf9778f68897741c7ef",
+        "leafCount": 1,
+        "artifactCount": 0,
+        "payeeCount": 1
+      }
+    },
+    "replayed": {
+      "replayed": 0,
+      "failed": 0,
+      "unresolvable": 0
+    }
+  }
+}

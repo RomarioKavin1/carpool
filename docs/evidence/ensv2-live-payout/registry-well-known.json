@@ -1,0 +1,14 @@
+{
+  "embedding": {
+    "model": "Xenova/all-MiniLM-L6-v2",
+    "dim": 384
+  },
+  "prices": {
+    "trackerFeeMicroUsdc": 500
+  },
+  "refundWindowSeconds": 120,
+  "settlementAccount": "0.0.10513939",
+  "asset": "0.0.429274",
+  "network": "hedera:testnet",
+  "anchorTopic": "0.0.10523441"
+}

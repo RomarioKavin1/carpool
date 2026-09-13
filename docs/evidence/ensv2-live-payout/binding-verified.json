@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-09-13T12:51:42.866Z",
+  "author": "ens:remotemppp.eth:0.0.10475801:032d5e5ee75c25a58bdbe2c2ffa6a9ac1dc61c26e8461a9a2832c0584ac6c3f8bf",
+  "binding": {
+    "name": "remotemppp.eth",
+    "status": "verified",
+    "checks": {
+      "key": "match",
+      "hederaAddr": "present",
+      "payoutSig": "valid"
+    },
+    "hederaAccount": "0.0.10475801",
+    "problems": []
+  },
+  "payout": {
+    "account": "0.0.10475801",
+    "source": "ens",
+    "reason": "remotemppp.eth is verified and its Hedera record is attested"
+  }
+}
