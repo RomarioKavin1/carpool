@@ -184,6 +184,15 @@ emitted by the v2 ETHRegistry. With the registry's own `viemEnsReader`,
 - the binding check returned `unbound` for exactly the three missing Carpool
   records, which is what a live sale by such an author would pay: the fallback.
 
+The same day, the real registry process (`tsx src/server.ts`,
+`CARPOOL_ENS_CHAIN=sepolia`) answered `GET /identity` and `GET /ens/:name` for that
+name over HTTP from live Sepolia:
+[`identity-route.json`](evidence/ensv2-sepolia-read/identity-route.json) (unbound,
+three problems, next sale pays the fallback, live `description`) and
+[`ens-route.json`](evidence/ensv2-sepolia-read/ens-route.json) (no key record, so no
+artifacts listed). The author string in the first is a throwaway key: it shows
+what the registry would do, not a claim that the name's owner publishes here.
+
 Reproduce: `CARPOOL_ENS_RPC_URL=https://ethereum-sepolia-rpc.publicnode.com pnpm --filter @carpool/registry ens:check dustycarrrubens.eth`,
 or `CARPOOL_ENS_LIVE=1` on `src/ens-live.test.ts` (skipped otherwise, so the suite
 never needs the network).

@@ -1,0 +1,32 @@
+{
+    "kind": "ens",
+    "author": "ens:dustycarrrubens.eth:0.0.10475802:022ed557f5ad336b31a49857e4e9664954ac33385aa20a93e2d64bfe7f08f51277",
+    "name": "dustycarrrubens.eth",
+    "fallbackAccount": "0.0.10475802",
+    "publicKey": "022ed557f5ad336b31a49857e4e9664954ac33385aa20a93e2d64bfe7f08f51277",
+    "binding": {
+        "name": "dustycarrrubens.eth",
+        "status": "unbound",
+        "checks": {
+            "key": "missing",
+            "hederaAddr": "missing",
+            "payoutSig": "missing"
+        },
+        "hederaAccount": null,
+        "problems": [
+            "dustycarrrubens.eth has no io.carpool.key text record",
+            "dustycarrrubens.eth has no Hedera address record (coin type 3030)",
+            "dustycarrrubens.eth has no io.carpool.payout-sig text record"
+        ]
+    },
+    "payoutNow": {
+        "account": "0.0.10475802",
+        "source": "fallback"
+    },
+    "profile": {
+        "description": "A Monstrous Regiment of Women",
+        "avatar": "https://avatar-upload-staging.ens-cf.workers.dev/sepolia/dustycarrrubens.eth"
+    },
+    "network": "sepolia",
+    "checkedAt": 1789279664
+}
