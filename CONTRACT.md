@@ -191,11 +191,17 @@ The signature field is **`authorSig`**, not `signature`.
 - `authorSig` is the **author's** signature over the manifest hash (the magnet
   minus its `swarm:` prefix), hex.
 - `manifest.author` is opaque to the protocol; **this registry's convention is
-  `"<accountId>:<publicKeyHex>"`** and it rejects anything else. The account id
+  `"<accountId>:<publicKeyHex>"`** or the ENS convention below, and it rejects anything else. The account id
   is inside the signed string on purpose: a publish that changed only the payout
   account without re-signing would otherwise verify. Derive the public key half
   from the signing key — a client that takes it from configuration can ship a
   manifest whose author cannot verify its own signature.
+- **ENS authors:** `"ens:<name>:<fallbackAccountId>:<publicKeyHex>"`. `name`
+  must already be ENSIP-15 normalised (the registry normalises and **rejects** a
+  mismatch, `400`), `fallbackAccountId` is a Hedera `shard.realm.num`, and the
+  signature is verified against `publicKeyHex` offline, so publishing never reads
+  ENS. A malformed `ens:` author is a `400`. What the name's records must hold,
+  and how a sale picks its payee, is in *ENS authors* below and in docs/ENS.md.
 - `magnet` must equal `magnetOf(manifest)`; the registry recomputes it.
 - `manifest.questionNorm` must equal `normalizeQuestion(manifest.question)`
   (`@carpool/core`); the registry **recomputes and rejects a mismatch** rather
@@ -445,10 +451,13 @@ no artifact's totals. Named for the row rather than for a judgement so it cannot
 read as "this many buyers approved").
 
 Per purchase: `{ id, magnet, buyer, txId, paid, ts, refundState, refundDeadline,
-refundedAt, authorRoyaltyPayoutId, trackerFeePayoutId, rated }`, plus a top-level
+refundedAt, authorRoyaltyPayoutId, trackerFeePayoutId, rated, payoutVia }`, plus a top-level
 `refundWindowSeconds` so nothing has to hard-code 120. **`rated`** is a boolean:
 whether this purchase has spent its one rating (`POST /rate` allows exactly one per
 purchase), served so a client does not have to POST and read a `409` to find out.
+**`payoutVia`** is how the royalty's payee was chosen when the sale happened, pinned
+with it: `null` for a Hedera author, `"ens:<name>"` when the name verified and its
+Hedera record was paid, `"ens-fallback:<name>"` when the author-signed fallback was.
 
 **`refundState` is derived, and is `"refunded" | "window" | "closed"`.** The
 derivation is `effectiveRefundState` (`ledger.ts:763–770`) and it reads exactly
@@ -530,7 +539,8 @@ section does not list fails the build.
 
 **Why the scoped form is open.** Every input is already public — `/state` serves
 every purchase's `paid` and `buyer`, every free manifest carries `author` (which
-*is* the payout account under this registry's convention), and
+*is* the payout account under the Hedera convention; for an ENS author the payee is
+public ENS data or the fallback inside `author`), and
 `/.well-known/carpool` publishes the tracker fee — so one payee's earnings are
 already computable by anyone with a browser. Serving them discloses nothing new
 and removes the arithmetic, which is where clients get it wrong. What it adds is
@@ -644,6 +654,50 @@ consequence in plain language — including, for `release`, that a transfer whic
 did move value after all has now paid its payees twice. That sentence is in the
 response rather than only in this document on purpose: the operator reading it is
 the only party who can check.
+
+## ENS authors: `GET /identity`, `GET /ens/:name`
+
+Both free and read-only. Neither is on a money path: a sale resolves its own payee
+when it happens and never reads what these return. The ENS network is
+`CARPOOL_ENS_CHAIN` (`sepolia` by default, `mainnet`, or `off`), read through
+viem's Universal Resolver; `CARPOOL_ENS_RPC_URL` and `CARPOOL_ENS_TIMEOUT_MS`
+(default 3000, minimum 100) are optional.
+
+**How a sale by an ENS author picks its payee.** In `onPaid`, after settlement and
+immediately before the purchase row is written, the registry reads three records
+of `name`:
+
+| record | must hold |
+|---|---|
+| text `io.carpool.key` | `publicKeyHex` from `author` (`0x` and case ignored) |
+| `addr(node, 3030)` | a Hedera account, ENSIP-9 binary (20 bytes: shard u32, realm u64, num u64, big endian) |
+| text `io.carpool.payout-sig` | the author key's signature, hex, over `sha256("carpool:ens-payout:v1:<name>:<account>")` |
+
+All three agree: the royalty pays that account and `payoutVia` is `ens:<name>`.
+Anything else (a record missing or wrong, a malformed address, the resolver
+erroring, or the read exceeding the timeout) pays `fallbackAccountId` and
+`payoutVia` is `ens-fallback:<name>`. This never fails the sale. A retried
+`onPaid` for a recorded `txId` reads nothing. An `owed_failure` replay always pays
+the fallback, since replay is synchronous. A refund voids the royalty row that was
+pinned, whatever the name says later.
+
+`GET /identity?author=<manifest.author>` returns, for a Hedera author,
+`{ kind: "hedera", author, payoutAccount, publicKey }`; for an ENS author,
+`{ kind: "ens", author, name, fallbackAccount, publicKey, binding, payoutNow, profile, network, checkedAt }`
+where `binding` is `{ name, status, checks: { key, hederaAddr, payoutSig }, hederaAccount, problems }`,
+`status` is `verified | unbound | unreachable`, `payoutNow` is
+`{ account, source: "ens" | "fallback" }` for a sale made now, and `profile` holds
+whichever of the ENSIP-5 text records `description`, `url`, `avatar`, `keywords`,
+`com.github` are set. Answers other than `unreachable` are memoised for 30 s.
+`400` without `author` or for an author neither convention parses.
+
+`GET /ens/:name` returns `{ name, network, keyRecord, binding, profile, artifacts,
+unverifiedClaims }`. `artifacts` lists live artifacts whose author claims `name`
+**and** was signed by the key in `io.carpool.key`, each as `{ magnet, question,
+abstract, scope, priceNow, ageDays, producedAt }`; `unverifiedClaims` counts live
+artifacts claiming `name` under any other key. `binding` is null when nothing is
+listed. `400` for a name that is not normalised, `503` when `io.carpool.key` cannot
+be read.
 
 ## Settlement and provenance
 

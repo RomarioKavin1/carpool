@@ -154,3 +154,41 @@ describe("/state's shape", () => {
     expect(contract).toContain("`summary`");
   });
 });
+
+describe("ENS authors", () => {
+  const coreEns = read("packages", "carpool-core", "src", "ens.ts");
+  const registryEns = read("apps", "registry", "src", "ens.ts");
+
+  it("documents every record key the binding check reads, by the constant's value", () => {
+    const keys = [...coreEns.matchAll(/export const ENS_(?:KEY|PAYOUT_SIG)_RECORD = "([^"]+)"/g)].map((m) => m[1]!);
+    expect(keys).toHaveLength(2);
+    for (const k of keys) expect(contract, `record ${k} is read by ens.ts and not in CONTRACT.md`).toContain(`\`${k}\``);
+    const coin = /export const HBAR_COIN_TYPE = (\d+);/.exec(coreEns)![1]!;
+    expect(contract).toContain(`addr(node, ${coin})`);
+  });
+
+  it("documents the attestation message byte for byte", () => {
+    const msg = /update\(`(carpool:ens-payout:v1:)\$\{name\}:\$\{account\}`/.exec(coreEns);
+    expect(msg, "payoutAttestationHash's message changed; update this guard and CONTRACT.md").not.toBeNull();
+    expect(contract).toContain(`sha256("${msg![1]}<name>:<account>")`);
+  });
+
+  it("documents every binding status", () => {
+    const status = /status: ("[^;]+");/.exec(coreEns)!;
+    const values = [...status[1]!.matchAll(/"([^"]+)"/g)].map((m) => m[1]!);
+    expect(values).toEqual(["verified", "unbound", "unreachable"]);
+    expect(contract).toContain("`verified | unbound | unreachable`");
+  });
+
+  it("documents both payoutVia prefixes the registry writes", () => {
+    expect(registryEns).toContain('"ens" : "ens-fallback"');
+    expect(contract).toContain('`"ens:<name>"`');
+    expect(contract).toContain('`"ens-fallback:<name>"`');
+    expect(contract).toContain("payoutVia }");
+  });
+
+  it("documents every ENSIP-5 profile key served", () => {
+    const list = /ENS_PROFILE_KEYS = \[([^\]]+)\]/.exec(coreEns)!;
+    for (const k of [...list[1]!.matchAll(/"([^"]+)"/g)].map((m) => m[1]!)) expect(contract).toContain(`\`${k}\``);
+  });
+});
