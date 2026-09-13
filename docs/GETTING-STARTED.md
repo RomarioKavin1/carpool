@@ -33,6 +33,19 @@ Nobody earns real money here. Do not read any figure below as income.
 
 Four steps, in this order. The sections below explain each one in depth.
 
+Everything here runs from the published npm package
+[`carpool-mcp`](https://www.npmjs.com/package/carpool-mcp) (Node 20.19+). Nothing
+to clone or build. Contributors working on Carpool itself use the repo path in
+[section 0](#0-install-the-mcp-server).
+
+Search only, no keys:
+
+```bash
+claude mcp add carpool \
+  -e CARPOOL_REGISTRY_URL=https://carpool-registry-production.up.railway.app \
+  -- npx -y carpool-mcp
+```
+
 ### 1. Get a key
 
 1. Go to [portal.hedera.com](https://portal.hedera.com) and create a
@@ -47,8 +60,10 @@ Required to be paid, and required before the faucet will send you anything.
 
 ```bash
 HEDERA_ACCOUNT_ID=0.0.x HEDERA_PRIVATE_KEY=<hex private key> \
-  pnpm --filter @carpool/registry associate:account
+  npx carpool-mcp associate
 ```
+
+(From a clone, the same code runs as `pnpm --filter @carpool/registry associate:account`.)
 
 - Reads the two variables from the environment only (never the repo `.env`,
   never an argument) and never prints the key. A `0x` prefix is fine.
@@ -65,7 +80,7 @@ declines an unassociated account. Authors need no USDC.
 
 ### 3. Connect the key to the MCP
 
-Build first (`pnpm --filter @carpool/mcp build`), then register the server with
+Register the server with
 the variables for the direction you want. Use either block of `-e` lines, or both
 with the same key:
 
@@ -77,15 +92,15 @@ claude mcp add carpool \
   -e CARPOOL_AUTHOR_PRIVATE_KEY=<hex private key> \
   -e CARPOOL_BUYER_ACCOUNT_ID=0.0.x \
   -e CARPOOL_BUYER_PRIVATE_KEY=<hex private key> \
-  -- node /abs/path/to/carpool/apps/mcp/dist/server.js
+  -- npx -y carpool-mcp
 ```
 
 - `CARPOOL_AUTHOR_ENS_NAME` is optional for authors.
 - **Keys passed with `-e` are stored in plaintext in your Claude config.** Use a
   testnet-only key that holds nothing you care about.
 - **Authors: install the consent hook** from [section 2 of Author](#2-install-the-consent-hook)
-  (the same JSON is in `apps/mcp/README.md`). Without the build it fails closed
-  and refuses every publish.
+  (with npx the hook command is `npx -y carpool-mcp consent-hook`). It fails
+  closed and refuses a publish it cannot decide on.
 
 ### 4. How you get paid
 
@@ -110,7 +125,25 @@ parked. The operator can recover it once you associate, so it is a delay, not a 
 Both roles need this and it is the only install. Four tools arrive with it:
 `carpool_search`, `carpool_fetch`, `carpool_publish`, `carpool_delist`.
 
+**The normal path is npm, nothing to clone:**
+
 ```bash
+claude mcp add carpool \
+  -e CARPOOL_REGISTRY_URL=https://carpool-registry-production.up.railway.app \
+  -e CARPOOL_ARTIFACT_DIR=$HOME/carpool-artifacts \
+  -- npx -y carpool-mcp
+```
+
+The package bundles `@carpool/core` and leaves out the optional local embedder
+(~240 MB of ONNX), so searches send question text to the registry and every
+search result says so. `npx carpool-mcp associate` and
+`npx carpool-mcp consent-hook` are the association script and the publish
+consent hook from the same package.
+
+**Contributor path, from a clone.** Use this if you are changing Carpool itself:
+
+```bash
+git clone https://github.com/RomarioKavin1/carpool.git && cd carpool
 nvm use                               # Node 20.19.0; the preinstall guard rejects 26
 pnpm install
 pnpm --filter @carpool/mcp build      # writes apps/mcp/dist/server.js
@@ -158,8 +191,8 @@ Both forms were run. Three details that will otherwise cost time:
 - **Absolute paths.** A relative `args` entry is resolved against whatever
   directory your client happens to launch in, which is not the one you were
   thinking of.
-- **There is no `npx @carpool/mcp`.** The package is `private: true` and is
-  published to no registry, so nothing can fetch it by name. `apps/mcp` now
+- **The workspace package `@carpool/mcp` is `private: true`.** What is on npm is
+  `carpool-mcp`, bundled by `pnpm --filter @carpool/mcp pack:npm`. `apps/mcp` now
   declares a `bin` (`carpool-mcp`) and its built entry point carries a shebang
   and the executable bit, so
   `-- /abs/path/to/carpool/apps/mcp/dist/server.js` with no `node` in front of
@@ -295,11 +328,12 @@ settings:
 ```json
 { "hooks": { "PreToolUse": [{
   "matcher": "mcp__carpool__carpool_publish",
-  "hooks": [{ "type": "command", "command": "node /abs/path/to/carpool/apps/mcp/hooks/pre-publish.mjs" }]
+  "hooks": [{ "type": "command", "command": "npx -y carpool-mcp consent-hook" }]
 }] } }
 ```
 
-**Run `pnpm --filter @carpool/mcp build` before you install it.** The hook
+From a clone, the command is `node /abs/path/to/carpool/apps/mcp/hooks/pre-publish.mjs`;
+**run `pnpm --filter @carpool/mcp build` before you install that one.** The hook
 imports every rule it enforces from `dist/consent.js` and fails closed, with
 that instruction, if the file is not there. It decides nothing itself: a subagent
 is denied, a non-prompting permission mode is denied, `CARPOOL_PUBLISH_MODE=off`
@@ -344,7 +378,7 @@ are doing both, one account can do both, and then the same keypair is in
    it declines silently. No transfer, no error, no explanation.
 
    For your own account:
-   `HEDERA_ACCOUNT_ID=0.0.x HEDERA_PRIVATE_KEY=<hex private key> pnpm --filter @carpool/registry associate:account`.
+   `HEDERA_ACCOUNT_ID=0.0.x HEDERA_PRIVATE_KEY=<hex private key> npx carpool-mcp associate`.
    For the registry operator's own accounts: `pnpm --filter @carpool/registry associate`.
 
 3. **Faucet:** [faucet.circle.com](https://faucet.circle.com), Hedera Testnet,

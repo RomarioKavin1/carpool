@@ -177,22 +177,13 @@ function Install() {
     >
       <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <div className="min-w-0">
-          <Command
-            label="clone and build"
-            text={"git clone https://github.com/RomarioKavin1/carpool.git\ncd carpool\nnvm use\npnpm install\npnpm --filter @carpool/mcp build"}
-          />
-          <p className="mt-5 text-sm text-ink-soft">Node 20.19.0. The build step is not optional.</p>
-          <Caveat summary="Why both of those matter" className="mt-3">
-            <p>
-              The preinstall guard rejects Node 26, where{" "}
-              <code className="font-mono text-ink [overflow-wrap:anywhere]">better-sqlite3</code>{" "}
-              fails to load in some packages and not others, producing a green run that is not one.
-            </p>
-            <p>
-              The publish consent hook loads the compiled rules and refuses every publish if they are
-              missing.
-            </p>
-          </Caveat>
+          <Command label="run from npm" text={"npx -y carpool-mcp"} />
+          <p className="mt-5 text-sm text-ink-soft">
+            Node 20.19+. Nothing to clone or build; npx fetches it when your client starts.
+          </p>
+          <p className="mt-2 text-sm text-ink-soft">
+            Contributing? Clone the repo and build from source instead.
+          </p>
         </div>
 
         <div className="min-w-0">
@@ -202,12 +193,12 @@ function Install() {
               `claude mcp add carpool \\\n` +
               `  -e CARPOOL_REGISTRY_URL=${REGISTRY_URL} \\\n` +
               `  -e CARPOOL_ARTIFACT_DIR=$HOME/carpool-artifacts \\\n` +
-              `  -- node /abs/path/to/carpool/apps/mcp/dist/server.js`
+              `  -- npx -y carpool-mcp`
             }
           />
           <p className="measure mt-5 text-sm text-ink-soft">
-            Use an <span className="text-ink">absolute</span> path: a relative one resolves against
-            whatever directory your client launched in.
+            Keys added with <code className="font-mono text-ink">-e</code> sit in plaintext in
+            Claude&apos;s config. Use testnet-only keys.
           </p>
           <Disclosure summary="The same thing as a JSON block, for a client configured by file">
             <Command
@@ -217,8 +208,8 @@ function Install() {
                   mcpServers: {
                     carpool: {
                       type: "stdio",
-                      command: "node",
-                      args: ["/abs/path/to/carpool/apps/mcp/dist/server.js"],
+                      command: "npx",
+                      args: ["-y", "carpool-mcp"],
                       env: {
                         CARPOOL_REGISTRY_URL: REGISTRY_URL,
                         CARPOOL_ARTIFACT_DIR: "/abs/path/to/artifacts",
@@ -401,8 +392,9 @@ function Directions({ wellKnown }: { wellKnown: WellKnown | null }) {
               answering a prompt.
             </p>
             <p className="measure-wide mt-3 text-base text-ink-soft">
-              The hook and its JSON are in{" "}
-              <span className="font-mono text-ink [overflow-wrap:anywhere]">apps/mcp/README.md</span>.
+              The hook command is{" "}
+              <span className="font-mono text-ink [overflow-wrap:anywhere]">npx -y carpool-mcp consent-hook</span>;
+              its JSON is in the package README.
             </p>
             <Caveat summary="How that is enforced" className="mt-4">
               <p>
@@ -413,8 +405,7 @@ function Directions({ wellKnown }: { wellKnown: WellKnown | null }) {
                 a subagent is denied, a non-prompting permission mode is denied, everything else asks.
               </p>
               <p>
-                It loads its rules from the compiled module and fails closed, so run the build first
-                or it refuses everything.
+                It fails closed: if it cannot read its input or load its rules, it refuses.
               </p>
               <p>
                 <Term
@@ -476,13 +467,13 @@ function KeyPath({ wellKnown, onView }: { wellKnown: WellKnown | null; onView: (
       body: (
         <>
           <p className="measure-wide text-base text-ink-soft">
-            Required to be paid, and before the faucet will send anything. Run it from the clone.
+            Required to be paid, and before the faucet will send anything.
           </p>
           <Command
             label="associate any account"
             text={
               "HEDERA_ACCOUNT_ID=0.0.x HEDERA_PRIVATE_KEY=<hex key> \\\n" +
-              "  pnpm --filter @carpool/registry associate:account"
+              "  npx carpool-mcp associate"
             }
           />
           <p className="measure-wide mt-4 text-sm text-ink-soft">

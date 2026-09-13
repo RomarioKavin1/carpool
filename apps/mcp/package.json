@@ -16,7 +16,9 @@
     "build": "tsc && chmod +x dist/server.js",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "build:npm": "node scripts/build-npm.mjs",
+    "pack:npm": "node scripts/build-npm.mjs && cd ${CARPOOL_NPM_OUT:-npm-dist} && npm pack"
   },
   "dependencies": {
     "@carpool/core": "workspace:*",
@@ -26,9 +28,10 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "vitest": "^3.0.5",
+    "@types/node": "^22.13.1",
+    "esbuild": "0.28.2",
     "typescript": "^5.7.3",
-    "@types/node": "^22.13.1"
+    "vitest": "^3.0.5"
   },
   "peerDependencies": {
     "@carpool/tracker": "workspace:*"

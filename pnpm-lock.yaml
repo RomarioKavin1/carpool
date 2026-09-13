@@ -126,7 +126,7 @@ importers:
         version: 2.25.0
       '@x402/hedera':
         specifier: ^2.25.0
-        version: 2.25.0(ansi-regex@6.2.2)(ansi-styles@7.0.0)(bn.js@5.2.3)(debug@4.4.3)(protobufjs@8.6.6)(react-native@0.87.1(@babel/core@7.29.7)(@types/react@19.3.0)(react@19.3.0))(strip-ansi@7.1.2)
+        version: 2.25.0(ansi-regex@6.2.2)(ansi-styles@6.2.3)(bn.js@5.2.3)(debug@4.4.1)(protobufjs@8.2.0)(react-native@0.87.1(@babel/core@7.29.7)(@types/react@19.3.0)(react@19.3.0))(strip-ansi@7.1.2)
       zod:
         specifier: ^3.24.1
         version: 3.25.76
@@ -134,6 +134,9 @@ importers:
       '@types/node':
         specifier: ^22.13.1
         version: 22.20.2
+      esbuild:
+        specifier: 0.28.2
+        version: 0.28.2
       typescript:
         specifier: ^5.7.3
         version: 5.9.3
@@ -262,7 +265,7 @@ importers:
         version: 2.25.0
       '@x402/hedera':
         specifier: ^2.25.0
-        version: 2.25.0(ansi-regex@6.2.2)(ansi-styles@6.2.3)(bn.js@5.2.3)(debug@4.4.1)(protobufjs@8.2.0)(react-native@0.87.1(@babel/core@7.29.7)(@types/react@19.3.0)(react@19.3.0))(strip-ansi@7.1.2)
+        version: 2.25.0(ansi-regex@6.2.2)(ansi-styles@7.0.0)(bn.js@5.2.3)(debug@4.4.1)(protobufjs@8.6.6)(react-native@0.87.1(@babel/core@7.29.7)(@types/react@19.3.0)(react@19.3.0))(strip-ansi@7.1.2)
       better-sqlite3:
         specifier: ^11.8.1
         version: 11.10.0
@@ -5274,6 +5277,24 @@ snapshots:
   '@x402/hedera@2.25.0(ansi-regex@6.2.2)(ansi-styles@6.2.3)(bn.js@5.2.3)(debug@4.4.1)(protobufjs@8.2.0)(react-native@0.87.1(@babel/core@7.29.7)(@types/react@19.3.0)(react@19.3.0))(strip-ansi@7.1.2)':
     dependencies:
       '@hiero-ledger/proto': 2.31.0(ansi-regex@6.2.2)(ansi-styles@6.2.3)(debug@4.4.1)(protobufjs@8.2.0)(strip-ansi@7.1.2)
+      '@hiero-ledger/sdk': 2.85.0(bn.js@5.2.3)(react-native@0.87.1(@babel/core@7.29.7)(@types/react@19.3.0)(react@19.3.0))
+      '@x402/core': 2.25.0
+    transitivePeerDependencies:
+      - ansi-regex
+      - ansi-styles
+      - bn.js
+      - bufferutil
+      - debug
+      - expo-crypto
+      - protobufjs
+      - react-native
+      - strip-ansi
+      - supports-color
+      - utf-8-validate
+
+  '@x402/hedera@2.25.0(ansi-regex@6.2.2)(ansi-styles@7.0.0)(bn.js@5.2.3)(debug@4.4.1)(protobufjs@8.6.6)(react-native@0.87.1(@babel/core@7.29.7)(@types/react@19.3.0)(react@19.3.0))(strip-ansi@7.1.2)':
+    dependencies:
+      '@hiero-ledger/proto': 2.31.0(ansi-regex@6.2.2)(ansi-styles@7.0.0)(debug@4.4.1)(protobufjs@8.6.6)(strip-ansi@7.1.2)
       '@hiero-ledger/sdk': 2.85.0(bn.js@5.2.3)(react-native@0.87.1(@babel/core@7.29.7)(@types/react@19.3.0)(react@19.3.0))
       '@x402/core': 2.25.0
     transitivePeerDependencies:

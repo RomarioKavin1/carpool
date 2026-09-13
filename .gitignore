@@ -39,3 +39,7 @@ apps/bench/accounts.json
 # would also have started hiding this repo's own untracked `.env`.
 .vercel
 .env.local
+
+# Staged npm package (apps/mcp/scripts/build-npm.mjs)
+apps/mcp/npm-dist/
+*.tgz

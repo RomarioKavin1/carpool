@@ -140,25 +140,16 @@ const LANES = 6;
  */
 const PRODUCTION_REGISTRY_URL = "https://carpool-registry-production.up.railway.app";
 
-/** The same `claude mcp add` JoinDesk shows, after the build it depends on. */
+/** The published npm package: nothing to clone or build. */
 const INSTALL_COMMAND =
-  "git clone https://github.com/RomarioKavin1/carpool.git\n" +
-  "cd carpool\n" +
-  "nvm use\n" +
-  "pnpm install\n" +
-  "pnpm --filter @carpool/mcp build\n\n" +
   "claude mcp add carpool \\\n" +
   `  -e CARPOOL_REGISTRY_URL=${PRODUCTION_REGISTRY_URL} \\\n` +
-  "  -e CARPOOL_ARTIFACT_DIR=$HOME/carpool-artifacts \\\n" +
-  // Run from the clone's root, so the shell expands $PWD to the absolute path
-  // the MCP client needs; a relative path would resolve against wherever the
-  // client happens to launch.
-  '  -- node "$PWD/apps/mcp/dist/server.js"';
+  "  -- npx -y carpool-mcp";
 
-/** Step 03's commands: the association script, then the author variables added to the install above. */
+/** Step 03's commands: associate, then the author variables added to the install above. */
 const AUTHOR_COMMAND =
   "HEDERA_ACCOUNT_ID=0.0.x HEDERA_PRIVATE_KEY=<hex key> \\\n" +
-  "  pnpm --filter @carpool/registry associate:account\n\n" +
+  "  npx carpool-mcp associate\n\n" +
   "# add to claude mcp add, before --\n" +
   "  -e CARPOOL_AUTHOR_ACCOUNT_ID=0.0.x \\\n" +
   "  -e CARPOOL_AUTHOR_PRIVATE_KEY=<hex key> \\";
@@ -785,7 +776,17 @@ function GetCarpool({ register }: { register: (el: HTMLElement | null) => void }
       <div className="mt-12 grid grid-cols-[minmax(0,1fr)] gap-x-12 gap-y-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)]">
         <div className="beat-fx fx-rise min-w-0" style={{ "--i": 1 } as CSSProperties}>
           <Step n="01" title="Install" />
-          <Command label="clone, build, register" text={INSTALL_COMMAND} />
+          <Command label="npx" text={INSTALL_COMMAND} />
+          <p className="mt-3 text-sm text-ink-soft">
+            <a
+              href="https://github.com/RomarioKavin1/carpool"
+              target="_blank"
+              rel="noreferrer"
+              className="text-wire underline decoration-plate-line underline-offset-4 hover:decoration-wire"
+            >
+              Contributors: GitHub
+            </a>
+          </p>
         </div>
 
         <ol className="beat-fx fx-rise min-w-0 self-end" style={{ "--i": 2 } as CSSProperties}>

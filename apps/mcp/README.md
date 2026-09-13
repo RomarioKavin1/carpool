@@ -12,7 +12,23 @@ The MCP server agents actually use. Four tools:
 
 ## Installing it
 
-This package declares a `bin` (`carpool-mcp`) whose target is `dist/server.js`,
+**From npm (the normal path).** The server is published as
+[`carpool-mcp`](https://www.npmjs.com/package/carpool-mcp), with `@carpool/core`
+bundled in and the optional local embedder left out:
+
+```bash
+claude mcp add carpool \
+  -e CARPOOL_REGISTRY_URL=https://carpool-registry-production.up.railway.app \
+  -- npx -y carpool-mcp
+```
+
+The same package has `npx carpool-mcp associate` (associate `HEDERA_ACCOUNT_ID`
+with test USDC, key from `HEDERA_PRIVATE_KEY` in the environment) and
+`npx -y carpool-mcp consent-hook` (the publish consent hook below). Its README is
+`npm/README.md`; the package is built by `pnpm --filter @carpool/mcp pack:npm`
+(`scripts/build-npm.mjs`).
+
+**From a clone (contributors).** This package declares a `bin` (`carpool-mcp`) whose target is `dist/server.js`,
 which carries a shebang and is made executable by the build. Build first:
 
 ```bash
@@ -61,8 +77,8 @@ file is the reference for all of them.
 
 Three things about the install that are true and easy to assume otherwise:
 
-- **There is no `npx @carpool/mcp`.** The package is `private: true` and is
-  published to no registry, so nothing can fetch it by name. Do not look for one.
+- **`@carpool/mcp` itself is `private: true`.** The npm name is `carpool-mcp`,
+  the bundled build of this package.
 - **The path on its own also works**, with no `node` in front of it
   (`-- /abs/path/to/carpool/apps/mcp/dist/server.js`), because of the shebang and
   the executable bit. Also run.
@@ -156,7 +172,8 @@ publishes without a human answering a prompt.
 | unparseable hook input, or `dist/consent.js` missing | **deny** — fails closed |
 | otherwise | **ask** |
 
-Run `pnpm --filter @carpool/mcp build` before installing the hook; it loads the
+With the npm package, the hook command is `npx -y carpool-mcp consent-hook`. From a clone,
+run `pnpm --filter @carpool/mcp build` before installing the hook; it loads the
 compiled module, and fails closed with that instruction if it is absent.
 
 Install it:
