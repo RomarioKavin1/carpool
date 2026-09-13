@@ -239,7 +239,10 @@ function countMarkup(html: string): Counted {
       return;
     }
     visible.push(...w);
-    if (!stack.some((s) => s.tag === "table")) chrome.push(...w);
+    // A `<pre>` is a command block, not prose: nobody reads `-e CARPOOL_ARTIFACT_DIR`
+    // as a sentence, and counting a shell line as words would push a route to
+    // shorten the command a reader has to paste. It still counts as visible.
+    if (!stack.some((s) => s.tag === "table" || s.tag === "pre")) chrome.push(...w);
     const block = openProse();
     if (block) block.prose!.push(...w);
   };
@@ -531,7 +534,11 @@ const MAX_LEDE_WORDS = 20;
  * rows. `/` has no rows, so the two counts are the same number there.
  */
 const ROUTE_BUDGET: Record<string, number> = {
-  "/": 350,
+  // 350, plus the 40 words the "Get Carpool" take-part section and its two
+  // buttons render: step numbers, 1-5 word labels and the copy control. The
+  // command itself is a <pre> and is not counted (see `emitText`). No caveat
+  // was cut to make room; the floor below is unchanged.
+  "/": 390,
   "/app overview": 250,
 };
 

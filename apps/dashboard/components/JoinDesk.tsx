@@ -666,7 +666,7 @@ function Sub({
  * moves under the pointer, and the reset timer is cleared on the next press so
  * two quick presses cannot leave it stuck.
  */
-function Command({ label, text }: { label: string; text: string }) {
+export function Command({ label, text }: { label: string; text: string }) {
   const [state, setState] = useState<"idle" | "done" | "failed">("idle");
   const timer = useRef<number | null>(null);
 

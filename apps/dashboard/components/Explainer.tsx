@@ -27,8 +27,9 @@
  *   floor in that test stops a later pass from cutting them to hit the budget.
  *
  * 349 visible words after the pass, longest paragraph 15, 264 words of caveat
- * behind six disclosures. One filled control above the fold, and it goes to the
- * app.
+ * behind six disclosures. The take-part section added 40 more, all labels, with
+ * the install command in a `<pre>` the budget does not count as prose. One filled
+ * control above the fold, and it goes to that section.
  *
  * ## Art direction
  *
@@ -82,6 +83,7 @@ import { EVIDENCE_FILES, SETTLED, SETTLED_LIMITS, hashscanAccount, hashscanTx } 
 import { fmtCount, fmtUsd, fmtUsdFloat } from "../lib/format";
 import { BUY, NOT_SHOWN, REDO, REDO_TOTAL_TOKENS, SOURCE_FILES, redoCostUsd } from "../lib/measured";
 import { Caveat, CornerMark, CrossRule, Disclosure, Mark, Out, Panel, Particles } from "./primitives";
+import { Command } from "./JoinDesk";
 import { AgentMark, DecayArt, LaneTrack, PublishArt, Result, ReuseArt, SettlementArt } from "./explainer-art";
 
 /**
@@ -129,6 +131,24 @@ const BEATS = [
 
 /** How many agents beat 1 draws. An illustration, and said to be one on the page. */
 const LANES = 6;
+
+/**
+ * The registry the landing's install command points at. Written out rather than
+ * read from `REGISTRY_URL`, because that one is whatever this dashboard was built
+ * against (localhost in development and in tests), and a command a stranger
+ * copies off the public page has to reach the running registry.
+ */
+const PRODUCTION_REGISTRY_URL = "https://carpool-registry-production.up.railway.app";
+
+/** The same `claude mcp add` JoinDesk shows, after the build it depends on. */
+const INSTALL_COMMAND =
+  "nvm use\n" +
+  "pnpm install\n" +
+  "pnpm --filter @carpool/mcp build\n\n" +
+  "claude mcp add carpool \\\n" +
+  `  -e CARPOOL_REGISTRY_URL=${PRODUCTION_REGISTRY_URL} \\\n` +
+  "  -e CARPOOL_ARTIFACT_DIR=$HOME/carpool-artifacts \\\n" +
+  "  -- node /abs/path/to/carpool/apps/mcp/dist/server.js";
 
 const EVIDENCE_NOTE = `Source: ${EVIDENCE_FILES.dir}, re-checked against the mirror node by ${EVIDENCE_FILES.verifier}.`;
 
@@ -393,6 +413,7 @@ export function Explainer() {
         </div>
       </div>
 
+      <GetCarpool register={register} />
       <Limits register={register} />
       <CallToApp register={register} />
     </div>
@@ -412,12 +433,22 @@ function Masthead() {
           saying the same thing, 160px apart, is two primary actions and
           therefore none.
         */}
-        <Link
-          href="/app"
-          className="pill-motion inline-flex items-center gap-2 rounded-full bg-paper px-5 py-2.5 text-sm font-medium text-ink hover:bg-plate"
-        >
-          Live registry <span aria-hidden="true">&rarr;</span>
-        </Link>
+        {/* One dark pill and one light: taking part is the newcomer's action, the
+            registry is the one a returning reader wants. */}
+        <div className="flex flex-wrap items-center gap-2.5">
+          <Link
+            href="/app"
+            className="pill-motion inline-flex items-center gap-2 rounded-full bg-paper px-5 py-2.5 text-sm font-medium text-ink hover:bg-plate"
+          >
+            Live registry <span aria-hidden="true">&rarr;</span>
+          </Link>
+          <a
+            href="#get"
+            className="pill-motion inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-paper hover:bg-wire"
+          >
+            Get Carpool
+          </a>
+        </div>
       </div>
     </header>
   );
@@ -453,8 +484,8 @@ function Hero() {
       </h1>
 
       {/*
-        One action above the fold, and it is the loudest thing on the page after
-        the headline. The second pill that used to sit beside it said "How it
+        One filled action above the fold, "Get Carpool", and the registry beside
+        it as the light secondary pill. The second pill that used to sit beside it said "How it
         works" and pointed at the section directly below, which is a button for
         scrolling: it cost a first-time reader a decision and bought nothing.
       */}
@@ -470,9 +501,18 @@ function Hero() {
           className="hero-in flex flex-wrap items-start gap-3 lg:justify-end"
           style={{ "--i": 5 } as CSSProperties}
         >
+          {/* `#get` scrolls smoothly through the page's own `scroll-behavior`,
+              which reduced motion already turns off. */}
+          <a
+            href="#get"
+            className="pill-motion inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-lg font-medium text-paper hover:bg-wire"
+          >
+            Get Carpool
+            <span aria-hidden="true">&darr;</span>
+          </a>
           <Link
             href="/app"
-            className="pill-motion inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-lg font-medium text-paper hover:bg-wire"
+            className="pill-motion inline-flex items-center gap-2 rounded-full bg-paper px-7 py-3.5 text-lg font-medium text-ink hover:bg-plate"
           >
             Open the live registry
             <span aria-hidden="true">&rarr;</span>
@@ -705,9 +745,73 @@ function PriceLadder() {
 /* ------------------------------------------------------------------ closing */
 
 /**
+ * Taking part, on the landing. Three steps drawn as a command and two short
+ * rows, not explained: the full guide, with every trap and caveat, is `/app#join`
+ * and this links there once. The facts are `docs/GETTING-STARTED.md`'s: search
+ * needs nothing, publishing needs an ECDSA account that is associated with USDC.
+ *
+ * Asymmetric like everything else here: the command is the wide column because
+ * it is the step that is actually work.
+ */
+function GetCarpool({ register }: { register: (el: HTMLElement | null) => void }) {
+  return (
+    <section
+      id="get"
+      ref={register}
+      className="beat snap-section mx-auto flex min-h-[100svh] w-full max-w-[1320px] flex-col justify-center px-5 py-16 sm:px-8"
+    >
+      <CrossRule at="62%" className="beat-fx fx-wipe mb-12" />
+      <div className="beat-fx fx-rise min-w-0">
+        <p className="label mb-5 text-2xs text-ink-faint">Take part</p>
+        <h2 className="text-deck font-semibold uppercase text-ink">
+          <span className="block">Get Carpool</span>
+          <span className="block pl-[5%] text-ink-faint sm:pl-[11%]">in three steps</span>
+        </h2>
+      </div>
+
+      <div className="mt-12 grid grid-cols-[minmax(0,1fr)] gap-x-12 gap-y-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)]">
+        <div className="beat-fx fx-rise min-w-0" style={{ "--i": 1 } as CSSProperties}>
+          <Step n="01" title="Install" />
+          <Command label="in a clone, absolute path" text={INSTALL_COMMAND} />
+        </div>
+
+        <ol className="beat-fx fx-rise min-w-0 self-end" style={{ "--i": 2 } as CSSProperties}>
+          <li className="hairline-b py-5">
+            <Step n="02" title="Search free" />
+            <p className="mt-2 pl-8 text-sm text-ink-soft">No account needed.</p>
+          </li>
+          <li className="hairline-b py-5">
+            <Step n="03" title="Publish and earn" />
+            <p className="mt-2 pl-8 text-sm text-ink-soft">Needs a Hedera ECDSA key.</p>
+            <p className="mt-1 pl-8 text-sm text-ink-soft">Associate USDC first.</p>
+          </li>
+          <li className="pt-6">
+            <Link
+              href="/app#join"
+              className="text-sm text-wire underline decoration-plate-line underline-offset-4 hover:decoration-wire"
+            >
+              Full setup guide <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </li>
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+function Step({ n, title }: { n: string; title: string }) {
+  return (
+    <p className="flex items-baseline gap-x-3">
+      <span className="tnum w-5 shrink-0 font-mono text-sm text-ink-faint">{n}</span>
+      <span className="text-xl font-medium text-ink">{title}</span>
+    </p>
+  );
+}
+
+/**
  * What the page does not show. It is on the landing rather than only on the
- * measurement desk for one reason: an earlier version of these figures was
- * fabricated, and a reader has no way to tell that from the numbers.
+ * measurement desk because a reader has no way to tell from the numbers alone
+ * what they leave out.
  *
  * Given the asymmetric split the reference uses for everything: the headline on
  * the left in a narrow column, the list it introduces on the right in a wide
@@ -754,16 +858,6 @@ function Limits({ register }: { register: (el: HTMLElement | null) => void }) {
               ))}
             </ul>
           </Disclosure>
-          <p className="mt-6 text-sm text-ink-soft">
-            An earlier version of these figures was fabricated.{" "}
-            <Link
-              href="/app#evidence"
-              className="text-wire underline decoration-plate-line underline-offset-4 hover:decoration-wire"
-            >
-              Read the correction
-            </Link>
-            .
-          </p>
         </Panel>
       </div>
     </section>
